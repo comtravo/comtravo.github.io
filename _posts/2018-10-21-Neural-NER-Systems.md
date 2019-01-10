@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Named Entity Recognition using Neural Networks
-date: 2019-01-02 14:12:00
+date: 2018-10-21 14:12:00
 categories: [NER, Neural Networks, NLP, Deep Learning]
 tags: conditional-random-fields NER neural-networks sequence-prediction viterbi LSTM
 comments: false
@@ -95,7 +95,7 @@ There is no explicit mention in the paper on how the vectors from each LSTM are 
 This bidirectional-LSTM architecture is then combined with a CRF layer at the top. A Conditional Random Field (CRF) layer has a state transition matrix as parameters, which can be used to efficiently use past attributed tags in predicting the current tag.
 
 <figure>
-  <img style="width: 55%; height: 55%" src="/assets/img/2019_01_22/2019-01-22_A_bi-LSTM-CRF_model.png">
+  <img style="width: 55%; height: 55%" src="/assets/img/2018_10_21/2018-10-21_A_bi-LSTM-CRF_model.png">
   <figcaption><b>A bi-LSTM-CRF model for NER.</b> <br>(Image taken from Huang et. al 2015)</figcaption>
 </figure>
 
@@ -114,7 +114,7 @@ __Features connection tricks__:
 The input for the model include both word, spelling and context features, however, the authors suggest direct connecting the hand-crafted features to the output layer (i.e, CRF) which accelerates training and result in very similar tagging accuracy, when comparing without direct connections. That is, in my understanding, the vector representing the hand-crafted features are passed directly to the CRF and are not passed through the bidirectional-LSTM
 
 <figure>
-  <img style="width: 55%; height: 55%" src="/assets/img/2019_01_22/2019-01-22_A_bi-LSTM-CRF_model_with_max_ent_features.png">
+  <img style="width: 55%; height: 55%" src="/assets/img/2018_10_21/2018_10_21_A_bi-LSTM-CRF_model_with_max_ent_features.png">
   <figcaption><b>A bi-LSTM-CRF model with Maximum Entropy features.</b> <br>(Image taken from Huang et. al 2015)</figcaption>
 </figure>
 
@@ -133,14 +133,14 @@ In essence, I guess one can see this architecture as using the output of the bid
 The authors propose a hybrid model combining bidirectional-LSTMs with a Convolutional Neural Network (CNN), the latter learns both character- and word-level features. So, this makes use of words-embeddings, additional hand-crafted word features, and CNN-extracted character-level features. All these features, for each word, are fed into a bidirectional-LSTM.
 
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22-CNN-Char-Embeddings.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-19-21-CNN-Char-Embeddings.png">
   <figcaption><b>A bidirectional-LSTMs with CNNs.</b> <br>(Image taken from Chiu and Nichols 2016)</figcaption>
 </figure>
 
 The output vector of each LSTM (i.e., forward and backward) at each time step is decoded by a linear layer and a log-softmax layer into log-probabilities for each tag category, and These two vectors are then added together.
 
 <figure>
-  <img style="width: 35%; height: 45%" src="/assets/img/2019_01_22/2019-01-22-output_layer.png">
+  <img style="width: 35%; height: 45%" src="/assets/img/2018_10_21/2018-10-21-output_layer.png">
   <figcaption><b>Output Layer.</b> <br>(Image taken from Chiu and Nichols 2016)</figcaption>
 </figure>
 
@@ -149,7 +149,7 @@ The output vector of each LSTM (i.e., forward and backward) at each time step is
 Character-level features are induced by a CNN architecture, which was successfully applied to Spanish and Portuguese NER [(Santos et al., 2015)](http://www.anthology.aclweb.org/W/W15/W15-3904.pdf) and German POS-tagging [(Labeau et al., 2015)](http://www.aclweb.org/anthology/D15-1025). For each word a convolution and a max layer are applied to extract a new feature vector from the per-character feature vectors such as character embeddings and character type.
 
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22-bi-directional-LSTM-with-CNN-chars.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-19-21-bi-directional-LSTM-with-CNN-chars.png">
   <figcaption><b>Char-Embeddings architecture.</b> <br>(Image taken from Chiu and Nichols 2016)</figcaption>
 </figure>
 
@@ -208,7 +208,7 @@ I will just focus on the first model, which follows a similar architecture as th
 As in the previous models, two LSTMs are used to generate a word representation by concatenating its left and right context. These are two distinct LSTMs with different parameters. The tagging decisions are modeled jointly using a CRF layer [(Lafferty et al., 2001)](https://repository.upenn.edu/cgi/viewcontent.cgi?article=116).
 
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22-neural-arch.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-10-21-neural-arch.png">
   <figcaption><b>Model Architecture.</b> <br>(Image taken from Lample et. al 2016)</figcaption>
 </figure>
 
@@ -222,7 +222,7 @@ The rational behinds this idea is that many languages have orthographic or morph
 #### __Character Embeddings__
 
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22-nerual-arch-char-embeddings.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-10-21-nerual-arch-char-embeddings.png">
   <figcaption><b>Character-Embeddings Architecture.</b> <br>(Image taken from Lample et. al 2016)</figcaption>
 </figure>
 
@@ -263,7 +263,7 @@ The embeddings for word each word in a sentence are then passed through a forwar
 
 This system is very similar to the previous one. The authors use a Convolutional Neural Networks (CNN) to encode character-level information of a word into its character-level representation. Then combine character- and word-level representations and feed them into bidirectional LSTM to model context information of each word. Finally, the output vectors of BLSTM are fed to the CRF layer to jointly decode the best label sequence.
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22_end_to_ent2.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-10-21_end_to_ent2.png">
   <figcaption><b>Model Architecture.</b> <br>(Image taken from Ma and Hovy 2016)</figcaption>
 </figure>
 
@@ -275,7 +275,7 @@ This system is very similar to the previous one. The authors use a Convolutional
 The CNN is similar to the one in [Chiu and Nichols (2015)](https://www.aclweb.org/anthology/Q16-1026), the second system presented, except that they use only character embeddings as the inputs to CNN, without any character type features. A dropout layer is applied before character embeddings are input to CNN.
 
 <figure>
-  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2019_01_22/2019-01-22_end_to_ent1.png">
+  <img style="width: 42.5%; height: 42.5%" src="/assets/img/2018_10_21/2018-10-21_end_to_ent1.png">
   <figcaption><b>Character-embeddings Architecture.</b> <br>(Image taken from Ma and Hovy 2016)</figcaption>
 </figure>
 
@@ -452,7 +452,7 @@ This means that the CRF layer could add constrains to the final predicted labels
 The output of the LSTM is given as input to the CRF layer, that is, a matrix $\textrm{P}$ with the scores of the LSTM of size $n \times k$, where $n$ is the number of words in the sentence and $k$ is the possible number of labels that each word can have, $\textrm{P}_{i,j}$ is the score of the $j^{th}$ tag of the $i^{th}$ word in the sentence. In the image below the matrix would be the concatenation of the yellow blocks coming out of each LSTM.
 
 <figure>
-  <img style="width: 50%; height: 50%" src="/assets/img/2019_01_22/2019-01-22_LSTM_CRF_matrix.png">
+  <img style="width: 50%; height: 50%" src="/assets/img/2018_10_21/2018-10-21_LSTM_CRF_matrix.png">
   <figcaption><b>CRF Input Matrix</b> <br>(Image taken from https://createmomo.github.io/)</figcaption>
 </figure>
 
@@ -463,7 +463,7 @@ $$\textrm{T}$$ is a matrix of transition scores such that $$\textrm{P}_{i,j}$$ r
 
 
 <figure>
-  <img style="width: 72.5%; height: 72.5%" src="/assets/img/2019_01_22/2019-01-22_transition_matrix.png">
+  <img style="width: 72.5%; height: 72.5%" src="/assets/img/2018_10_21/2018-10-21_transition_matrix.png">
   <figcaption><b>CRF State Transition Matrix</b> <br>(Image taken from https://eli5.readthedocs.io sklearn tutorial)</figcaption>
 </figure>
 
