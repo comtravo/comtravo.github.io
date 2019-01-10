@@ -4,7 +4,7 @@ author: Comtravo # You :P
 description: > # Meta description of Homepage
         Comtravo tech blog
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://tech.comtravo.com/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://comtravo.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 
 # SEO PLUGIN
 social:
