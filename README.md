@@ -19,14 +19,14 @@
 		- if you can't avoid using specialised terminology, then explain what the term(s) mean.
 
 ### Prefer active voice over passive voice
-Active: They did something
-Passive: Something was done by them.
+ - Active: They did something
+ - Passive: Something was done by them.
 
 _Exception_: 
 If you want to specifically emphasize the action over the subject, then passive might be fine.
 Example: Your account was shut down by our security team.
 
-### Avoid wordy sentences
+### Avoid long and complicated sentences
 If the sentence is too long, cut it into two.
 
 ### Structure
