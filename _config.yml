@@ -1,0 +1,67 @@
+# SITE CONFIGURATION
+title: Comtravo tech # your site title
+author: Comtravo # You :P
+description: > # Meta description of Homepage
+        Comtravo tech blog
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://tech.comtravo.com/" # the base hostname & protocol for your site, e.g. http://example.com
+
+# SEO PLUGIN
+social:
+  name: Your Name
+  links:
+    - https://twitter.com/BenBalter
+    - https://www.facebook.com/ben.balter
+    - https://www.linkedin.com/in/BenBalter
+    - https://plus.google.com/+BenBalter
+    - https://github.com/benbalter
+    - https://keybase.io/benbalter
+
+# THEME SETTINGS
+navigation: # Navigation links
+  - {name: 'Home', link: '/'}
+    #- {name: 'About', link: '/about'}
+    # - {name: 'Contact', link: '/contact'}
+
+tagline: 
+
+hero_img: posts/ct_headimg_lg.jpg # Main background image: use the path from /assets/img/ => This will output /assets/img/posts/sleek_lg.jpg
+
+email: your-email@domain.com # email for form submission
+
+twitter_username: comtravo_travel # replace with your_twitter_username or comment to remove link from footer
+github_username:  comtravo # replace with your_github_username or comment to remove link from footer
+
+disqus:
+  shortname:  # to enable comments replace with your_disqus_shortname
+
+# google_tag_manager: GTM-XXXXXXX # Uncomment to enable GTM. Replace GTM-XXXXXXX with your GTM container ID
+
+service_worker: true
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: rouge # or pygments or null
+# theme: jekyll-sleek # Uncomment if you're using the theme as a ruby gem
+exclude:
+  - README.md
+  - node_modules
+  - script
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - npm-debug.log
+  - gulpfile.js
+  - sleek.jpg
+
+include: ['_pages']
+permalink: /:title/
+
+compress_html:
+  clippings: all
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
