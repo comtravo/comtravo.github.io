@@ -65,3 +65,5 @@ compress_html:
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+
+theme: jekyll-theme-cayman
