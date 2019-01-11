@@ -2,6 +2,9 @@
 layout: archive
 permalink: /
 title: "Latest Posts"
+excerpt:
+image:
+  feature: features/coffee_feature.jpg
 ---
 
 <div class="tiles">
