@@ -1,9 +1,9 @@
 # Site wide configuration
 
-title: "My Site"
-description: "This is a description of my awesome site."
-logo: # 120x120 px default image used for Twitter summary card
-teaser: # 400x250 px default teaser image used in image archive grid
+title: "Comtravo Tech"
+description: ""
+logo: ct-logo-120x120.png # 120x120 px default image used for Twitter summary card
+teaser: ct_teaser.jpg # 400x250 px default teaser image used in image archive grid
 locale: en
 url:
 feed:
@@ -15,6 +15,7 @@ sass:
   sass_dir: _sass
   style: compressed
 permalink: /:categories/:title/
+markdown: kramdown
 kramdown:
   toc_levels: 1..2
 highlighter: rouge
@@ -26,14 +27,14 @@ gems:
 
 # Site owner
 owner:
-  name:
-  email:
-  twitter:
+  name: Comtravo Tech
+  email: tech@comtravo.com
+  twitter: comtravo_travel
   google:
     ad-client:
     ad-slot:
   bio:
-  avatar: bio-photo.jpg # 160x160 px image for author byline
+  avatar: ct-logo-120x120.jpg # 160x160 px image for author byline
   disqus-shortname:
 
 

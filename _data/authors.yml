@@ -1,0 +1,18 @@
+david_batista:
+    name: David Batista
+    email: tech@comtravo.com
+    web: https://www.davidsbatista.net
+    role: Research Engineer NLP
+    avatar: authors/davidsbatista.png
+ruwan_geeganage:
+    name: Ruwan Geeganage
+    email: tech@comtravo.com
+    web: https://rpgeeganage.github.io/
+    role: Senior Software Engineer
+    avatar: authors/ruwangeeganage.jpg
+sebastian_mika:
+    name: Dr. Sebastian Mika
+    email: tech@comtravo.com
+    web: https://www.github.com/sebastianmika
+    role: Head of Data Science
+    avatar: authors/sebastianmika.jpg
