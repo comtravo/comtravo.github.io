@@ -1,6 +1,16 @@
 # Site navigation links
 
-- title: Blog
+- title: What We Do
   url: /
   excerpt: 
+  image: ct_headimg_lg.jpg
+  
+- title: Who We Are
+  url: /about/
+  excerpt:
+  image: ct_headimg_lg.jpg
+  
+- title: Career
+  url: /https://jobs.lever.co/comtravo?department=Tech
+  excerpt: Join Us in Making Business Travel Radically Simple
   image: ct_headimg_lg.jpg
