@@ -5,7 +5,7 @@ description: ""
 logo: ct-logo-120x120.png # 120x120 px default image used for Twitter summary card
 teaser: ct_teaser.jpg # 400x250 px default teaser image used in image archive grid
 locale: en
-url:
+url: https://tech.comtravo.com
 feed:
   path: atom.xml
 
