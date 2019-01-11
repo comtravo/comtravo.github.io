@@ -4,7 +4,7 @@ title: A Practical Parser for Time Expressions
 date: 2018-07-28 11:25:00
 categories: [time-parsing, ctparse, NLP, pydata]
 comments: false
-share: false
+share: true
 image:
   teaser: 2018_07_07/teaser.jpg
   feature: 2018_07_07/feature.jpg

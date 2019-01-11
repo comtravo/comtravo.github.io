@@ -145,7 +145,7 @@
 #main {
 	.inner-wrap {
 		@include media($medium) {
-			@include span-columns(9);
+			@include span-columns(11);
 		}
 	}
 	.page-title {
@@ -199,6 +199,7 @@
 	}
   /* advertisements */
 	.ads {
+        display: none;
 		position: relative;
 		text-align: center;
 		margin-top: $gutter;
