@@ -1,12 +1,14 @@
 {% if page.author %}
-  {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.owner %}
-{% endif %}
-
+<h4> {{ site.data.messages.locales[site.locale].written_by }} </h4>
+{% for author_id in page.author %}
+{% assign author = site.data.authors[author_id] %}
 <div class="author-image">
 	<img src="{{ site.url }}/images/{{ author.avatar }}" alt="{{ author.name }}">
 </div><!-- ./author-image -->
 <div class="author-content">
-	<h3 class="author-name" >{{ site.data.messages.locales[site.locale].written_by }} {% if author.web %}<a href="{{ author.web }}" itemprop="author">{{ author.name }}</a>{% else %}<span itemprop="author">{{ author.name }}</span>{% endif %}</h3>
+	<h3 class="author-name" > {% if author.web %}<a href="{{ author.web }}" itemprop="author">{{ author.name }}</a>{% else %}<span itemprop="author">{{ author.name }}</span>{% endif %}</h3>
     {% if author.role %}<p>{{ author.role }}</p>{% endif %}
 	<p class="author-bio">{{ author.bio }}</p>
 </div><!-- ./author-content -->
+{% endfor %}
+{% endif %}

@@ -75,3 +75,8 @@ Sum up your post/findings
 You can also give an outlook or use call to actions
 
 
+# Author Details
+
+- add your details to _data/authors.yml
+- image 80x80 pixels
+
