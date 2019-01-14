@@ -13,7 +13,7 @@ usemathjax: true
 author: david_batista
 ---
 
-Named-Entity Recognition (NER) is an NLP task that involves finding and classifying sequences of words (tokens) into pre-defined categories. Examples of named entities include person names, locations, organizations and time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities. In addition to the standard named entities (persons, organizations) we need are also interested in finding airline and airport mentions. In the following blog we post we will give an overview of recently published neural network architectures for named entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
+Named-Entity Recognition (NER) is an NLP task that involves finding and classifying sequences of words (tokens) into pre-defined categories. Examples of named entities include person names, locations, organizations and time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities. In addition to the standard named entities (persons, organizations) we need are also interested in finding airline and airport mentions. In the following blog we post we will give an overview of recently published neural network architectures for named-entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
 
 Since about 2015-2016 new methods for sequence labelling tasks based on neural networks started to be proposed. I will try in this blog post to do a quick recap of some of these methods The aim is to understand their architectures and point out what each technique adds or how they differ from other known methods.
 
@@ -21,7 +21,7 @@ Since about 2015-2016 new methods for sequence labelling tasks based on neural n
 
 # __Introduction__
 
-Several NLP tasks involve classifying a sequence of words. A classical example is part-of-speech tagging, in this scenario each $$x_{i}$$ describes a word and each $$y_{i}$$ the associated part-of-speech tag (e.g.: _noun_, _verb_, _adjective_, etc.). In named entity recognition  each $$x_{i}$$ also describes a word and $$y_{i}$$ is a semantic label associated with that word (e.g. _person_, _location_, _organization_, _event_, etc.).
+Several NLP tasks involve classifying a sequence of words. A classical example is part-of-speech tagging, in this scenario each $$x_{i}$$ describes a word and each $$y_{i}$$ the associated part-of-speech tag (e.g.: _noun_, _verb_, _adjective_, etc.). In named-entity recognition  each $$x_{i}$$ also describes a word and $$y_{i}$$ is a semantic label associated with that word (e.g. _person_, _location_, _organization_, _event_, etc.).
 
 # __Linear Sequence Models__
 
@@ -185,7 +185,7 @@ As in the previous models, two LSTMs are used to generate a word representation 
 
 The authors generate word embeddings from both the characters of the word and from the contexts where the word occurs.
 
-The rationale behind this idea is that many languages have orthographic or morphological evidence for a word or sequence of words being a named entity; in German all proper nouns are capitalized, for instance. The character-level embeddings aim to capture this information. Furthermore, named entities appear in fairly regular contexts in large corpora. They therefore use large corpus to learn word embeddings that are sensitive to word order.
+The rationale behind this idea is that many languages have orthographic or morphological evidence for a word or sequence of words being a named-entity; in German all proper nouns are capitalized, for instance. The character-level embeddings aim to capture this information. Furthermore, named entities appear in fairly regular contexts in large corpora. They therefore use large corpus to learn word embeddings that are sensitive to word order.
 
 #### __Character Embeddings__
 
