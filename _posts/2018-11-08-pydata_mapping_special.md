@@ -12,7 +12,7 @@ usemathjax: false
 author: matti_lyra
 ---
 
-We kicked off November with a PyData Berlin meetup. Pizza, drinks and festive Spekulatius along with three great speakers of course we had a great turn around and filled up all the space we could muster. Thank you to all guests and of course to the speakers. Below you'll find a few pictures from the event and the details of the talks.
+We kicked off November with a PyData Berlin meetup. Pizza, drinks and festive Spekulatius, along with three great speakers of course, guaranteed a great turn out and we filled up all the seats we had available. Thank you to all the guests and of course to the speakers. Below you'll find a few pictures from the event and the details of the talks.
 
 
 # Geocoding at Comtravo 
