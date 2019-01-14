@@ -13,25 +13,19 @@ usemathjax: true
 author: david_batista
 ---
 
-Named-Entity Recognition (NER) is a task of NLP that consists in locating and classifying sequences of tokens/words in unstructured texts into pre-defined categories. For instance, person names, locations, organizations, time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities, such as persons, airlines, time expressions. In the following blog we post we will recap the typically neural network architectures to perform named-entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
+Named-Entity Recognition (NER) is an NLP task that involves finding and classifying sequences of words (tokens) into pre-defined categories. Examples of named entities include person names, locations, organizations and time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities. In addition to the standard named entities (persons, organizations) we need are also interested in finding airline and airport mentions. In the following blog we post we will give an overview of recently published neural network architectures for named entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
 
-Recently (i.e., at the time of this writing since 2015~2016 onwards) new methods to perform sequence labelling tasks based on neural networks started to be proposed/published, I will try in this blog post to do a quick recap of some of these new methods, understanding their architectures and pointing out what each technique brought new or different to the already known methods.
+Since about 2015-2016 new methods for sequence labelling tasks based on neural networks started to be proposed. I will try in this blog post to do a quick recap of some of these methods The aim is to understand their architectures and point out what each technique adds or how they differ from other known methods.
 
 {% include toc.html %}
 
 # __Introduction__
 
-Several NLP tasks involve classifying a sequence, a classical example is part-of-speech tagging, in this scenario, each $$x_{i}$$ describes a word and each $$y_{i}$$ the associated part-of-speech of the word $$x_{i}$$ (e.g.: _noun_, _verb_, _adjective_, etc.).
-
-Another example, is named-entity recognition, in which, again, each $$x_{i}$$ describes a word and $$y_{i}$$ is a semantic label associated to that word (e.g.: _person_, _location_, _organization_, _event_, etc.).
+Several NLP tasks involve classifying a sequence of words. A classical example is part-of-speech tagging, in this scenario each $$x_{i}$$ describes a word and each $$y_{i}$$ the associated part-of-speech tag (e.g.: _noun_, _verb_, _adjective_, etc.). In named entity recognition  each $$x_{i}$$ also describes a word and $$y_{i}$$ is a semantic label associated with that word (e.g. _person_, _location_, _organization_, _event_, etc.).
 
 # __Linear Sequence Models__
 
-Classical approaches (i.e., prior to the neural networks revolution in NLP) to deal with these tasks involved methods which made independent assumptions, that is, the tag decision for each word depends only on the surrounding words and not on previous classified words.
-
-Then methods that take into consideration the sequence structure i.e., the tag given to the previous classified word(s) is considered when deciding the tag to give to the following word.
-
-You can read more about these last methods here:
+Classical approaches (prior to the neural networks revolution in NLP) involve methods which made independence assumptions, that is, the predicted tag for each word depends only on the surrounding words not on tags of the previous words. Later, methods that take into consideration the sequence structure, i.e. the tag given to previous word(s), is considered when deciding the tag for the current word. For an overview of these methods you can refer to the following articles:
 
 * __[Hidden Markov Model and Naive Bayes relationship](http://www.davidsbatista.net/blog/2017/11/11/HHM_and_Naive_Bayes/)__
 
@@ -39,23 +33,7 @@ You can read more about these last methods here:
 
 * __[Conditional Random Fields for Sequence Prediction](http://www.davidsbatista.net/blog/2017/11/13/Conditional_Random_Fields/)__
 
-But recently, methods based on neural networks started succeed and are nowadays state-of-the-art in mostly NLP sequence prediction tasks.
-
-Most of this methods combine not one simple neural network but several neural networks working in tandem, i.e., combining different architectures. One important architecture common to all recent methods is recurrent neural network (RNN).
-
-A RNN introduces the connection between the previous hidden state and current hidden state, and therefore a recurrent layer weight parameters. This recurrent layer is designed to store history information. When reading through a sequence of words, the input and output layers have:
-
-- Input layer:
-  - same dimensionality as feature size
-
-- Output layer:
-  - represents a probability distribution over labels at time $$t$$
-  - same dimensionality as size of labels.
-
-However, in most proposed techniques, the RNN is replaced by a Long short-term memory (LSTM), where hidden layer updates are replaced by purpose-built memory cells. As a result, they may be better at finding and exploiting long range dependencies in the data.
-
-Another architecture that is combined with LSTMs in the works described in this post is __[Convolutional Neural Networks](http://www.davidsbatista.net/blog/2018/03/31/SentenceClassificationConvNets/)__.
-
+Recently, the state-of-the-art for most NLP sequence prediction tasks has become neural network methods. Most of these methods combine different neural network architectures in one model. One important architecture common to all the recent methods is the recurrent neural network (RNN). RNNs are designed to store information about history; in the context of NLP sequence tasks,  the history encodes information about previous words in a text. The specific architecture used in most of the recent research is a Long Short-Term Memory (LSTM) network.
 
 # __Neural Sequence Labelling Models__
 
@@ -63,9 +41,7 @@ The first ever work to try to use try to LSTMs for the task of Named Entity Reco
 
 - [Named Entity Recognition with Long Short-Term Memory (James Hammerton 2003)](http://www.aclweb.org/anthology/W03-0426)
 
-but lack of computational power led to small and not expressive enough models, consequently with performance results far behind other proposed methods at that time.
-
-I will describe four recent papers which propose neural network architectures to perform NLP sequence labelling tasks such as NER, chunking, or POS-tagging, I will focus only on the architectures proposed and detailed them, and leave out of the datasets or scores
+However, lack of computational power led to small and inexpressive models and performance results that were far behind other methods at the time. Recently, this performance gap has been closed. I will describe four recent papers that propose neural network architectures for tasks such as NER, chunking and POS-tagging. I will focus specifically on the proposed _architectures_ and leave out details about the datasets or scores
 
 - [Bidirectional LSTM-CRF Models for Sequence Tagging (Huang et. al 2015)](https://arxiv.org/pdf/1508.01991v1.pdf)
 
@@ -75,19 +51,19 @@ I will describe four recent papers which propose neural network architectures to
 
 - [End-to-end Sequence Labelling via Bi-directional LSTM-CNNs-CRF (Ma and Hovy 2016)](http://www.aclweb.org/anthology/P16-1101)
 
-At time of writing there are already new proposed methods, published in 2017 and 2018, which are currently the state-of-the-art, but I will leave these for another blog post, for now I just wanted to dissect and understand something from the ones listed above :-)
+At time of writing there are newer methods, published in 2017 and 2018, which are currently the state-of-the-art, but I will leave these for another blog post.
 
 ## [Bidirectional LSTM-CRF Models for Sequence Tagging (2015)](https://arxiv.org/pdf/1508.01991v1.pdf)
 
 
 ### __Architecture__
 
-This was, to the best of my knowledge, the first work to apply a bidirectional-LSTM-CRF architecture for sequence tagging. The idea is to use two LSTMs, one reading each word in a sentence from beginning to end and another reading the same but from end to beginning, producing for each word, a vector representation made from both the un-folded LSTM (i.e., forward and backward) read up to that word. There is this intuition that the vector for each word will take into account the words read/seen before, on both directions.
+This is, to the best of my knowledge, the first work to apply a bidirectional-LSTM-CRF architecture to sequence tagging. The idea is to use two LSTMs, one reading each word in a sentence from beginning to end and another reading from the end to the beginning. For each word, the Bi-LSTM produces a vector representation made from the un-folded LSTM state, i.e. forward and backward model up to that word. The intuition behind the architechture is that hidden state vector for each word will take into account the words seen before, in both directions, thus creating a contextual encoding of each word.
 
-There is no explicit mention in the paper on how the vectors from each LSTM are combined to produce a single vector for each word, I will assume that they are just concatenated.
+The authors do not mention how the vectors from each LSTM are combined to produce a single vector for each word, I will assume that the vectors are simply concatenated.
 
-This bidirectional-LSTM architecture is then combined with a CRF layer at the top. A Conditional Random Field (CRF) layer has a state transition matrix as parameters, which can be used to efficiently use past attributed tags in predicting the current tag.
-
+The bidirectional-LSTM architecture is combined with a Conditional Random Field (CRF) layer at the top. A CRF layer has a state transition matrix as its parameters; the state transition matrix encodes the probability of moving from one state to another. In the context of sequence tagging, this means, for instance, applying the _organization_ tag after a _person_ tag. This transition matrix this can be used to integrate information about previously predicted tags when predicting the current tag.
+ 
 <center>
 <figure>
   <img style="width: 55%; height: 55%" src="/images/2018_10_21/2018-10-21_A_bi-LSTM-CRF_model.png">
@@ -99,15 +75,15 @@ This bidirectional-LSTM architecture is then combined with a CRF layer at the to
 
 ### __Features and Embeddings__
 
-Word embeddings, generate from each state of the LSTM, are combined with hand-crafted features:
-- spelling, e.g.: capitalization, punctuation, word patters, etc.
-- context, e.g: uni-, bi- and tri-gram features
+Word embeddings generated from each state of the LSTM are combined with hand-crafted features:
+- spelling, e.g. capitalization, punctuation, word patters, etc.
+- context, e.g. uni-, bi- and tri-gram features
 
 The embeddings used are those produced by [Collobert et al., 2011](http://www.jmlr.org/papers/volume12/collobert11a/collobert11a.pdf) which has 130K vocabulary size and each word corresponds to a 50-dimensional embedding vector.
 
 __Features connection tricks__:
 
-The input for the model include both word, spelling and context features, however, the authors suggest direct connecting the hand-crafted features to the output layer (i.e, CRF) which accelerates training and result in very similar tagging accuracy, when comparing without direct connections. That is, in my understanding, the vector representing the hand-crafted features are passed directly to the CRF and are not passed through the bidirectional-LSTM
+The input for the model include both word, spelling and context features, however the authors suggest connecting the hand-crafted features directly to the output layer (i.e. the CRF). This accelerates training and results in very similar tagging accuracy compared to a model without direct connections. The vector representing the hand-crafted features is therefore passed directly to the CRF, not passed through the bidirectional-LSTM
 
 <center>
 <figure>
@@ -118,13 +94,14 @@ The input for the model include both word, spelling and context features, howeve
 
 ### __Summary__
 
-In essence, I guess one can see this architecture as using the output of the bidirectional-LSTM, vector representations for each word in a sentence, together with a vector of features derived from spelling and context hand-crafted rules, these vectors are concatenated and passed to a CRF layer.
+Overall, the model architecture has three components: a RNN for encoding each word in a document, some hand crafted features that are useful for the task and a CRF decoder layer. The Bi-LSTM produces a contextual encoding for each word in a sentence. This encoding is concatenated with a feature vector derived from spelling rules and hand-crafted contextual clues. The final concatenated vector is used to drive a CRF decoder. 
+
 
 ## [Named Entity Recognition with Bidirectional LSTM-CNNs (2016)](https://www.aclweb.org/anthology/Q16-1026)
 
 ### __Architecture__
 
-The authors propose a hybrid model combining bidirectional-LSTMs with a Convolutional Neural Network (CNN), the latter learns both character- and word-level features. So, this makes use of words-embeddings, additional hand-crafted word features, and CNN-extracted character-level features. All these features, for each word, are fed into a bidirectional-LSTM.
+The authors propose a hybrid model combining a bidirectional-LSTM with a Convolutional Neural Network (CNN). The CNN is used to create an encoding of each word; it learns both character- and word-level features. The model therefore makes use of words-embeddings, additional hand-crafted word features and CNN-extracted character-level features. All these features, for each word, are fed into a bidirectional-LSTM.
 
 <center>
 <figure>
@@ -133,7 +110,7 @@ The authors propose a hybrid model combining bidirectional-LSTMs with a Convolut
 </figure>
 </center>
 
-The output vector of each LSTM (i.e., forward and backward) at each time step is decoded by a linear layer and a log-softmax layer into log-probabilities for each tag category, and These two vectors are then added together.
+The output vectors of the forward and backward LSTMs at each time step are decoded by a linear layer and a log-softmax layer into log-probabilities for each tag. These two vectors are then added together.
 
 <center>
 <figure>
@@ -157,7 +134,7 @@ Character-level features are induced by a CNN architecture, which was successful
 
 __Word Embeddings__: 50-dimensional word embeddings [(Collobert et al. 2011)](http://www.jmlr.org/papers/volume12/collobert11a/collobert11a.pdf), all words are lower-cased, embeddings are allowed to be modified during training.
 
-__Character Embeddings__: randomly initialized a lookup table with values drawn from a uniform distribution with range [−0.5,0.5] to output a character embedding of 25 dimensions. Two special tokens are added: PADDING and UNKNOWN.
+__Character Embeddings__: a randomly initialized lookup table with values drawn from a uniform distribution in the range [−0.5,0.5] to output a character embedding of 25 dimensions. Two special tokens are added for `PADDING` and `UNKNOWN`.
 
 __Additional Char Features__ A lookup table was used to output a 4-dimensional vector representing the type of the character (_upper case_, _lower case_, _punctuation_, _other_).
 
@@ -174,7 +151,7 @@ The authors also explore several features, some hand-crafted:
 - character-level features (extracted with a CNN)
 - lexical features
 
-All these features are then concatenated, passed through a bi-LSTM and each time step is decoded by a linear layer and a log-softmax layer into log-probabilities for each tag category. The model also learns a tag transition matrix, and at inference time the Viterbi algorithm selects the sequence that maximizes the score all possible tag-sequences.
+All these features are concatenated, passed through a bi-LSTM and at each time step decoded by a linear layer and a log-softmax layer into log-probabilities for each tag. The model also learns a tag transition matrix, and at inference time the Viterbi algorithm selects the sequence that maximizes the score over all possible tag-sequences.
 
 
 ### __Implementations__
@@ -186,14 +163,14 @@ All these features are then concatenated, passed through a bi-LSTM and each time
 
 ### __Architecture__
 
-This was, to the best of my knowledge, the first work on NER to completely drop hand-crafted features, i.e., they use no language-specific resources or features beyond a small amount of supervised training data and unlabeled corpora.
+This was, to the best of my knowledge, the first work on NER to completely drop hand-crafted features, i.e. they do not use any language specific resources or features beyond a small amount of supervised training data and unlabeled corpora.
 
-Two architectures are proposed:
+Two architectures proposed are:
 
 - bidirectional LSTMs + Conditional Random Fields (CRF)
-- generating labels segments using a transition-based approach inspired by shift-reduce parsers
+- generating label segments using a transition-based approach inspired by shift-reduce parsers
 
-I will just focus on the first model, which follows a similar architecture as the other models presented in this post. I personally like this model mostly because of it's simplicity.
+I will focus on the first model, which follows a similar architecture as the other models presented in this post. I personally like this model because of its simplicity.
 
 As in the previous models, two LSTMs are used to generate a word representation by concatenating its left and right context. These are two distinct LSTMs with different parameters. The tagging decisions are modeled jointly using a CRF layer [(Lafferty et al., 2001)](https://repository.upenn.edu/cgi/viewcontent.cgi?article=116).
 
@@ -206,9 +183,9 @@ As in the previous models, two LSTMs are used to generate a word representation 
 
 ### __Embeddings__
 
-The authors generate words embeddings from both representations of the characters of the word and from the contexts where the word occurs.
+The authors generate word embeddings from both the characters of the word and from the contexts where the word occurs.
 
-The rational behinds this idea is that many languages have orthographic or morphological evidence that a word or sequence of words is a named-entity or not, so they use character-level embeddings to try to capture these evidences. Secondly, named-entities appear in somewhat regular contexts in large corpora, therefore they use embeddings learned from a large corpus that are sensitive to word order.
+The rationale behind this idea is that many languages have orthographic or morphological evidence for a word or sequence of words being a named entity; in German all proper nouns are capitalized, for instance. The character-level embeddings aim to capture this information. Furthermore, named entities appear in fairly regular contexts in large corpora. They therefore use large corpus to learn word embeddings that are sensitive to word order.
 
 #### __Character Embeddings__
 
@@ -219,22 +196,20 @@ The rational behinds this idea is that many languages have orthographic or morph
 </figure>
 </center>
 
-A character lookup table is initialized randomly containing an embedding for every character. The character embeddings corresponding to every character in a word are given in direct and reverse order to a bidirectional-LSTM. The embedding for a word derived from its characters is the concatenation of its forward and backward representations from the bidirectional-LSTM. The hidden dimension of the forward and backward character LSTMs are 25 each.
+A character lookup table containing every character is initialized randomly. The character embeddings corresponding to every character in a word are given in direct and reverse order to a bidirectional-LSTM. The embedding for a word derived from its characters is the concatenation of its forward and backward representations from the bidirectional-LSTM. The hidden dimension of the forward and backward character LSTMs is 25 each.
 
 #### __Word Embeddings__
 
-This character-level representation is then concatenated with a word-level representation from pre-trained word embeddings. Embeddings are pre-trained using skip-n-gram [(Ling et al., 2015)](http://www.aclweb.org/anthology/D15-1161), a variation of skip-gram that accounts for word order.
+The character-level representation is concatenated with a word-level representation from pre-trained word embeddings. The word embeddings are pre-trained using skip-n-gram [(Ling et al., 2015)](http://www.aclweb.org/anthology/D15-1161), a variation of skip-gram that accounts for word order.
 
-These embeddings are fine-tuned during training, and the authors claim that using pre-trained over randomly initialized ones results in performance improvements.
-
-They also mention that they apply a dropout mask to the final embedding layer just before the input to the bidirectional LSTM observe a significant improvement in model’s performance after using dropout.
+These embeddings are fine-tuned during training; the authors claim that using pre-trained compared to randomly initialized embeddings results in performance improvements. They also mention that they observe a significant performance improvement by applying a dropout mask to the final embedding layer just before the input to the bidirectional LSTM.
 
 
 ### __Summary__
 
-This model is relatively simple, the authors use no hand-crafted features, just embeddings. The word embeddings are the concatenation of two vectors, a vector made of character embeddings using two LSTMs, for each character in a word, and a vector corresponding to word embeddings trained on external data.
+This model is relatively simple, the authors use no hand-crafted features, just embeddings. The word embeddings are the concatenation of two vectors: a vector made of character embeddings using two LSTMs for each character in a word, and a vector corresponding to word embeddings trained on external data.
 
-The embeddings for word each word in a sentence are then passed through a forward and backward LSTM, and the output for each word is then fed into a CRF layer.
+The embeddings for word each word in a sentence are then passed through a forward and backward LSTM, and the output for each word is fed into a CRF layer.
 
 
 ### __Implementations__
@@ -249,7 +224,7 @@ The embeddings for word each word in a sentence are then passed through a forwar
 
 ### __Architecture__
 
-This system is very similar to the previous one. The authors use a Convolutional Neural Networks (CNN) to encode character-level information of a word into its character-level representation. Then combine character- and word-level representations and feed them into bidirectional LSTM to model context information of each word. Finally, the output vectors of BLSTM are fed to the CRF layer to jointly decode the best label sequence.
+This system is very similar to the previous one. The authors use a Convolutional Neural Network (CNN) to encode character-level information of a word into its character-level representation. This is combined with a word-level representation and fed into a bidirectional-LSTM to capture contextual information for each word. Finally, the output vectors of the Bi-LSTM are fed to a CRF layer to jointly decode the best label sequence.
 
 <center>
 <figure>
@@ -277,7 +252,7 @@ The word embeddings are the publicly available GloVe 100-dimensional embeddings 
 
 ### __Summary__
 
-This model follows basically the same architecture as the one presented before, being the only architecture change the fact that they use CNN to generate word-level char-embeddings instead of an LSTM.
+This model follows basically the same architecture as the one presented before. The only architectural change is the fact that they use a CNN, instead of a LSTM, to generate word-level character embeddings.
 
 
 ### __Implementations__
@@ -417,22 +392,14 @@ output vectors are fed to the CRF layer to  jointly decode the best label sequen
 
 # __Extra: Why a Conditional Random Field at the top?__
 
-Having independent classification decisions is limiting when there are strong dependencies across output labels, since you decide the label for a word independently from the previous given tags.
+Deciding the label for word independently of the label of any other word makes sense if correlations between consequtive labels are weak, but independent classification decisions is a limitation on model complexity that is not always appropriate. Strong dependencies between output labels can carry important information for the prediction task. For sequence labeling or structured prediction tasks in general, it is beneficial to consider the correlations between labels and jointly decode the best chain of labels for a given input sentence. NER is one such task since interpretable sequences of tags have constraints. For instance, `I-PER` cannot follow `B-LOC`. Another example is in POS tagging, an adjective is more likely to be followed by a noun than a verb.
 
-For sequence labeling or general structured prediction tasks, it is beneficial to consider the correlations between labels in neighborhoods and jointly decode the best chain of labels for a given input sentence:
-
-- NER is one such task, since interpretable sequences of tags have constraints, e.g.: I-PER cannot follow B-LOC that would be impossible to model with independence assumptions;
-
-- Another example is in POS tagging, an adjective is more likely to be followed by a noun than a verb;
-
-The idea of using a CRF at the top is to model tagging decisions jointly, that is the probability of a given label to a word depends on the features associated to that word (i.e., final word embedding) and the assigned tag the word before.
-
-This means that the CRF layer could add constrains to the final predicted labels ensuring they are valid. The constrains are learned by the CRF layer automatically based on the annotated samples during the training process.
+The idea of using a CRF at the top is to model tagging decisions jointly, that is the probability of a given label for a word depends on the features associated to that word (i.e. final word embedding) and the assigned tag the word(s) before. This means that the CRF layer could add constrains to the final predicted labels ensuring the tag _sequences_ are valid. The constraints are learned by the CRF layer automatically based on the annotated samples during the training process.
 
 
 ### __Emission score matrix__
 
-The output of the LSTM is given as input to the CRF layer, that is, a matrix $\textrm{P}$ with the scores of the LSTM of size $n \times k$, where $n$ is the number of words in the sentence and $k$ is the possible number of labels that each word can have, $\textrm{P}_{i,j}$ is the score of the $j^{th}$ tag of the $i^{th}$ word in the sentence. In the image below the matrix would be the concatenation of the yellow blocks coming out of each LSTM.
+The output of the LSTM is given as input to the CRF layer, that is, a matrix $$\textrm{P}$$ with the scores of the LSTM of size $$n \times k$$, where $$n$$ is the number of words in the sentence and $$k$$ is the number of possible labels each word can have, and $$\textrm{P}_{i,j}$$ is the score of the $$j^{th}$$ tag of the $$i^{th}$$ word in the sentence. In the image below the matrix would be the concatenation of the yellow blocks coming out of each LSTM.
 
 <center>
 <figure>
@@ -443,7 +410,7 @@ The output of the LSTM is given as input to the CRF layer, that is, a matrix $\t
 
 ### __Transition matrix__
 
-$$\textrm{T}$$ is a matrix of transition scores such that $$\textrm{P}_{i,j}$$ represents the score of a transition from the tag $$i$$ to tag $$j$$. Two extra tags are added, $$y_{0}$$ and $$y_{n}$$ are the _start_ and _end_ tags of a sentence, that we add to the set of possible tags, $$\textrm{T}$$ is therefore a square matrix of size $\textrm{k}+2$.
+$$\textrm{T}$$ is a matrix of transition scores such that $$\textrm{P}_{i,j}$$ represents the score of a transition from the tag $$i$$ to tag $$j$$. Two extra tags are added, $$y_{0}$$ and $$y_{n}$$ are the _start_ and _end_ tags of a sentence, that we add to the set of possible tags, $$\textrm{T}$$ is therefore a square matrix of size $$\textrm{k}+2$$.
 
 <center>
 <figure>
@@ -458,15 +425,15 @@ For a given sequence of predictions for a sequence of words $$x$$:
 
 $$\textrm{y} = (y_{1},y_{2},\dots,y_{n})$$
 
-we can compute it's score based on the _emission_ and _transition_ matrices:
+we can compute its score based on the _emission_ and _transition_ matrices:
 
 $$\textrm{score}(y) = \sum_{i=0}^{n} \textrm{T}_{y_i,y_{i+1}} + \sum_{i=1}^{n} \textrm{P}_{i,y_i}$$
 
-so the score of a sequence of predictions is, for each word, the sum of the transition from the current assigned tag $$y_i$$ to next assigned tag $$y_{i+1}$$ plus the probability given by the LSTM to the tag assigned for the current word $$i$$.
+so the score of a sequence of predictions is, for each word, the sum of the transition from the current assigned tag $$y_i$$ to the next assigned tag $$y_{i+1}$$ plus the probability given by the LSTM to the tag assigned for the current word $$i$$.
 
 ### __Training: parameter estimation__
 
-During training, we assign a probability to each tag but maximizing the probability of the correct tag $$y$$ sequence among all the other possible tag sequences.
+During training, we assign a probability to each tag but maximize the probability of the correct tag $$y$$ sequence among all the other possible tag sequences.
 
 This is modeled by applying a softmax over all the possible taggings $$y$$:
 
@@ -487,17 +454,17 @@ then the second term can be simplified by applying the log-space addition _logad
 $$\textrm{-log p}(y\textrm{|X)} = -\ \textrm{score(X,y)} + \underset{y' \in Y({x})}{\text{logadd}} (\textrm{score(X,y')})$$
 
 
-then, replacing the $$\textrm{score}$$ by it's definition:
+then, replacing the $$\textrm{score}$$ by its definition:
 
 $$ = - (\sum_{i=0}^{n} \textrm{T}_{y_i,y_{i+1}} + \sum_{i=1}^{n} \textrm{P}_{i,y_i}) + \underset{y' \in Y({x})}{\text{logadd}}(\sum_{i=0}^{n} \textrm{T}_{y'_i,y'_{i+1}} + \sum_{i=1}^{n} \textrm{P}_{i,y_i})$$
 
-The first term is score for the true data. Computing the second term might be computationally expensive since it requires summing over the $$k^{n}$$ different sequences in $$Y(x)$$, i.e., the set of all possible label sequences for $$x$$. This computation can be solved using a variant of the Viterbi algorithm, the forward algorithm.
+The first term is the score for the true data. Computing the second term might be computationally expensive since it requires summing over the $$k^{n}$$ different sequences in $$Y(x)$$, i.e. the set of all possible label sequences for $$x$$. This computation can be solved using a variant of the Viterbi algorithm, the forward algorithm.
 
-The gradients are then computed using back-propagation, since the CRF is inside the neural-network. Note that the transition scores in the matrix are randomly initialized - or can also bee initialized based on some criteria, to speed up training - and will be updated automatically during your training process.
+The gradients are then computed using back-propagation since the CRF is inside the neural-network. Note that the transition scores in the matrix are randomly initialized, but they can also be initialized based on some criteria to speed up training. The parameters will be updated automatically during the training process.
 
 ### __Inference: determining the most likely label sequence $$y$$ given $$X$$__
 
-Decoding is to search for the single label sequence with the largest joint probability conditioned on the input sequence:
+Decoding is equivalent to searching for the single label sequence with the largest joint probability conditioned on the input sequence:
 
 $$\underset{y}{\arg\max}\ \textrm{p(y|X;}\theta)$$
 
@@ -506,5 +473,5 @@ the parameters $$\theta$$ correspond to the _transition_ and _emission_ matrices
 
 $$\textrm{score} = \sum_{i=0}^{n} \textrm{T}_{y_i,y_{i+1}} + \sum_{i=1}^{n} \textrm{P}_{i,y_i}$$
 
-a linear-chain sequence CRF model, models only interactions between two successive labels, i.e bi-gram interactions, therefore one can find the sequence $$y$$ maximizing the __score__ function above by adopting the Viterbi algorithm (Rabiner, 1989).
+a linear-chain sequence CRF model, models only interactions between two successive labels, i.e bi-gram interactions, therefore one can find the sequence $$y$$ that maximizes the __score__ function above by adopting the Viterbi algorithm (Rabiner, 1989).
 
