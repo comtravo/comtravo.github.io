@@ -13,9 +13,9 @@ usemathjax: true
 author: david_batista
 ---
 
-Named-Entity Recognition (NER) is an NLP task that involves finding and classifying sequences of words (tokens) into pre-defined categories. Examples of named entities include person names, locations, organizations and time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities. In addition to the standard named entities (persons, organizations) we need are also interested in finding airline and airport mentions. In the following blog we post we will give an overview of recently published neural network architectures for named-entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
+Named-Entity Recognition (NER) is an NLP task that involves finding and classifying sequences of words (tokens) into pre-defined categories. Examples of named entities include person names, locations, organizations and time expressions. At Comtravo one important piece of our NLP pipeline is a NER module which identifies several classes of named-entities. In addition to the standard named entities (persons, organizations) we are also interested in finding airline and airport mentions. In the following blog post we will give an overview of recently published neural network architectures for named-entity recognition. This blog post was originally published on [www.davidsbatista.net](http://www.davidsbatista.net/blog/2018/10/22/Neural-NER-Systems/)
 
-Since about 2015-2016 new methods for sequence labelling tasks based on neural networks started to be proposed. I will try in this blog post to do a quick recap of some of these methods The aim is to understand their architectures and point out what each technique adds or how they differ from other known methods.
+Since about 2015-2016 new methods for sequence labelling tasks based on neural networks started to be proposed. I will try in this blog post to do a quick recap of some of these methods. The aim is to understand their architectures and point out what each technique adds or how they differ from other known methods.
 
 {% include toc.html %}
 
@@ -25,7 +25,7 @@ Several NLP tasks involve classifying a sequence of words. A classical example i
 
 # __Linear Sequence Models__
 
-Classical approaches (prior to the neural networks revolution in NLP) involve methods which made independence assumptions, that is, the predicted tag for each word depends only on the surrounding words not on tags of the previous words. Later, methods that take into consideration the sequence structure, i.e. the tag given to previous word(s), is considered when deciding the tag for the current word. For an overview of these methods you can refer to the following articles:
+Classical approaches (prior to the neural networks revolution in NLP) involve methods that make independence assumptions, that is, the predicted tag for each word depends only on the surrounding words not on the tags of the previous words. Later methods take into consideration the label sequence, i.e. the tag given to previous word(s) is considered when deciding the tag for the current word. For an overview of these methods you can refer to the following articles:
 
 * __[Hidden Markov Model and Naive Bayes relationship](http://www.davidsbatista.net/blog/2017/11/11/HHM_and_Naive_Bayes/)__
 
@@ -33,7 +33,7 @@ Classical approaches (prior to the neural networks revolution in NLP) involve me
 
 * __[Conditional Random Fields for Sequence Prediction](http://www.davidsbatista.net/blog/2017/11/13/Conditional_Random_Fields/)__
 
-Recently, the state-of-the-art for most NLP sequence prediction tasks has become neural network methods. Most of these methods combine different neural network architectures in one model. One important architecture common to all the recent methods is the recurrent neural network (RNN). RNNs are designed to store information about history; in the context of NLP sequence tasks,  the history encodes information about previous words in a text. The specific architecture used in most of the recent research is a Long Short-Term Memory (LSTM) network.
+Recently, the state-of-the-art for most NLP sequence prediction tasks has become neural network methods. Most of these methods combine different neural network architectures in one model. One important architecture common to all the recent methods is the recurrent neural network (RNN). RNNs are designed to store information about history; in the context of NLP sequence tasks, the history encodes information about previous words in a text. The specific architecture used in most of the recent research is a Long Short-Term Memory (LSTM) network.
 
 # __Neural Sequence Labelling Models__
 
@@ -62,7 +62,7 @@ This is, to the best of my knowledge, the first work to apply a bidirectional-LS
 
 The authors do not mention how the vectors from each LSTM are combined to produce a single vector for each word, I will assume that the vectors are simply concatenated.
 
-The bidirectional-LSTM architecture is combined with a Conditional Random Field (CRF) layer at the top. A CRF layer has a state transition matrix as its parameters; the state transition matrix encodes the probability of moving from one state to another. In the context of sequence tagging, this means, for instance, applying the _organization_ tag after a _person_ tag. This transition matrix this can be used to integrate information about previously predicted tags when predicting the current tag.
+The bidirectional-LSTM architecture is combined with a Conditional Random Field (CRF) layer at the top. A CRF layer has a state transition matrix as its parameters; the state transition matrix encodes the probability of moving from one state to another. In the context of sequence tagging, this means, for instance, the probability of applying the _organization_ tag after a _person_ tag. This transition matrix this can be used to integrate information about previously predicted tags when predicting the current tag.
  
 <center>
 <figure>
@@ -165,7 +165,7 @@ All these features are concatenated, passed through a bi-LSTM and at each time s
 
 This was, to the best of my knowledge, the first work on NER to completely drop hand-crafted features, i.e. they do not use any language specific resources or features beyond a small amount of supervised training data and unlabeled corpora.
 
-Two architectures proposed are:
+The two proposed architectures are:
 
 - bidirectional LSTMs + Conditional Random Fields (CRF)
 - generating label segments using a transition-based approach inspired by shift-reduce parsers
@@ -209,7 +209,7 @@ These embeddings are fine-tuned during training; the authors claim that using pr
 
 This model is relatively simple, the authors use no hand-crafted features, just embeddings. The word embeddings are the concatenation of two vectors: a vector made of character embeddings using two LSTMs for each character in a word, and a vector corresponding to word embeddings trained on external data.
 
-The embeddings for word each word in a sentence are then passed through a forward and backward LSTM, and the output for each word is fed into a CRF layer.
+The embeddings for each word in a sentence are then passed through a forward and backward LSTM, and the output for each word is fed into a CRF layer.
 
 
 ### __Implementations__
