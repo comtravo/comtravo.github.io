@@ -27,6 +27,10 @@ Useful reading (you can read this in one weekend)
 - Know your audience
 	- The blog is aimed at Tech-savvy people
 - Ask yourself: What has the reader gained after reading the blog post?
+- Give yourself enough time. Writing coherent, easy-to-understand text requires time. After about 1-2 hours your thoughts are likely to start drifting and you "lose the plot". Stop, take a break, and come back to the text later.
+- Start with a structure: create a rough structure with just headers and then start filling in the details.
+- Don't lock yourself down to the structure you created earlier, if you need to change the structure do so.
+
 ### Use simple language
 
  1. Your (ideal) audience is tech-savvy but you basically write for multiple audiences. Keep it simple and clear to make it accessible while still maintaining accuracy.
