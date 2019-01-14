@@ -1,6 +1,26 @@
 # Comtravo Tech Blog
 
+# Local Setup
+
+
+# Markdown
+
+All the posts are using markdown. If you're not familiar with markdown GitHub has a useful guide https://guides.github.com/features/mastering-markdown/
+
+
+# CSS Styleguide
+
+The blog currently uses a Jekyll theme called skinny bones. You can refer to below article for a CSS style guide. 
+
+
+https://mmistakes.github.io/skinny-bones-jekyll/articles/sample-post/
+
+
 # Writing Guidelines
+
+Useful reading (you can read this in one weekend)
+- https://www.abebooks.com/9780134080413/Style-Lessons-Clarity-Grace-12th-0134080416/plp
+
 
 ## General tips
 
