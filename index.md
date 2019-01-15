@@ -4,7 +4,7 @@ permalink: /
 title: "Latest Posts"
 excerpt:
 image:
-  feature: features/coffee_feature.jpg
+  feature: features/ct-office-feature.jpg
 ---
 
 <div class="tiles">

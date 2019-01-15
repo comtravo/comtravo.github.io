@@ -4,21 +4,25 @@ david_batista:
     web: http://www.davidsbatista.net
     role: Research Engineer in NLP
     avatar: authors/davidsbatista.png
+    bio: David loves to play with data and extract knowledge from large volumes of data, especially to transform natural language into structured data. He holds a Ph.D. degree in Natural Language Processing and Machine Learning from the University of Lisbon. His thesis explored and proposed new methods for semantic relationship extraction.
 ruwan_geeganage:
     name: Ruwan Geeganage
     email: tech@comtravo.com
     web: https://rpgeeganage.github.io/
     role: Senior Software Engineer
     avatar: authors/ruwangeeganage.jpg
+    bio: Ruwan is an experienced Software Engineer with 9+ years of working experience. He is an enthusiastic team player dedicated to streamlining processes and efficiently resolving project issues. He excels at NodeJs, JavaScript, MongoDB, including coordinating ground-up planning, programming, and implementation of core modules.
 sebastian_mika:
     name: Dr. Sebastian Mika
     email: tech@comtravo.com
     web: https://www.github.com/sebastianmika
     role: Head of Data Science
     avatar: authors/sebastianmika.jpg
+    bio: Sebastian is currently leading the data science, machine learning and NLP team at Comtravo. Prior to joining Comtravo Sebastian was founder of a data science consulting boutique, co-founder of an offline location analytics startup and worked as a pharma strategy consultant. He received his PhD from Technische Universität Berlin in the field of machine learning and is co-author of more than 50 peer-reviewed articles and conference publications.
 matti_lyra:
     name: Dr. Matti Lyra
     email: tech@comtravo.com
     web: https://www.github.com/mattilyra
     role: Research Engineer in NLP
     avatar: authors/mattilyra.jpg
+    bio: Matti has been an active member of the data science community in Berlin, he has led the PyData Berlin committee since 2016. Matti holds a PhD in Natural Language Processing from the University of Sussex. His thesis explored using topical bias in large text corpora to build better ensemble models for text classification. Beyond his work at Comtravo he's interested in language and linguistics, the philosophy of AI, cycling, photography and coffee.
