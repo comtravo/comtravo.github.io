@@ -2,10 +2,19 @@
 
 # Local Setup
 
-1. clone the repo
-2. install `ruby` and `jekyll`
-	- https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
-3. `bundle exec jekyll serve` to run the blog locally while you're writing
+## Prerequisites
+* `make`
+* `docker`
+* `git`
+
+## Steps
+* Clone this repo
+* Navigate to the root of this repo
+* Run `make develop`
+* The local copy of the blog should be available at [`http://127.0.0.1:4000`](http://127.0.0.1:4000)
+* Any file changes will be watched and the tech blog re-rendered automagically!
+* To bring down the local setup. Run `make stop`
+
 
 # Creating a New Post
 
