@@ -16,7 +16,7 @@ author: matti_lyra
 
 # Experimentation Methodology
 
-Gathering information is a central part of working as a data scientist. Normally the information is gathered through experimentation: take datasets A and B, run some algorithm on both and compare the results
+sdhfjksdjkfh
 
 - the central problem in experimentation is defining measurable metrics that are good proxies for actual performance at the desired task
 - a related problem is defining what the desired task is, this can be trivial, like "find the Higgs boson", but it can also be extremely complicated like "find the Higgs boson".
