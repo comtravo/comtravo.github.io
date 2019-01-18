@@ -51,6 +51,12 @@ All the posts are using markdown. If you're not familiar with markdown GitHub ha
 All math notation needs to be enclosed in _two_ dollar signs for mathjax to render them.
 
 
+## Author Details
+
+- add your details to _data/authors.yml
+- image 80x80 pixels
+
+
 # CSS Styleguide
 
 The blog currently uses a Jekyll theme called skinny bones. You can refer to below article for a CSS style guide.
@@ -117,9 +123,4 @@ Conclusion:
 Sum up your post/findings
 You can also give an outlook or use call to actions
 
-
-# Author Details
-
-- add your details to _data/authors.yml
-- image 80x80 pixels
 
