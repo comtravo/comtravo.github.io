@@ -11,7 +11,7 @@
 * Clone this repo
 * Navigate to the root of this repo
 * Run `make develop`
-  * If you need to see unpublished articles, like the one you're in the process of writing, run `ARGS="--unpublished" make develop` instead.
+  * If you need to see unpublished articles, like the one you're in the process of writing, run `ARGS="--unpublished --future" make develop` instead.
 * The local copy of the blog should be available at [`http://127.0.0.1:4000`](http://127.0.0.1:4000)
 * Any file changes will be watched and the tech blog re-rendered automagically!
 * To bring down the local setup. Run `make stop`
