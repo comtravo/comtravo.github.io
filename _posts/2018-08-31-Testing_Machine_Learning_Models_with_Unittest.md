@@ -1,12 +1,15 @@
 ---
 layout: article
 title: Effective Mocking of Unit Tests for Machine Learning
-date: 2019-01-26 05:31:00
-published: false
+date: 2019-02-13 10:00:00
+published: true
 categories: [testing]
 comments: false
 share: true
 description: Writing unit tests for machine learning models can be challenging due to the complex structure of the models. This post focuses on how the Python unit test mocking framework can be used to write better unit tests for machine learning.
+image:
+    feature: 2019_02_13/feature.jpg
+    teaser: 2019_02_13/teaser.jpg
 usemathjax: false
 author: matti_lyra
 ---
