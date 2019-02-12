@@ -14,7 +14,7 @@ usemathjax: false
 author: matti_lyra
 ---
 
-The data science backend at Comtravo is almost exclusively written in Python (3). We currently have about 15 different machine learning models performing various tasks from named entity recognition to semantic role labelling; some of the models have dependencies where one model requires the output of another model. All of the models also have unit tests ensuring that they do what we intended them to do.
+The data science backend at Comtravo is almost exclusively written in Python (3). We currently have about 10 different machine learning models performing various tasks from named entity recognition to semantic role labelling; some of the models have dependencies where one model requires the output of another model. All of the models also have unit tests ensuring that they do what we intended them to do.
 
 The issue we've had with writing unit tests is the tight integration between our code and the underlying library code we're calling into. In most cases, this affects models written using `tensorflow` or `sklearn`. Fundamentally, unit tests should not test or depend on the functionality of those third party libraries. In this post, I illustrate the problem in more detail and outline how the `unittest.mock` package in the Python standard library can be used to tease apart the two code bases.
 
