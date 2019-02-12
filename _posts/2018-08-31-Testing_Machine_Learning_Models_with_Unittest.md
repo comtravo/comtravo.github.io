@@ -26,7 +26,7 @@ Almost all of the models in our machine learning pipeline have different archite
 
 # The Problem
 
-Ideally, each unit test should be narrowly focused on testing that a specific function called in a specific way has a predictable outcome. For instance, an exception is raised or some specific value is returned. Therefore, each unit test should complete in a short period of time, say less than ½ a second. Writing automated unit tests for machine learning models in this environment can be cumbersome for a number of reasons:
+Ideally, each unit test should be narrowly focused on testing that a specific function called in a specific way has a predictable outcome. For instance, an exception is raised or some specific value is returned. Due to the limited scope of each individual unit test, each should also complete in a short period of time, say less than ½ a second. Writing automated unit tests for machine learning models in this environment can be cumbersome for a number of reasons:
 
 - each model requires some data preparation, which can be computationally expensive
 - the model training process is certainly expensive, especially in the context of unit tests
