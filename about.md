@@ -24,8 +24,6 @@ published: true
 		</div>
 		<div class="inner-wrap">
 			<div id="content" class="page-content" itemprop="articleBody">
-                Comtravo Tech is all about ...
-
                 <footer class="page-footer">
                 <h2>The Comtravo tech blog is written by</h2>
                 {% for author in site.data.authors %}
