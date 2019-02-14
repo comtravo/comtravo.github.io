@@ -21,6 +21,12 @@ published: true
 		{% endif %}
         <div class="page-title">
 			<h1>{{ page.title }}</h1>
+			<div class="inner-wrap">
+			Comtravo is a travel tech startup located in the heart of Berlin. We're building a platform that allows us to handle B2B travel bookings at scale.
+			<BR><BR>
+			We significantly invest into our own NLP engine, API connectors to the marketplaces (flight, hotel, train etc.), search, recommendation and fulfillment strategies and frontend tools that empower our travel agents and our customers.
+			</div>
+			
 		</div>
 		<div class="inner-wrap">
 			<div id="content" class="page-content" itemprop="articleBody">
