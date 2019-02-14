@@ -2,15 +2,15 @@
 
 - title: What We Do
   url: /
-  excerpt: 
-  image: ct_headimg_lg.jpg
-  
+  excerpt: The Comtravo Tech Blog
+  image: teasers/coffee_teaser.jpg
+
 - title: Who We Are
   url: /about/
   excerpt:
-  image: ct_headimg_lg.jpg
-  
+  image: teasers/team_teaser.jpg
+
 - title: Career
   url: https://jobs.lever.co/comtravo?department=Tech
   excerpt: Join Us in Making Business Travel Radically Simple
-  image: ct_headimg_lg.jpg
+  image: teasers/team_generic_teaser.jpg
