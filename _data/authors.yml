@@ -26,3 +26,10 @@ matti_lyra:
     role: Research Engineer in NLP
     avatar: authors/mattilyra.jpg
     bio: Matti has been an active member of the data science community in Berlin, he has led the PyData Berlin committee since 2016. Matti holds a PhD in Natural Language Processing from the University of Sussex. His thesis explored using topical bias in large text corpora to build better ensemble models for text classification. Beyond his work at Comtravo he's interested in language and linguistics, the philosophy of AI, cycling, photography and coffee.
+baris_aydek:
+    name: Baris Aydek
+    email: tech@comtravo.com
+    web: https://www.github.com/dhalsim
+    role: Software Engineer
+    avatar: authors/barisaydek.png
+    bio: // TODO
