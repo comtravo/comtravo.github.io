@@ -1,7 +1,7 @@
 ---
 layout: article
 title: What I've learned from "Learning how to learn"
-date: 2019-01-31 12:00:00
+date: 2019-03-04 14:25:00
 categories: [learning]
 comments: false
 share: true
@@ -13,13 +13,15 @@ usemathjax: false  # if you need math symbols turn this one
 author: baris_aydek
 ---
 
-This 4 week course on [coursera](https://www.coursera.org/learn/learning-how-to-learn), is the solution I found on the Internet about my problem of learning. As a software engineer, I know that our ability to learn new technologies and skills are vital in our careers. 
+{% include toc.html %}
 
-Every day a new technology, a new *buzzword* arises, and we are unable to catch the stream day by day. This leads to frustration, but at the end leads to refusing to learn or conceiving new ideas altogether. 
+Learning new skills and keeping your existing skill set up-to-date is a challenge we all face in our professional lives. Every day a new technology or a new *buzzword* arises and it is challenging to catch the stream day by day. This can lead to frustration or at worst to paralysis, a refusal to learn or to conceive new ideas altogether; [Javascript Fatigue](http://www.allenpike.com/2015/javascript-framework-fatigue/) is a good example:
+
+> "... the latest and greatest JavaScript framework comes around every sixteen minutes."
 
 ![](http://www.allenpike.com/images/2015/cube-drone-angular.jpg)
 
-For an example, take a look at this blog post about [Javascript Fatigue](http://www.allenpike.com/2015/javascript-framework-fatigue/)
+As a software engineer, my ability to learn new technologies and skills is vital for my day to day to work and career in general. Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner.
 
 My first solution to this problem was **learning the theory behind**, not the technology itself. This approach directed me to the basics of software development: paradigms and models (which I wrote about them on my Turkish blog)
 
@@ -35,7 +37,7 @@ I wanted to learn quickly (or easy) as possible, so I attended Learning How To L
 
 This course is prepared by [Dr. Barbara Oakley](https://www.coursera.org/instructor/barboakley) and [Dr. Terrence Sejnowski](https://www.coursera.org/instructor/terry). They are one of the best researchers on this topic (learning), as well as memory and the brain in general.
 
-And these are the main contents of the course, and my interpretations: 
+And these are the main contents of the course, and my interpretations:
 
 ## What Is Learning
 
@@ -47,7 +49,7 @@ It is important to get to know brain and memory and how they work. This is a ner
 
 ![](/images/2019_01_31/yoda.jpg)
 
-> **Working memory** is like the RAM of your laptop. RAM is the memory of the computer that CPU directly works on. If CPU needs other data apart from the RAM data, it needs to read from a hard disk or something and load to the RAM. 
+> **Working memory** is like the RAM of your laptop. RAM is the memory of the computer that CPU directly works on. If CPU needs other data apart from the RAM data, it needs to read from a hard disk or something and load to the RAM.
 
 > **Long term memory** is like the hard disk of the computer. It is much bigger than your RAM, but it is slower and needs to be transferred to the RAM to be processed by CPU.
 
@@ -134,17 +136,17 @@ I have turn off my phone's notifications when working in focused mode, or sleep 
 
 Using *Pomodoro* technique can help me achieve my goals so I found a simple open source tool called [Tomighty](http://www.tomighty.org/). I'm also keeping a todo list on [Trello](https://trello.com).
 
-I also want to use the recall technique. I plan to use this technique whenever I'm encountering a different concept other than the one I'm dealing that time. For example on work, I'm talking to a colleague about a problem and then she mentions another module of the software we're developing. I need to recall that module and tell myself what is that module doing in a single sentence. 
+I also want to use the recall technique. I plan to use this technique whenever I'm encountering a different concept other than the one I'm dealing that time. For example on work, I'm talking to a colleague about a problem and then she mentions another module of the software we're developing. I need to recall that module and tell myself what is that module doing in a single sentence.
 
 This technique could be disruptive but I will try and will use if it is successful.
 
-About a month ago, I started to use an app called [memrise](http://www.memrise.com/). This application helps you to learn new languages and other topics by using the scientific methods: learning a few words daily and reviewing them constantly that it wouldn't be forgotten. 
+About a month ago, I started to use an app called [memrise](http://www.memrise.com/). This application helps you to learn new languages and other topics by using the scientific methods: learning a few words daily and reviewing them constantly that it wouldn't be forgotten.
 
 ![](/images/2019_01_31/japanese.gif)
 
-I always wanted to learn Japanese, so I started on it. Now I know the [Katakana](https://en.wikipedia.org/wiki/Katakana) and [Hiragana](https://en.wikipedia.org/wiki/Hiragana) writing systems (to read). And I learned about 270 words and basic sentences. 
+I always wanted to learn Japanese, so I started on it. Now I know the [Katakana](https://en.wikipedia.org/wiki/Katakana) and [Hiragana](https://en.wikipedia.org/wiki/Hiragana) writing systems (to read). And I learned about 270 words and basic sentences.
 
-> **Analogy:** Memrise is also using the analogy technique: *When you learn a new word, think of it as planting a new seed in your memory. Then every time you review that memory you help it to grow a little bit - like watering a little flower. By reviewing at the right time you help it grow as fast as possible. Soon you’ll have a glorious garden full of flower-memories*. 
+> **Analogy:** Memrise is also using the analogy technique: *When you learn a new word, think of it as planting a new seed in your memory. Then every time you review that memory you help it to grow a little bit - like watering a little flower. By reviewing at the right time you help it grow as fast as possible. Soon you’ll have a glorious garden full of flower-memories*.
 
 I also wanted to increase my English vocabulary, and learned 300 new words so far. Even I found a Shell Scripting course and learned 84 new shell commands. This is [my profile](http://www.memrise.com/user/BarAydek/) if you want to follow me 😁
 
@@ -158,7 +160,7 @@ There is one more technique I wanted to look at. I had heard it from **The Menta
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/oJ8w8RwAGbA" frameborder="0" allowfullscreen></iframe>
 
-# Summarize 
+# Summarize
 
 After I wrote this article, I finished my last test on the course as well. I shouldn't do it by that time (midnight). Because toxic substances accumulates on your brain thoughout the day and they will be cleared when you are sleeping. So I took the test at the worst time, fortunately I passed 😅
 
