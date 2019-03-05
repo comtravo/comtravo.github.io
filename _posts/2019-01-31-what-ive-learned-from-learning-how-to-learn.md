@@ -15,33 +15,70 @@ author: baris_aydek
 
 {% include toc.html %}
 
+
 Learning new skills and keeping your existing skill set up-to-date is a challenge we all face in our professional lives. Every day a new technology or a new *buzzword* arises and it is challenging to catch the stream day by day. This can lead to frustration or at worst to paralysis, a refusal to learn or to conceive new ideas altogether; [Javascript Fatigue](http://www.allenpike.com/2015/javascript-framework-fatigue/) is a good example:
 
 > "... the latest and greatest JavaScript framework comes around every sixteen minutes."
 
 ![](http://www.allenpike.com/images/2015/cube-drone-angular.jpg)
 
-As a software engineer, my ability to learn new technologies and skills is vital for my day to day to work and career in general. Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner.
+# Introduction
+TODO
 
-My first solution to this problem was **learning the theory behind**, not the technology itself. This approach directed me to the basics of software development: paradigms and models (which I wrote about them on my Turkish blog)
+
+As a software engineer, my ability to learn new technologies and skills is vital for my day to day work and career in general. My first solution to this problem was **learning the theory behind**, not the technology itself. This approach directed me to the basics of software development: paradigms and models (which I wrote about them on my Turkish blog)
 
 Second solution: **Writing something about** a topic you wanted to learn. It makes you think about every aspect of the topic, it makes you disciplined for following the sub-topics and deepens your knowledge.
 
 This approach did a great job at the beginning when I have the enthusiasm and lots of free time (I had broken my leg and stayed at home about four months). Now vast amount of topics I needed to learn, started to accumulated again.
 
-I wanted to learn quickly (or easy) as possible, so I attended Learning How To Learn.
-
-> I hope there is a *how to teach* course, too. I can probably try to teach if I can remember how I learned and understood it by myself.
-
-## The Course
-
-This course is prepared by [Dr. Barbara Oakley](https://www.coursera.org/instructor/barboakley) and [Dr. Terrence Sejnowski](https://www.coursera.org/instructor/terry). They are one of the best researchers on this topic (learning), as well as memory and the brain in general.
-
-And these are the main contents of the course, and my interpretations:
+I wanted to learn quickly (and easile). Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner. I attended Learning How To Learn; this post is about what I learned (pun intended) on that course.
 
 ## What Is Learning
 
 ![](/images/2019_01_31/krang.png)
+
+In general, learning is what we do to increase or enhance our knowledge and gain expertise in a subject matter. Learning happens by gradually building up the number of bits information and the connections between them. The "_bits of information_" are called chunks and building the connections is called chunking.
+
+
+### Chunking
+
+!!! CHUNK IMAGE
+![](/images/2019_01_31/chunking.jpeg)
+
+Chunks have a physical representation in our brain, they are neurones bound together (literally) through use and meaning. Chunking is the process of creating these connections between the neurones. Chunking happens when you are in a focused mode of learning or thinking. The purpose of chunking is to gradually build towards understanding a bigger picture. Similar to how individual pieces of a puzzle don't carry a lot of meaning, having lots of pieces connect together one can start to see the overall picture forming. 
+
+Once you have enough chunks, you'll understand the **bigger picture** better. Interestingly, knowing the bigger picture beforehand can also help to learn faster as the overall framework for the chunks already exists.
+
+Chunking is a bottom up process, where as getting the big picture is a top down process. If we can do both at the same time, we will develop a better understanding faster.
+
+
+To achieve gaining lots of chunks, one must practice intently and regularly by using the focus mode. **Recalling** and testing yourself with what you've learned is the best method for grasping and strengthening knowledge into long term memory.
+
+### Seeing the Bigger Picture
+
+Bigger picture is the meaning we are looking for. It can be specific to a field and often is personal. It can be tricky as well, because you may not have enough knowledge or exprerience to grasp the bigger picture. This is what I call the pitfalls of the bigger picture. To mitigate this problem, one can try to be conscious about his/her missing parts in the picture. Obviously there would always many missing parts because you can't know everything.
+
+!!!PUZZLE IMAGE
+![](/images/2019_01_31/bigpicture.png)
+
+It's quite common that you get stuck on a problem because you initially have some ideas about what the solution could be. These initial ideas may block your ability to see the real solution. This problem is known as **Einstellung**: you're limiting the possible range of solutions to some subset, which may not contain the real solution. Possible ways out of this is transfering knowledge from a different domain or looking at the bigger picture. 
+
+Chunks are not only connected within one specific field but also across fields - if you will, the chunks form not only one 2-dimensional puzzle but multiple interconnected hyper-dimensional puzzles. Often, you'll find that a chunk is related to multiple other chunks in multiple other fields, Oakley and Sejnowski call this **transfering**.
+
+We've all experienced this, it's the sudden "_a-ha_" moment you experience when "_something clicks_" and you're understanding of a particular topic changes and becomes more general. The realisation that things you previously thought were disconnected are in fact connected; the world is suddenly that little bit more understandable and coherent. This, in essence, is what learning is all about.
+
+If you have lots of chunks on that topic, it is easier to get the bigger picture. Gaining as many chunks as possible while thinking about its place on the big picture helps learning a lot. Also chunks can be knit together and create bigger chunks that once triggered you can accomplish a complex activity without using working memory.
+
+
+
+> Einstellung can be the source of the problem when you have a new idea, people often criticise and reject it without trying to understand what it actually is.
+
+**Interleaving** is practicing by different concepts, approaches and techniques all in one session. This helps you to be flexible and master the material.
+
+> This also effects Einstellung problem and helps you to look from other angles.
+
+Brain storms and **collaborative thinking** can be a method of interleaving by scaling people.
 
 ### Working Memory and Long Term Memory
 
@@ -92,38 +129,6 @@ Beside these techniques here my thoughts about preventing procrastination:
 * Find ways to use what you learned.
 * Repeat this cycle with the **spaced repetition**
 
-### Chunking
-
-> Basically, what people do to enhance their knowledge and gain expertise is to gradually build the number of chunks in their mind: valuable bits of information that they can piece together in new and creative ways.
-
-![](/images/2019_01_31/chunking.jpeg)
-
-Chunks are neurones bound together through use and often meaning. Chunking is gaining these chunks; bits of informations related together. This happens when you are in the focused mode. Once you get enough of chunks, you'll understand the **bigger picture** better. But knowing the big picture beforehand also can help at  improving your chunking ability.
-
-> **Analogy:** Chunking is a down to top approach, on the other hand getting the big picture is a top to down. So if we can do them at the same time, we will develop a better understanding.
-
-To achieve gaining lots of chunks, one must practice intently and regularly by using the focus mode. **Recalling** and testing yourself with what you've learned is the best method for grasping and strengthening knowledge into the long term memory.
-
-Also, chunks can help you understand new concepts. This is because when you grasp one chunk, you will find out that, the chunk can be related to similar chunks you have, not only in that specific field, but also in a some different field. This is also called **transfering**.
-
-> **Analogy:** Chunks are the pieces of a puzzle. Puzzle is the big picture.
-
-### Seeing the Bigger Picture
-
-![](/images/2019_01_31/bigpicture.png)
-
-If you have lots of chunks on that topic, it is easier to get the bigger picture. Gaining as many chunks as possible while thinking about its place on the big picture helps learning a lot. Also chunks can be knit together and create bigger chunks that once triggered you can accomplish a complex activity without using working memory.
-
-It's quite common that you get stuck on a problem because you have initially some ideas about what the solution should be, and this may block your ability to see the real solution. It is called **Einstellung**.
-
-> Einstellung can be the source of the problem when you have a new idea, people often criticise and reject it without trying to understand what it actually is.
-
-**Interleaving** is practicing by different concepts, approaches and techniques all in one session. This helps you to be flexible and master the material.
-
-> This also effects Einstellung problem and helps you to look from other angles.
-
-Brain storms and **collaborative thinking** can be a method of interleaving by scaling people.
-
 # Notes to the Self
 
 Learning new ideas is the essence of my career, maybe the living itself. Before learning a new idea, we should think about the learning itself. Knowing the good techniques and keeping away the bad habits can increase efficiency, and I believe this must be the principal skill to be developed. I regret I didn't find the course before, but I'm happy I get it and hope to see results in the future.
@@ -131,6 +136,8 @@ Learning new ideas is the essence of my career, maybe the living itself. Before 
 From now on I need to practice what I've learned from this course. This is the most challenging part of *Learning how to learn*. Because I need to observe my methods constantly and change my old habits.
 
 I have turn off my phone's notifications when working in focused mode, or sleep well and exercise often, but I'm not doing them. I know I need to change my habits and probably it needs time.
+
+TODO: maybe we can get rid of some of these!!
 
 ![](/images/2019_01_31/trello.png)
 
@@ -141,6 +148,8 @@ I also want to use the recall technique. I plan to use this technique whenever I
 This technique could be disruptive but I will try and will use if it is successful.
 
 About a month ago, I started to use an app called [memrise](http://www.memrise.com/). This application helps you to learn new languages and other topics by using the scientific methods: learning a few words daily and reviewing them constantly that it wouldn't be forgotten.
+
+TODO: get rid of japanese?
 
 ![](/images/2019_01_31/japanese.gif)
 
@@ -165,3 +174,22 @@ There is one more technique I wanted to look at. I had heard it from **The Menta
 After I wrote this article, I finished my last test on the course as well. I shouldn't do it by that time (midnight). Because toxic substances accumulates on your brain thoughout the day and they will be cleared when you are sleeping. So I took the test at the worst time, fortunately I passed 😅
 
 I hope you enjoyed this reading and get something from my experiences and thoughts. I wanted to know about your thoughts, corrections and additions. You can add a comment below if you want.
+
+# Techniques
+
+## Leitner System
+
+TODO: add description
+
+https://ncase.me/remember/
+
+# References
+
+TODO
+
+## The Course
+
+This course is prepared by [Dr. Barbara Oakley](https://www.coursera.org/instructor/barboakley) and [Dr. Terrence Sejnowski](https://www.coursera.org/instructor/terry). They are one of the best researchers on this topic (learning), as well as memory and the brain in general.
+
+And these are the main contents of the course, and my interpretations:
+
