@@ -20,6 +20,7 @@ Learning new skills and keeping your existing skill set up-to-date is a challeng
 
 > "... the latest and greatest JavaScript framework comes around every sixteen minutes."
 
+TODO: save this image
 ![](http://www.allenpike.com/images/2015/cube-drone-angular.jpg)
 
 # Introduction
@@ -32,13 +33,13 @@ Second solution: **Writing something about** a topic you wanted to learn. It mak
 
 This approach did a great job at the beginning when I have the enthusiasm and lots of free time (I had broken my leg and stayed at home about four months). Now vast amount of topics I needed to learn, started to accumulated again.
 
-I wanted to learn quickly (and easile). Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner. I attended Learning How To Learn; this post is about what I learned (pun intended) on that course.
+I wanted to learn quickly (and easily). Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner. I attended Learning How To Learn; this post is about what I learned (pun intended) on that course.
 
 ## What Is Learning
 
 ![](/images/2019_01_31/krang.png)
 
-In general, learning is what we do to increase or enhance our knowledge and gain expertise in a subject matter. Learning happens by gradually building up the number of bits information and the connections between them. The "_bits of information_" are called chunks and building the connections is called chunking.
+In general, learning is what we do to increase or enhance our knowledge and gain expertise in a subject matter. Learning happens by gradually building up the number of bits of information and the connections between them. The "_bits of information_" are called chunks and building the connections is called chunking.
 
 
 ### Chunking
@@ -46,23 +47,22 @@ In general, learning is what we do to increase or enhance our knowledge and gain
 !!! CHUNK IMAGE
 ![](/images/2019_01_31/chunking.jpeg)
 
-Chunks have a physical representation in our brain, they are neurones bound together (literally) through use and meaning. Chunking is the process of creating these connections between the neurones. Chunking happens when you are in a focused mode of learning or thinking. The purpose of chunking is to gradually build towards understanding a bigger picture. Similar to how individual pieces of a puzzle don't carry a lot of meaning, having lots of pieces connect together one can start to see the overall picture forming. 
+Chunks have a physical representation in our brain, they are neurones bound together (literally) through use and meaning. Chunking is the process of creating these connections between the neurones. Chunking happens when you are in a **focused mode** of learning or thinking. The purpose of chunking is to gradually build towards understanding a _bigger picture_. Similar to how individual pieces of a puzzle don't carry a lot of meaning, and having lots of pieces connected together, one can start to see the overall picture is forming. 
 
 Once you have enough chunks, you'll understand the **bigger picture** better. Interestingly, knowing the bigger picture beforehand can also help to learn faster as the overall framework for the chunks already exists.
 
 Chunking is a bottom up process, where as getting the big picture is a top down process. If we can do both at the same time, we will develop a better understanding faster.
 
-
 To achieve gaining lots of chunks, one must practice intently and regularly by using the focus mode. **Recalling** and testing yourself with what you've learned is the best method for grasping and strengthening knowledge into long term memory.
 
 ### Seeing the Bigger Picture
 
-Bigger picture is the meaning we are looking for. It can be specific to a field and often is personal. It can be tricky as well, because you may not have enough knowledge or exprerience to grasp the bigger picture. This is what I call the pitfalls of the bigger picture. To mitigate this problem, one can try to be conscious about his/her missing parts in the picture. Obviously there would always many missing parts because you can't know everything.
-
 !!!PUZZLE IMAGE
 ![](/images/2019_01_31/bigpicture.png)
 
-It's quite common that you get stuck on a problem because you initially have some ideas about what the solution could be. These initial ideas may block your ability to see the real solution. This problem is known as **Einstellung**: you're limiting the possible range of solutions to some subset, which may not contain the real solution. Possible ways out of this is transfering knowledge from a different domain or looking at the bigger picture. 
+The big picture is the meaning we are looking for. It can be specific to a field and often personal. It can be tricky as well, because you may not have enough knowledge or exprerience to grasp the bigger picture. This is what I call the pitfalls of the bigger picture. To mitigate this problem, one can try to be conscious about his/her missing parts in the picture. Obviously there would always many missing parts because you can't know everything.
+
+It's quite common that you get stuck on a problem because you initially have some ideas about what the solution could be. These initial ideas may block your ability to see a better solution. This problem is known as **Einstellung**: you're limiting the possible range of solutions to some subset, which may not contain the best solution. Possible ways out of this is transfering knowledge from a different domain or looking at the bigger picture. 
 
 Chunks are not only connected within one specific field but also across fields - if you will, the chunks form not only one 2-dimensional puzzle but multiple interconnected hyper-dimensional puzzles. Often, you'll find that a chunk is related to multiple other chunks in multiple other fields, Oakley and Sejnowski call this **transfering**.
 
@@ -70,13 +70,11 @@ We've all experienced this, it's the sudden "_a-ha_" moment you experience when 
 
 If you have lots of chunks on that topic, it is easier to get the bigger picture. Gaining as many chunks as possible while thinking about its place on the big picture helps learning a lot. Also chunks can be knit together and create bigger chunks that once triggered you can accomplish a complex activity without using working memory.
 
-
-
-> Einstellung can be the source of the problem when you have a new idea, people often criticise and reject it without trying to understand what it actually is.
+> Einstellung can be a source of the problem when you have a new idea and people often criticise and reject it without trying to understand what it actually is, because it is a different approach than the current one that people are already comfortable with.
 
 **Interleaving** is practicing by different concepts, approaches and techniques all in one session. This helps you to be flexible and master the material.
 
-> This also effects Einstellung problem and helps you to look from other angles.
+> This may help to mitigate the Einstellung problem because you are not stuck into a specific view or angle.
 
 Brain storms and **collaborative thinking** can be a method of interleaving by scaling people.
 
@@ -84,35 +82,38 @@ Brain storms and **collaborative thinking** can be a method of interleaving by s
 
 It is important to get to know brain and memory and how they work. This is a nerdy blog so I will jump to computer terms and analogies:
 
+!!!YODA IMAGE
 ![](/images/2019_01_31/yoda.jpg)
 
-> **Working memory** is like the RAM of your laptop. RAM is the memory of the computer that CPU directly works on. If CPU needs other data apart from the RAM data, it needs to read from a hard disk or something and load to the RAM.
+> **Working memory** is like the RAM of your laptop. RAM is the memory of the computer that CPU directly works on. If CPU needs another data apart from the RAM data, first it needs to read from a hard disk or somewhere else and load it to the RAM.
 
-> **Long term memory** is like the hard disk of the computer. It is much bigger than your RAM, but it is slower and needs to be transferred to the RAM to be processed by CPU.
+> **Long term memory** is like the hard disk of your computer. It is much bigger than your RAM, but it is slow and needs to be transferred to the RAM to be processed by CPU.
 
-Apart from the analogy, we can say that working memory is a fast but limited power of the brain. So we need to use it efficiently (e.g. not letting something to distract you from your focused mode). And if we need to remember and learn the topic permanently, we need to transfer the information to our long term memory.
+Apart from the analogy, we can say that working memory is a fast but limited power of the brain. So we need to use it efficiently (e.g. not letting something to distract you from your focused mode like turning off your phone notifications while working). And if we need to remember and learn the topic permanently, we need to transfer the information to our long term memory.
 
 ### Focused versus Diffuse Thinking
 
+TODO: either write about Dali's experiments of the diffuse mode or remove the pic
 ![](http://uploads5.wikiart.org/images/salvador-dali.jpg!Portrait.jpg)
 
-Our brains have two main *modes* of thinking; focused and diffused. **Focused mode** is the one when you are concentrated on a topic and you gain knowledge. But there is a drawback here; you sometimes can't see the other solutions or aspects when you're in focused mode.
+Our brains have two main *modes* of thinking; focused and diffused. **Focused mode** is the one when you are concentrated on a topic and you gain knowledge. But there is a drawback here; you sometimes can't see the different solutions or aspects when you're in focused mode.
 
-> **Analogy:** When you are looking through a microscope, you can see the germs very clear and detailed, but probably won't see your near surroundings (for example rats in the room!).
+> **Analogy:** When you are looking through a microscope, you can see the germs very clear and detailed, but probably you won't see your near surroundings (for example rats in the room!).
 
 **Diffused mode** on the other hand, is a more relaxed mode of thinking, which can access broader parts of your brain and memory. Connections between different knowledges of your previous learnings (called **chunks** in the course) happen in this mode.
 
 This mode is activated when you're sleeping, doing activities, shower, cleaning etc.
 
-> To be able to learn efficiently, we have to use our brains by switching between these two modes sequentially. There is even a technique called the **Pomodoro technique**.
+> To be able to learn efficiently, we have to use our brains by switching between these two modes sequentially. There is even a technique called the **Pomodoro technique** for this.
 
 ### Procrastination, Memory, and Sleep
 
-Procrastination is the delaying activity when you encounter with a difficult task like doing your homework or project, and then you choose to look at facebook, twitter instead 😈. This is a very bad habit that if you are constantly doing this, you will absolutely fail in the end although you fool yourself with cat videos 😼. (some people try to do 2 things in parallel and procrastinate from one to another and wise versa, but I'm not sure whether it works)
+Procrastination is the delaying activity when you encounter with a difficult task like doing your homework or project, and then you choose to look at facebook or twitter instead 😈. This is a very bad habit that if you are constantly doing this, you will absolutely fail in the end although you fool yourself with cat videos 😼. (some people try to do 2 things in parallel and procrastinate from one to another and wise versa, but I'm not sure whether it works)
 
-![](/images/2019_01_31/pomodoro.png) The **Pomodoro technique** also helps you to solve the procrastination problem, by simply focusing on the process but NOT the product of the process.
+!!!POMODORO IMAGE
+![](/images/2019_01_31/pomodoro.png) The **Pomodoro technique** also helps you to solve the procrastination problem, by simply focusing on the process but _NOT_ the product of the process.
 
-Our long term memory thrives with repetition and practice. Doing all the learning in a day doesn't help the long term memory a lot. Instead, we should consistently learn bit by bit in a long period.
+Our long term memory thrives with repetition and practice. Doing all the learning in a day won't help the long term memory a lot. Instead, we should consistently learn bit by bit in a long period.
 
 > **Analogy:** Brain muscles are like our regular muscles. We need time, sleep and lots of practice to develop muscles.
 
@@ -120,46 +121,38 @@ Also see this youtube video about **why do we need to sleep**. Just don't fell a
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3mufsteNrTI" frameborder="0" allowfullscreen></iframe>
 
+TODO: PUT THIS TO SOMEWHERE ELSE??
+
 Beside these techniques here my thoughts about preventing procrastination:
 
-* First of all try to look at the big picture
+* First of all try to look at the bigger picture
 * Write about it on your own words
 * Prepare a list of sub-topics and related topics
 * Recursively look at those topics
 * Find ways to use what you learned.
 * Repeat this cycle with the **spaced repetition**
 
-# Notes to the Self
+# Techniques mentioned in this article
 
-Learning new ideas is the essence of my career, maybe the living itself. Before learning a new idea, we should think about the learning itself. Knowing the good techniques and keeping away the bad habits can increase efficiency, and I believe this must be the principal skill to be developed. I regret I didn't find the course before, but I'm happy I get it and hope to see results in the future.
+## Pomodoro Technique
 
-From now on I need to practice what I've learned from this course. This is the most challenging part of *Learning how to learn*. Because I need to observe my methods constantly and change my old habits.
+I copied the description of Pomodoro Technique from wikipedia:
 
-I have turn off my phone's notifications when working in focused mode, or sleep well and exercise often, but I'm not doing them. I know I need to change my habits and probably it needs time.
+> The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks.
 
-TODO: maybe we can get rid of some of these!!
+Basically using this technique, you can focus on the process itself rather than its results. It is a good way for dealing with procrastination.
 
-![](/images/2019_01_31/trello.png)
+## Spaced Repetition
 
-Using *Pomodoro* technique can help me achieve my goals so I found a simple open source tool called [Tomighty](http://www.tomighty.org/). I'm also keeping a todo list on [Trello](https://trello.com).
+Very nicely done interactive tutorial about spaced repetition and specifically the **leitner system**. I recommend you to create one hour free time for the tutorial and you will understand the science behind the spaced repetition, and some nice tools to use it.
 
-I also want to use the recall technique. I plan to use this technique whenever I'm encountering a different concept other than the one I'm dealing that time. For example on work, I'm talking to a colleague about a problem and then she mentions another module of the software we're developing. I need to recall that module and tell myself what is that module doing in a single sentence.
+https://ncase.me/remember/
 
-This technique could be disruptive but I will try and will use if it is successful.
+**Note:** If you are serious about using the leitner system, I have found this from amazon: https://www.amazon.de/gp/product/B06WGYRDNJ/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&psc=1
 
-About a month ago, I started to use an app called [memrise](http://www.memrise.com/). This application helps you to learn new languages and other topics by using the scientific methods: learning a few words daily and reviewing them constantly that it wouldn't be forgotten.
+## Memory Palace
 
-TODO: get rid of japanese?
-
-![](/images/2019_01_31/japanese.gif)
-
-I always wanted to learn Japanese, so I started on it. Now I know the [Katakana](https://en.wikipedia.org/wiki/Katakana) and [Hiragana](https://en.wikipedia.org/wiki/Hiragana) writing systems (to read). And I learned about 270 words and basic sentences.
-
-> **Analogy:** Memrise is also using the analogy technique: *When you learn a new word, think of it as planting a new seed in your memory. Then every time you review that memory you help it to grow a little bit - like watering a little flower. By reviewing at the right time you help it grow as fast as possible. Soon you’ll have a glorious garden full of flower-memories*.
-
-I also wanted to increase my English vocabulary, and learned 300 new words so far. Even I found a Shell Scripting course and learned 84 new shell commands. This is [my profile](http://www.memrise.com/user/BarAydek/) if you want to follow me 😁
-
-There is one more technique I wanted to look at. I had heard it from **The Mentalist** and **Sherlock** shows. You can learn it briefly about it on the course as well. But TV shows interpret it much more exciting 😄
+Some interesting technique that I haven't tried yet.
 
 *Sherlock*:
 
@@ -171,25 +164,5 @@ There is one more technique I wanted to look at. I had heard it from **The Menta
 
 # Summarize
 
-After I wrote this article, I finished my last test on the course as well. I shouldn't do it by that time (midnight). Because toxic substances accumulates on your brain thoughout the day and they will be cleared when you are sleeping. So I took the test at the worst time, fortunately I passed 😅
-
-I hope you enjoyed this reading and get something from my experiences and thoughts. I wanted to know about your thoughts, corrections and additions. You can add a comment below if you want.
-
-# Techniques
-
-## Leitner System
-
-TODO: add description
-
-https://ncase.me/remember/
-
-# References
-
-TODO
-
-## The Course
-
-This course is prepared by [Dr. Barbara Oakley](https://www.coursera.org/instructor/barboakley) and [Dr. Terrence Sejnowski](https://www.coursera.org/instructor/terry). They are one of the best researchers on this topic (learning), as well as memory and the brain in general.
-
-And these are the main contents of the course, and my interpretations:
+Learning new ideas is the essence of my career, maybe the living itself. Before learning a new idea, we should think about the learning itself. Knowing the good techniques and keeping away the bad habits can increase efficiency, and I believe this must be the principal skill to be developed. I regret I didn't find the course even before, but I'm happy that I got it and I believe it helped me already.
 
