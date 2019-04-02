@@ -27,11 +27,11 @@ TODO: save this image
 TODO
 
 
-As a software engineer, my ability to learn new technologies and skills is vital for my day to day work and career in general. My first solution to this problem was **learning the theory behind**, not the technology itself. This approach directed me to the basics of software development: paradigms and models (which I wrote about them on my Turkish blog)
+As a software engineer, my ability to learn new technologies and skills is vital for my day to day work and career in general. My first solution to this problem was **learning the theory behind** certain technologies, not the technology itself. This approach directed me to the basics of software development: paradigms and models (which I wrote about them on my Turkish blog)
 
-Second solution: **Writing something about** a topic you wanted to learn. It makes you think about every aspect of the topic, it makes you disciplined for following the sub-topics and deepens your knowledge.
+Second solution: **Writing something about** a topic I wanted to learn. Writing about topic forces you think about every aspect of the topic, it makes you disciplined for following the sub-topics and naturally deepens your knowledge as well structures the existing knowledge making previously implicitly known facts more explicit.
 
-This approach did a great job at the beginning when I have the enthusiasm and lots of free time (I had broken my leg and stayed at home about four months). Now vast amount of topics I needed to learn, started to accumulated again.
+These two approaches together did a great job in the beginning when I had the enthusiasm and lots of free time (I had broken my leg and stayed at home about four months). Soon enough, however, vast amounts of new topics started to accumulate again. I soon realized that the more I learnt the more new things I wanted to learn.
 
 I wanted to learn quickly (and easily). Helpfully, I found this four week course on [Coursera](https://www.coursera.org/learn/learning-how-to-learn) to help me become a better, more effective learner. I attended Learning How To Learn; this post is about what I learned (pun intended) on that course.
 
@@ -39,7 +39,7 @@ I wanted to learn quickly (and easily). Helpfully, I found this four week course
 
 ![](/images/2019_01_31/krang.png)
 
-In general, learning is what we do to increase or enhance our knowledge and gain expertise in a subject matter. Learning happens by gradually building up the number of bits of information and the connections between them. The "_bits of information_" are called chunks and building the connections is called chunking.
+In general, learning is what we do to increase or enhance our knowledge and gain expertise in a subject matter. Learning happens by gradually building up the number of bits of information and the connections between them. The "_bits of information_" are called chunks, building the connections is called chunking.
 
 
 ### Chunking
@@ -47,11 +47,11 @@ In general, learning is what we do to increase or enhance our knowledge and gain
 !!! CHUNK IMAGE
 ![](/images/2019_01_31/chunking.jpeg)
 
-Chunks have a physical representation in our brain, they are neurones bound together (literally) through use and meaning. Chunking is the process of creating these connections between the neurones. Chunking happens when you are in a **focused mode** of learning or thinking. The purpose of chunking is to gradually build towards understanding a _bigger picture_. Similar to how individual pieces of a puzzle don't carry a lot of meaning, and having lots of pieces connected together, one can start to see the overall picture is forming. 
+Chunks have a physical representation in our brain, they are neurons bound together (literally) through use and meaning. Chunking is the process of creating connections between the neurons. It happens when you are in a **focused mode** of learning or thinking. More about focused mode later.
 
-Once you have enough chunks, you'll understand the **bigger picture** better. Interestingly, knowing the bigger picture beforehand can also help to learn faster as the overall framework for the chunks already exists.
+The purpose of chunking is to gradually build towards understanding a _bigger picture_. Similar to how individual pieces of a puzzle don't carry a lot of meaning, but having lots of pieces connected together, one can start to see the overall picture forming.
 
-Chunking is a bottom up process, where as getting the big picture is a top down process. If we can do both at the same time, we will develop a better understanding faster.
+Once you have enough chunks, you'll understand the **bigger picture** better. Interestingly, knowing the bigger picture beforehand can also speed up learning as the overall framework for the chunks already exists. It is much easier to see what kind of a piece is needed for a particular empty slot in an almost finished puzzle than it is to start the puzzle. Chunking is a bottom up process, where as getting the big picture is a top down process. If we can do both at the same time, we will develop a better understanding faster.
 
 To achieve gaining lots of chunks, one must practice intently and regularly by using the focus mode. **Recalling** and testing yourself with what you've learned is the best method for grasping and strengthening knowledge into long term memory.
 
@@ -60,27 +60,24 @@ To achieve gaining lots of chunks, one must practice intently and regularly by u
 !!!PUZZLE IMAGE
 ![](/images/2019_01_31/bigpicture.png)
 
-The big picture is the meaning we are looking for. It can be specific to a field and often personal. It can be tricky as well, because you may not have enough knowledge or exprerience to grasp the bigger picture. This is what I call the pitfalls of the bigger picture. To mitigate this problem, one can try to be conscious about his/her missing parts in the picture. Obviously there would always many missing parts because you can't know everything.
+If you have lots of chunks on a topic, it is easier to get the bigger picture. Gaining as many chunks as possible while thinking about its place on the big picture helps learning a lot. Also, chunks can be knit together and create bigger chunks that once triggered you can accomplish a complex activity without using working memory.
 
-It's quite common that you get stuck on a problem because you initially have some ideas about what the solution could be. These initial ideas may block your ability to see a better solution. This problem is known as **Einstellung**: you're limiting the possible range of solutions to some subset, which may not contain the best solution. Possible ways out of this is transfering knowledge from a different domain or looking at the bigger picture. 
+The big picture is the meaning we are looking for. It can be specific to a field and it is often personal. It can be tricky as well, because you may not have enough knowledge or experience to grasp the bigger picture. This is what I call the pitfalls of the bigger picture. To mitigate this problem, one can try to be conscious about his/her missing parts in the picture. Obviously there would always be many missing parts because you can't know everything.
 
 Chunks are not only connected within one specific field but also across fields - if you will, the chunks form not only one 2-dimensional puzzle but multiple interconnected hyper-dimensional puzzles. Often, you'll find that a chunk is related to multiple other chunks in multiple other fields, Oakley and Sejnowski call this **transfering**.
 
 We've all experienced this, it's the sudden "_a-ha_" moment you experience when "_something clicks_" and you're understanding of a particular topic changes and becomes more general. The realisation that things you previously thought were disconnected are in fact connected; the world is suddenly that little bit more understandable and coherent. This, in essence, is what learning is all about.
 
-If you have lots of chunks on that topic, it is easier to get the bigger picture. Gaining as many chunks as possible while thinking about its place on the big picture helps learning a lot. Also chunks can be knit together and create bigger chunks that once triggered you can accomplish a complex activity without using working memory.
 
-> Einstellung can be a source of the problem when you have a new idea and people often criticise and reject it without trying to understand what it actually is, because it is a different approach than the current one that people are already comfortable with.
+## You're standing in your own way
 
-**Interleaving** is practicing by different concepts, approaches and techniques all in one session. This helps you to be flexible and master the material.
+It's quite common that you get stuck on a problem because you initially have some ideas about what the solution could be. These initial ideas may block your ability to see a better solution. This problem is known as **Einstellung**: you're limiting the possible range of solutions to some subset, which may not contain the best solution or indeed any solution. Einstellung can be challenging to overcome, especially when you have a new idea that you need to convince other people of. New ideas are easily rejected, without trying to understand what they actually are because they present a different approach than what people are already comfortable with.
 
-> This may help to mitigate the Einstellung problem because you are not stuck into a specific view or angle.
-
-Brain storms and **collaborative thinking** can be a method of interleaving by scaling people.
+This is very problematic, because difficult problems often require changing how you view the problem not just tweak the current appoach. **Interleaving** is practicing by different concepts, approaches and techniques all in one session. This can help you to be flexible and master the material, you are not stuck into a specific view or angle. Brain storms and **collaborative thinking** is a practical method of interleaving by scaling people and therefore increasing the number of viewpoints.
 
 ### Working Memory and Long Term Memory
 
-It is important to get to know brain and memory and how they work. This is a nerdy blog so I will jump to computer terms and analogies:
+Now that we've looked at what learning is and why one needs to practice it, let's look more closely how the brain works and more specifically how memory works. This is a nerdy blog so I will jump to computer terms and analogies:
 
 !!!YODA IMAGE
 ![](/images/2019_01_31/yoda.jpg)
