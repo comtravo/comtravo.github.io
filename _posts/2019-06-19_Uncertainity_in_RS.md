@@ -19,16 +19,17 @@ At Comtravo, we aim to simplify travel for our customers and machine learning al
 "I want to fly from Berlin to Frankfurt tomorrow morning."
 Search results for flights from Berlin to Frankfurt in the specified time range returns almost all possible travel options. However, we want to show a maximum of 3 results which are most relevant to the customer. Logical assumptions about time of each trip, price ranges, popular times to fly on the morning, etc can be made and such heuristics can be used to select the Top 3 results. However, such a filtering model does not build a personalised set of results. 
 
-If a customer requests a round trip on the same day without explicitly mentioning desired time of travel, it is reasonable to propose travel options early in the morning and return trip options in the evening. While such cases are handled by rule based filtering, it quickly gets exhanusting to cover each 
+If a customer requests a round trip on the same day without explicitly mentioning desired time of travel, it is reasonable to propose travel options early in the morning and return trip options in the evening. While such cases are handled by rule based filtering, it quickly gets exhanusting to cover all possible cases. Therefore, it is useful to have a learning agent which could infer such patterns and does the selection of 'best' travel options for each customer.
+Step in, machine learning to save the day!
 
-
-
-## Ranking vs Recommending
-
-## How does deep learning fit into all of this?
+## But which machine learning algorithm to use?
 
 ![XKCD Comic](/images/2019_07_25/machine_learning_2x.png)
 Format: ![Alt Text](https://imgs.xkcd.com/comics/machine_learning.png)
+
+## Ranking vs Recommending
+
+
 
 ## Estimating model uncertainty
 
