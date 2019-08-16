@@ -220,4 +220,4 @@ We migrated completely to transit gateways and our architecture has been simplif
 </center>
 
 
-In the next blog post, we look into how to leverage transit gateways and client ot site VPN endpoints to have a centralized access management to the cloud.
+In the next blog post, we look into how to leverage transit gateways and client to site VPN endpoints to have a centralized access management to the cloud.
