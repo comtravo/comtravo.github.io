@@ -10,11 +10,11 @@ image:
   feature: 2019_07_15/tgw.png
 ---
 
-At Comtravo we run our services in the cloud with [AWS](https://aws.amazon.com/). We've separated discrete services into their own VPCs and have been using VPC peering connections to allow the services to communicate with each other. We recently moved the entire network architecture to use AWS Transit Gateways which has reduced the maintenance overhead and increased the robustness of the setup.
+At Comtravo we run our services in the cloud with [AWS](https://aws.amazon.com/). We run multiple environments each of which having their own VPCs. We have been using [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) connections to allow our microservices to communicate with shared services. We recently moved the entire network architecture to use [AWS Transit Gateways (TGW)](https://aws.amazon.com/transit-gateway/) which has reduced the maintenance overhead and increased the robustness of the setup.
 
 ## Managing Multiple Environments
 
-All our test and production environments are orchestrated mostly by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments; services running inside the environments (databases and microservice endpoints) are further isolated into their own VPCs.
+All our environments (test, qa and production) are orchestrated mostly by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments; In our test environments both the databases and microservices reside within the same VPC; In qa and prod environment, our databases and microservices are in seperate VPCs.
 
 
 Splitting the different services and environments into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments and some method of access between the VPCs needs to be established. From time to time we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture, while keeping the number of possible attack vectors low.
@@ -46,7 +46,7 @@ Transit VPCs are yet another approach that helps in managing lots of independent
 
 If managing the test environments is the only concern, a Hub and Spoke model makes most sense. In this approach, a single VPC called the transit VPC establishes a point to point connection to all the other VPCs. A user logs in to this transit VPC and could ***potentially*** have access to all the environments. This transit VPC could run a bastion host or a vpn server which users connect to.
 
-This architecture greatly reduces the attack radius which also doesn't increase with number of test environments. In this architecture the transit VPC is the hub and each VPC peering that it establishes becomes a spoke of the architecture.
+This architecture greatly reduces the attack surface which also doesn't increase with number of test environments. In this architecture the transit VPC is the hub and each VPC peering that it establishes becomes a spoke of the architecture.
 
 <center>
 <figure>
@@ -73,9 +73,9 @@ While much more robust that bastion hosts, VPC peerings come with their own down
 
 An ideal setup would have a minimal attack surface and be easy to manage. The complexity of the setup should not increase as the number of environments increases. Luckily AWS last year [announced](https://aws.amazon.com/blogs/aws/new-use-an-aws-transit-gateway-to-simplify-your-network-architecture/) just that!  A new VPC feature called [Transit Gateways (TGW)](https://aws.amazon.com/transit-gateway/).
 
-In this architecture, all VPCs connect to a central *"router"* called a Transit Gateway. When all VPCs connect to the transit gateway, they could potentially access each other if their routing rules and security groups allow it. Furthermore, transit gateways can be shared across multiple accounts within the same organization. So it really doesn't matter which account or accounts the VPCs are in.
+In this architecture, all VPCs connect to a central *"router"* called a Transit Gateway. When all VPCs connect to the transit gateway, they could potentially access each other if their routing rules and security groups allow it. Furthermore, transit gateways can be shared across multiple accounts within the same organization, different organization or account. So it really doesn't matter which account or accounts the VPCs are in.
 
-This is one of the coolest features AWS has recently released. Resources from one AWS account can be shared across other accounts through a new AWS service called [Resource Access Manager (RAM)](https://aws.amazon.com/ram/).
+Resources from one AWS account can be shared across other accounts through a new AWS service called [Resource Access Manager (RAM)](https://aws.amazon.com/ram/).
 
 In our case, we have the transit gateway in our master account and it is shared with our other AWS accounts for test and production environments. Once shared, each sub-account can see the shared resource(s). All they have to do next is to attach to this transit gateway and adjust the routing rules accordingly.
 
@@ -177,7 +177,7 @@ module "infra_vpc" {
 ```
 
 
-The above VPC can be then attached to our core TGW. Below is a full bblown snippet on how one cann connect the `infra` VPC to the `core-tgw`.
+The above VPC can be then attached to our core TGW. Below is a full blown snippet on how one cann connect the `infra` VPC to the `core-tgw`.
 
 
 ```hcl
@@ -223,6 +223,16 @@ resource "aws_route" "public_route_table_tgw_attachment_qa_state" {
 ```
 
 With the above configuration, anything running in the `infra` VPC can *potentially* access anything in the CIDR ranges `172.30.0.0/16 172.31.0.0/16 10.0.0.0/8`.
+
+Our pervious architecture with VPC peerings looked approximately as below:
+
+<center>
+<figure>
+  <img style="width: 100.0%; height: 100.0%" src="/images/2019_07_15/vpc_peering_old_setup.png">
+  <figcaption><b>Cloud architecture at Comtravo with vpc peerings</b> <br></figcaption>
+</figure>
+</center>
+
 
 We migrated completely to transit gateways and our architecture has been simplified immensely and looks approximately as below.
 
