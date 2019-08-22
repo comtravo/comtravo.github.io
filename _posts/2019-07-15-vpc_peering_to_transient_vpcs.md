@@ -14,10 +14,9 @@ At Comtravo we run our services in the cloud with [AWS](https://aws.amazon.com/)
 
 ## Managing Multiple Environments
 
-All our test and production environments are orchestrated mostly by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments; services running inside the environments (databases and microservice endpoints) are further isolated into their own VPCs.
+All our test and production environments are orchestrated mostly by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between services running in each environment (databases and microservice endpoints).
 
-
-Splitting the different services and environments into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments and some method of access between the VPCs needs to be established. From time to time we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture, while keeping the number of possible attack vectors low.
+Splitting the different services into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments and some method of access between the VPCs needs to be established. From time to time we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture, while keeping the number of possible attack vectors low.
 
 There are multiple approaches for achieving this:
 - deploy everything into a public subnet
