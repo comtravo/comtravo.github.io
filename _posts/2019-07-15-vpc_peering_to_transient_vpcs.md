@@ -10,21 +10,21 @@ image:
   feature: 2019_07_15/tgw.png
 ---
 
-At Comtravo we run our services in the cloud with [AWS](https://aws.amazon.com/). All our test and production environments are orchestrated mostly by [Terraform](https://www.terraform.io/) and the environments spread across multiple AWS accounts which are all part of the same overall organization. We recently moved our entire architecture to use AWS Transit Gateways, this article is an overview behind the reasoning for doing so.
-
-We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments and inside the environments the databases and stateless microservices are further isolated into their own VPCs. In each environment we used [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) to establish connections between the stateless and stateful VPCs so that the stateless services can connect to the databases. This VPC-peering setup became quite labour intensive to maintain and we recently switched to a much more manageable network architecture: AWS Transit Gateways.
-
+At Comtravo we run our services in the cloud with [AWS](https://aws.amazon.com/). We've separated discrete services into their own VPCs and have been using VPC peering connections to allow the services to communicate with each other. We recently moved the entire network architecture to use AWS Transit Gateways which has reduced the maintenance overhead and increased the robustness of the setup.
 
 ## Managing Multiple Environments
 
-Splitting the different services and environments into separate VPCs gives us good isolation between environments and makes the environments independent of one another. It also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments and some method of access between the VPCs needs to be established. From time to time we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture, while keeping the number of possible attack vectors low.
+All our test and production environments are orchestrated mostly by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments; services running inside the environments (databases and microservice endpoints) are further isolated into their own VPCs.
+
+
+Splitting the different services and environments into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments and some method of access between the VPCs needs to be established. From time to time we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture, while keeping the number of possible attack vectors low.
 
 There are multiple approaches for achieving this:
 - deploy everything into a public subnet
 - use bastion hosts in each environment / VPC
 - VPC peering and Transit VPCs (hub and spoke, full mesh)
 
-Below is an overview of what these setups entail and some drawbacks of each.
+Our earlier approach to resolving this issue was to use [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) in each environment to establish connections between the stateless microservices and stateful databases. This VPC-peering setup became quite labour intensive to maintain and we recently switched to a much more manageable network architecture: AWS Transit Gateways. Let's first see what the methods listed above are and what their downsides are before discussing Transit Gateways.
 
 
 ### Deploying Everything in the Public Subnet
