@@ -6,7 +6,7 @@
       </a> › --> 
     {% for category in page.categories %}
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-        <a href="{{ site.url }}/{{ category }}/" itemprop="url">
+        <a href="{{ site.url }}/category/{{ category }}/" itemprop="url">
           <span itemprop="title">{{ category | replace: '-',' ' | capitalize }}</span>
         </a>
         {% if forloop.last == false %} | {% endif %}
