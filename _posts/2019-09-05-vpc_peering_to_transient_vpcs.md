@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Our Journey from VPC Peerings to Transit Gateway"
-date: 2019-08-26 10:02:00
+date: 2019-09-05 11:30:00
 categories: [AWS, cloud, architecture, networking, security]
 comments: false
 author: puneeth_n
