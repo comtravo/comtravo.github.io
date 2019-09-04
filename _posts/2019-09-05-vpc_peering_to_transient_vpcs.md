@@ -16,7 +16,7 @@ At Comtravo, we run our services in the cloud with [AWS](https://aws.amazon.com/
 
 All our environments (test, qa, and production) are orchestrated by [Terraform](https://www.terraform.io/). The environments are spread across multiple AWS accounts, which are all part of the same overall organization. We maintain [VPC](https://aws.amazon.com/vpc/) level isolation between environments. In our test environments, both the databases and microservices reside within the same VPC; in qa and prod environment, our databases and microservices are in seperate VPCs.
 
-Splitting the different services and environments into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on-demand. However, some services are shared across all environments, and some method of access between the VPCs needs to be established. From time to time, we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture while keeping the number of possible attack vectors low.
+Splitting the different services and environments into separate VPCs gives us good isolation between the environments, it also gives us the ability to create and destroy environments on demand. However, some services are shared across all environments, and some method of access between the VPCs needs to be established. From time to time, we also need to perform admin tasks securely on databases or investigate why an EC2 instance is behaving abnormally. In such cases, one might want to login to servers in a specific VPC, so we need to maintain easy access to all of the active VPCs in the overall architecture while keeping the number of possible attack vectors low.
 
 Until recently, this could have been solved by:
 
@@ -24,7 +24,7 @@ Until recently, this could have been solved by:
 - using bastion hosts in each environment / VPC
 - VPC peering and Transit VPCs (hub and spoke, full mesh)
 
-Our earlier approach to resolving this issue was to use [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) in each environment to establish connections between the stateless microservices and stateful databases. This VPC-peering setup became quite labour-intensive to maintain, and we recently switched to a much more manageable network architecture: AWS Transit Gateways. Let's first see what the methods listed above are and what their downsides are before discussing Transit Gateways.
+Our earlier approach to resolving this issue was to use [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) in each environment to establish connections between the stateless microservices and stateful databases. This VPC-peering setup became quite labour-intensive to maintain, and we recently switched to a much more manageable network architecture: AWS Transit Gateways. First, I’ll explain what these methods are and talk about their downsides, before discussing Transit Gateways.
 
 ### Deploying Everything in the Public Subnet
 
@@ -32,7 +32,7 @@ One option to resolve the access issue is to just run everything on the public i
 
 While simple, the major drawback with this approach is that it leaves all services exposed to the public internet, and as such has a huge attack surface. Server hardening must be run regularly on all instances, significantly increasing the maintenance overhead. Accounting for the fact that all services are replicated into multiple environments, this approach quickly becomes completely unmanageable, at best slowing down the speed of development and at worst leaving critical customer information exposed.
 
-### Using bastion hosts in each environment
+### Using Bastion Hosts in each environment
 
 Another commonly used approach is to use [bastion hosts](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html). Bastion servers reduce the attack surface to just the number of bastion hosts and are thus more secure compared to the previous approach. However, the bastion servers need to be deployed in multiple availability zones and need regular maintenance, again significantly increasing the maintenance overhead of the overall system. Each bastion host is typically exposed to the internet, also increasing the attack surface.
 
@@ -70,7 +70,7 @@ While much more robust than bastion hosts, VPC peerings come with their own down
 
 An ideal setup would have a minimal attack surface and be easy to manage. The complexity of the setup should not increase as the number of environments increases. Luckily, AWS  [announced](https://aws.amazon.com/blogs/aws/new-use-an-aws-transit-gateway-to-simplify-your-network-architecture/) just that last year!  A new VPC feature called [Transit Gateways (TGW)](https://aws.amazon.com/transit-gateway/).
 
-In this architecture, all VPCs connect to a central *"router"* called a Transit Gateway. When all VPCs connect to the transit gateway, they could potentially access each other if their routing rules and security groups allow it. Furthermore, transit gateways can be shared across multiple accounts within the same organization, different organization, or account. So it really doesn't matter which account or accounts the VPCs are in.
+In this architecture, all VPCs connect to a central *"router"* called a Transit Gateway. When all VPCs connect to the transit gateway, they could potentially access each other if their routing rules and security groups allow it. Furthermore, Transit Gateways can be shared across multiple accounts within the same organization, different organization, or account. So it really doesn't matter which account or accounts the VPCs are in.
 
 Resources from one AWS account can be shared across other accounts through a new AWS service called [Resource Access Manager (RAM)](https://aws.amazon.com/ram/).
 
