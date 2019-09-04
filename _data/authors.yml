@@ -26,3 +26,10 @@ matti_lyra:
     role: Research Engineer in NLP
     avatar: authors/mattilyra.jpg
     bio: Matti has been an active member of the data science community in Berlin, he has led the PyData Berlin committee since 2016. Matti holds a PhD in Natural Language Processing from the University of Sussex. His thesis explored using topical bias in large text corpora to build better ensemble models for text classification. Beyond his work at Comtravo he's interested in language and linguistics, the philosophy of AI, cycling, photography and coffee.
+puneeth_n:
+    name: Puneeth Nanjundaswamy
+    email: tech@comtravo.com
+    web: https://www.github.com/puneeth-n
+    role: Senior Cloud Infrastructure Engineer
+    avatar: authors/puneeth_n.jpg
+    bio: Puneeth is passionate about cloud infrastructure and likes to work on the cloud infrastructure side of things. He is a GitOps and Infrastructure-as-Code evangelist. In his free time he likes to contribute to open source projects.
