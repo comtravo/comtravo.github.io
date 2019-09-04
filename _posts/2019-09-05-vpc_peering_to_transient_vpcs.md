@@ -10,7 +10,7 @@ image:
   feature: 2019_07_15/tgw.png
 ---
 
-At Comtravo, we run our services in the cloud with [AWS](https://aws.amazon.com/). We run multiple environments each having their own [VPC](https://aws.amazon.com/vpc/)s. We have been using [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) connections to allow our microservices to communicate with shared services. We recently made the switch to [AWS Transit Gateways (TGW)](https://aws.amazon.com/transit-gateway/), which has reduced the maintenance overhead, complexity, and increased the robustness of our cloud infrastructure.
+At Comtravo, we run our services in the cloud with [AWS](https://aws.amazon.com/). We run multiple environments each having their own [VPC](https://aws.amazon.com/vpc/)s. We have been using [VPC peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) connections to allow our microservices to communicate with shared services. We recently made the switch to [AWS Transit Gateways (TGW)](https://aws.amazon.com/transit-gateway/), which has reduced the maintenance overhead, complexity, and increased the robustness of our cloud infrastructure.
 
 ## Managing Multiple Environments
 
@@ -24,7 +24,7 @@ Until recently, this could have been solved by:
 - using bastion hosts in each environment / VPC
 - VPC peering and Transit VPCs (hub and spoke, full mesh)
 
-Our earlier approach to resolving this issue was to use [VPC-peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) in each environment to establish connections between the stateless microservices and stateful databases. This VPC-peering setup became quite labour-intensive to maintain, and we recently switched to a much more manageable network architecture: AWS Transit Gateways. First, I’ll explain what these methods are and talk about their downsides, before discussing Transit Gateways.
+Our earlier approach to resolving this issue was to use [VPC peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) in each environment to establish connections between the stateless microservices and stateful databases. This VPC peering setup became quite labour-intensive to maintain, and we recently switched to a much more manageable network architecture: AWS Transit Gateways. First, I’ll explain what these methods are and talk about their downsides, before discussing Transit Gateways.
 
 ### Deploying Everything in the Public Subnet
 
