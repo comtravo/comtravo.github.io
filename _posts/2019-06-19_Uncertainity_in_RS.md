@@ -37,7 +37,29 @@ While Bayesian methods is a vast topic by itself, it will not be covered in deta
 
 The Bayesian Neural Network is different from the 'frequentist' counterpart because it has probability distributions over the  weights and biases of the network. 
 
-On a more granular level, each neuron of the network multiplies the data point with a weight matrix which is learned from back propogation and some bias is added to it. To add non-linearity, we apply an activation function to this algebraic resultant. Typically, these weights and biases are initialised with point estimates, while in Bayesian Neural Networks, distributions are specified are the starting values. These are useful to encode our prior beliefs about the underlying model which generated our data. The ambiguity of calling this initial distribution $p(theta)$ as 'beliefs' is also why some Bayesians like to refer to this as prior information, but this is simply a quarrel over the semantics. 
+Each neuron of the neural network multiplies the data point with a weight matrix which is learned from back propogation and some bias is added to it. To add non-linearity, we apply an activation function to this algebraic resultant. Typically, these weights and biases are initialised with point estimates, while in Bayesian Neural Networks, distributions are specified are the starting values. These are useful to encode our prior beliefs about the underlying model which generated our data. The ambiguity of calling this initial distribution $p(theta)$ (where $\theta$ refers to the parameters of the neural network which we want to learn) as 'beliefs' is also why some Bayesians like to refer to this as prior information, but this is simply a quarrel over the semantics. 
+
+The nest step is determining the likelihood function which is the probabilistic model by which the inputs $X$  map to the outputs $Y$, given some parameters $\theta$. In the case of a classification task in a neural network, the likelihood function would be softmax (and sigmoid in a binary classification) while it could be Euclidean loss in a regression setting.
+
+One we have determined the prior distribution and the likelihood function, we can make magic happen by applying the Bayes rule. In all its simplicty, Bayes rules defines the posterior distribution to be the product of the prior and the likelihood. It is also normalised by the probability of the data. This transformation of the prior into posterior knowledge is what is known as Bayesian inference.
+
+\begin{equation}
+    p(\theta | X,Y) = \frac{p(Y|X)p(\theta)} {p(Y)}
+    \label{inference}
+\end{equation}
+
+The posterior distribution above is the distribution over the weights and biases of the neural network after Bayesian inference. This can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution si denoted as:
+
+\begin{equation}
+    p(y^*,x^* | X,Y) = \int p(Y|X,\theta)p(\theta |X, Y)d\theta
+\end{equation}
+
+To infer the prediction for the new data point $x^*$, we consider all the possible values of the parameters which maximise the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
+
+If you have stuck with me so far, you would have realised that I have glossed over how Bayesian inference is actually performed on the neural network and also details concerning model specifiction such as choosing the right priors for the network. This is a fairly detailed topic by itself, which I will handle in an upcoming post for interested readers.
+
+To continue on our journey of uncertianity in recommender systems, let's just say we can use the predictive posterior distribution for this marvelous task of inferring uncertainity. It is as simple as the variance of the predictive posterior distribution
+
 
 ## Ranking vs Recommending
 
