@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Serverless Infrastructure in the Comtravo Backend"
-date: 2019-08-30 14:23:00
+date: 2019-09-19 14:23:00
 categories: [AWS, cloud, serverless]
 comments: false
 author: marko_schilde
