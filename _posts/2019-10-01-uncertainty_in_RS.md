@@ -1,14 +1,14 @@
 ---
 layout: article
 title: Uncertainty in Recommender Systems
-date: 2019-06-19 11:25:00  # if the publication date is in the future the article will be published on that future date
-categories: [uncertainity, Bayesian statistics, risk, model assessment]
+date: 2019-10-01 11:25:00  # if the publication date is in the future the article will be published on that future date
+categories: [Uncertainty, Bayesian statistics, Neural networks]
 comments: true
 share: true
 published: true
 image:
-  teaser: 2018_07_07/teaser.jpg
-  feature: 2018_07_07/feature.jpg
+  teaser: 2018_10_01/teaser.jpg
+  feature: 2018_10_01/feature.jpg
 description: Bayesian neural networks to estimate uncertainty in recommendation
 usemathjax: true  # if you need math symbols turn this one
 author: bharathi_srini
@@ -24,10 +24,11 @@ If a customer requests a round trip on the same day without explicitly mentionin
 Step in, machine learning to save the day!
 
 ## But which machine learning algorithm to use?
-![](/images/2019_07_25/machine_learning_2x.png)
-![Alt Text](https://imgs.xkcd.com/comics/machine_learning.png)
+![](/images/2019_10_01/machine_learning_2x.png)
 
-Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. THe training data will be designed with booked flights as belonging to the positive class and the other options presented to the customer and not booked as the negative training samples. 
+[Source: xkcd](https://xkcd.com/)
+
+Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. THe training data will be designed with booked flights as the positive class and the other options presented to the customer but not booked as the negative training samples. 
 
 Neural networks are popular in the industry as they are extremely effective in learning complex patterns and capturing non-linearities. This would enable us to personalise search results using a learning framework that can infer travel preferences of our customers. There's also an added advantage of creating latenet representations for the user when Embeddings are used for denoting users. Embeddings are trained when the neural network is optimised and this also gives a vector representation of users which can be reused for other machine learning problems where we want to idenitfy similar users. However, traditional neural networks do not quantify the inherent uncertainty in the data or in the model predictions. This is something valuable while ranking and can be modeled by using a Bayesian approach.
 
@@ -78,7 +79,7 @@ One of the ways this recommendation model can be designed is a classification pr
 
 The dropout as an approximate Bayesian inference for example yields a Gaussian distribution (since the priors are multivariate Gaussians) and this makes it easy to interpret. The shape of the posterior from other methods such as sampling and variational inference depends on how we designed the priors for the model. Let's assume for the sake of simplicity, that we have a normal distribution. 
 
-![](/images/2019_07_25/normal_distribution.png)
+![](/images/2019_10_01/normal_distribution.png)
 
 The prediction for data point $$x_1$$ denoted by the blue Gaussian has a higher mean probability of being selected by the customer. However, this prediction also has a large spread compared to the prediction of data point $$x_2$$ denoted by the orange bell curve. Then we can tell that on average this offer made to the customer is likely to be booked but not as much as the second offer which has a smaller variance and hence lesser uncertainty in the prediction.
 
