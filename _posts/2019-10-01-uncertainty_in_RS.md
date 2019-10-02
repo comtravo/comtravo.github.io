@@ -7,8 +7,8 @@ comments: true
 share: true
 published: true
 image:
-  teaser: 2018_10_01/teaser.jpg
-  feature: 2018_10_01/feature.jpg
+  teaser: 2018_10_01/teaser.png
+  feature: 2018_10_01/feature.png
 description: Bayesian neural networks to estimate uncertainty in recommendation
 usemathjax: true  # if you need math symbols turn this one
 author: bharathi_srini
@@ -24,11 +24,16 @@ If a customer requests a round trip on the same day without explicitly mentionin
 Step in, machine learning to save the day!
 
 ## But which machine learning algorithm to use?
-![](/images/2019_10_01/machine_learning_2x.png)
+<center>
+<figure>
+  <img style="width: 55%; height: 50%" src="/images/2019_10_01/machine_learning_2x.png">
+  <figcaption><b>Which model to choose?</b> <br>[Source: xkcd] (https://xkcd.com)</figcaption>
+</figure>
+</center>
 
-[Source: xkcd](https://xkcd.com/)
 
-Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. THe training data will be designed with booked flights as the positive class and the other options presented to the customer but not booked as the negative training samples. 
+
+Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. Machine learning engineers typically stir the algorithms in the ML toolkit for a considerable amount of time before we strike gold. But for a lot of complex problems, neural networks are ussually the way to go. The training data will be designed with booked flights as the positive class and the other options presented to the customer but not booked as the negative training samples. 
 
 Neural networks are popular in the industry as they are extremely effective in learning complex patterns and capturing non-linearities. This would enable us to personalise search results using a learning framework that can infer travel preferences of our customers. There's also an added advantage of creating latenet representations for the user when Embeddings are used for denoting users. Embeddings are trained when the neural network is optimised and this also gives a vector representation of users which can be reused for other machine learning problems where we want to idenitfy similar users. However, traditional neural networks do not quantify the inherent uncertainty in the data or in the model predictions. This is something valuable while ranking and can be modeled by using a Bayesian approach.
 
@@ -46,15 +51,19 @@ The next step is determining the likelihood function which is the probabilistic 
 
 One we have determined the prior distribution and the likelihood function, we can make magic happen by applying the Bayes rule. In all its simplicty, Bayes rules defines the posterior distribution to be the product of the prior and the likelihood. It is also normalised by the probability of the data. This transformation of the prior into posterior knowledge is what is known as Bayesian inference.
 
-$$p(w | D) = \frac{p(D | w)p(w)} {p(D)}$$
+\begin{equation}
+p(w | D) = \frac{p(D | w)p(w)} {p(D)}
+\end{equation}
 
-The distribution above is the result of changing our initial beliefs about the weights from the prior $$p(w)$$ to the posterior $$p(w | D)$$ after seeing the data D. Since $$p(D)$$ is often intractable, Bayesian inference has some handy techniques such as Monte Carlo sampling techniques and variational inference. A recent development in approximation techniques is when Gal et al. shows that dropout in neural networks can be used for an approximation of the posterior. But these are topics for another day. The posterior distribution can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution is denoted as:
+The distribution above is the result of changing our initial beliefs about the weights from the prior $$p(w)$$ to the posterior after seeing the data D. Since $$p(D)$$ is often intractable, Bayesian inference has some handy techniques such as Monte Carlo sampling techniques and variational inference. A recent development in approximation techniques is when Gal et al. shows that dropout in neural networks can be used for an approximation of the posterior. But these are topics for another day. The posterior distribution can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution is denoted as:
 
-$$p(y^*,x^* | X,Y) = \int p(Y|X,w)p(w |X, Y)dw$$
+\begin{equation}
+p(y^*, x^* | X,Y) = \int p(Y | X,w) p(w | X, Y) dw
+\end{equation}
 
 To infer the prediction for the new data point $$x^*$$, we consider all the possible values of the parameters which maximise the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
 
-To continue on our journey of uncertainty in recommender systems, let's just say we can use the predictive posterior distribution for this marvelous task of inferring uncertainty. It is as simple as the variance of the predictive posterior distribution.
+To continue on our journey of uncertainty in recommender systems,we can use this predictive posterior distribution for the marvelous task of inferring uncertainty. It is as simple as the variance of the predictive posterior distribution.
 
 
 ## What does uncertainity tell us ?
@@ -71,7 +80,7 @@ In a typical recommendation system, a user is matched with an item that the algo
 
 If we employ a recommendation style, the underlying algorithm uses a ratings matrix composed of User Embeddings and Item Embeddings referred to as the latent features. The primary difficulty here is embedding an entire search result and making it as informative as possible. Moreover, you can travel with one search option only once and hence we are more interested in encoding the characteristics of the search result such as travel duration, flight carrier, type of train,etc. Then the rating matrix would contain information on how often the user traveled with a similar option. A Neural network approach here would embed the users and the features of the travel options independently and then concatenate the two layers to obtain the embedding matrix. This embedding would introduce the personalisation element in the predictions as it identifies certain features with a ID. So the predictions for this ID in the future will heavily rely on the historic data of this ID and similar IDs.
 
-Once the features of the neural network are determined, packages like pyMC3 and edward allow probabilistic inference of the posterior. Another trick for inference is to repreatedly perform the neural network training with different dropout values and record the prediction value. This distribution has been shown to be an approximation of the posterior distribution. This method is very attractive as uncertainty can be derived from existing neural network frameworks without much modification. 
+Once the features of the neural network are determined, packages like [pyMC3](https://docs.pymc.io/), [Pyro](http://docs.pyro.ai/en/stable/) or [edward](http://edwardlib.org/) allow probabilistic inference of the posterior. Another trick for inference is to repreatedly perform the neural network training with different dropout values and record the prediction value. This distribution has been shown to be an approximation of the posterior distribution. This method is very attractive as uncertainty can be derived from existing neural network frameworks without much modification. 
 
 One of the ways this recommendation model can be designed is a classification problem where for each option, we determine if the user would book it. This is how we can determine the preference a particular user has for that option. So this can be modeled as a binary classification by choosing a binomial distribution as the likelihood. 
 
@@ -79,7 +88,13 @@ One of the ways this recommendation model can be designed is a classification pr
 
 The dropout as an approximate Bayesian inference for example yields a Gaussian distribution (since the priors are multivariate Gaussians) and this makes it easy to interpret. The shape of the posterior from other methods such as sampling and variational inference depends on how we designed the priors for the model. Let's assume for the sake of simplicity, that we have a normal distribution. 
 
-![](/images/2019_10_01/normal_distribution.png)
+
+<center>
+<figure>
+  <img style="width: 35%; height: 40%" src="/images/2019_10_01/normal_distribution.png">
+  <figcaption><b>Predictive probability for two data points</b> </figcaption>
+</figure>
+</center>
 
 The prediction for data point $$x_1$$ denoted by the blue Gaussian has a higher mean probability of being selected by the customer. However, this prediction also has a large spread compared to the prediction of data point $$x_2$$ denoted by the orange bell curve. Then we can tell that on average this offer made to the customer is likely to be booked but not as much as the second offer which has a smaller variance and hence lesser uncertainty in the prediction.
 
