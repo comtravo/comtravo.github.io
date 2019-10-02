@@ -18,7 +18,7 @@ author: bharathi_srini
 
 At Comtravo, we aim to simplify travel for our customers and machine learning algorithms help us do this faster and better (most often). While natural language processing models infer the details required to query the Search engine, recommendation strategies are essential in selecting the most relevant results from those presented by the Search API. The Internet is a vast place and any good service would filter these results to reduce the information overload on the customer. A travel request from our customer can look like this:
 "I want to fly from Berlin to Frankfurt tomorrow morning."
-Search results for flights from Berlin to Frankfurt in the specified time range returns almost all possible travel options. However, we want to show a maximum of 3 results which are most relevant to the customer. Logical assumptions can be made about time each trip should take, reasonable price ranges, popular times to fly, etc and such heuristics can be used to select the Top 3 results. However, such a filtering model does not build a personalised set of results. By also applying rules individually, we do not consider how a combination of features influences a customer's choice. For example, I would choose to fly with the cheapest flight unless it has more than 2 stops. Besides, this does not learn from historic data.
+Search results for flights from Berlin to Frankfurt in the specified time range returns almost all possible travel options. However, we want to show a maximum of 3 results which are most relevant to the customer. Logical assumptions can be made about time each trip should take, reasonable price ranges, popular times to fly, etc and such heuristics can be used to select the Top 3 results. However, such a filtering model does not build a personalized set of results. By also applying rules individually, we do not consider how a combination of features influences a customer's choice. For example, I would choose to fly with the cheapest flight unless it has more than 2 stops. Besides, this does not learn from historic data.
 
 If a customer requests a round trip on the same day without explicitly mentioning the desired time of travel, it is reasonable to propose travel options for the outbound trip for hours in the morning and return flights departing in the evening. While such cases are handled by rule based filtering, it quickly gets exhausting to cover all possible cases. Therefore, it is useful to have a learning agent which could infer such patterns and does the selection of 'best' travel options for each customer.
 Step in, machine learning to save the day!
@@ -26,16 +26,16 @@ Step in, machine learning to save the day!
 ## But which machine learning algorithm to use?
 <center>
 <figure>
-  <img style="width: 55%; height: 50%" src="/images/2019_10_01/machine_learning_2x.png">
+  <img style="width: 45%; height: 40%" src="/images/2019_10_01/machine_learning_2x.png">
   <figcaption><b>Which model to choose?</b> <br>[Source: xkcd] (https://xkcd.com)</figcaption>
 </figure>
 </center>
 
 
 
-Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. Machine learning engineers typically stir the algorithms in the ML toolkit for a considerable amount of time before we strike gold. But for a lot of complex problems, neural networks are ussually the way to go. The training data will be designed with booked flights as the positive class and the other options presented to the customer but not booked as the negative training samples. 
+Although several classification algorithms can be applied for this problem and typical recommendation systems are matrix factorization based, we will consider Bayesian neural networks which provides an uncertainty estimate. Machine learning engineers typically stir the algorithms in the ML toolkit for a considerable amount of time before we strike gold. But for a lot of complex problems, neural networks are usually the way to go. The training data will be designed with booked flights as the positive class and the other options presented to the customer but not booked as the negative training samples. 
 
-Neural networks are popular in the industry as they are extremely effective in learning complex patterns and capturing non-linearities. This would enable us to personalize search results using a learning framework that can infer travel preferences of our customers. There's also an added advantage of creating latent representations for the user when Embeddings are used for denoting users. Embeddings are trained when the neural network is optimised and this also gives a vector representation of users which can be reused for other machine learning problems where we want to idenitfy similar users. However, traditional neural networks do not quantify the inherent uncertainty in the data or in the model predictions. This is something valuable while ranking and can be modeled by using a Bayesian approach.
+Neural networks are popular in the industry as they are extremely effective in learning complex patterns and capturing non-linearities. This would enable us to personalize search results using a learning framework that can infer travel preferences of our customers. There's also an added advantage of creating latent representations for the user when Embeddings are used for denoting users. Embeddings are trained when the neural network is optimized and this also gives a vector representation of users which can be reused for other machine learning problems where we want to identify similar users. However, traditional neural networks do not quantify the inherent uncertainty in the data or in the model predictions. This is something valuable while ranking and can be modeled by using a Bayesian approach.
 
 While Bayesian methods is a vast topic by itself, it will not be covered in detail here but a brief overview is presented in the section below if the reader is not yet acquainted with Bayesian Neural Networks.
 
@@ -55,13 +55,13 @@ One we have determined the prior distribution and the likelihood function, we ca
 p(w | D) = \frac{p(D | w)p(w)} {p(D)}
 \end{equation}
 
-The distribution above is the result of changing our initial beliefs about the weights from the prior $$p(w)$$ to the posterior after seeing the data D. Since $$p(D)$$ is often intractable, Bayesian inference has some handy techniques such as Monte Carlo sampling techniques and variational inference. A recent development in approximation techniques is when Gal et al. shows that dropout in neural networks can be used for an approximation of the posterior. But these are topics for another day. The posterior distribution can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution is denoted as:
+The distribution above is the result of changing our initial beliefs about the weights from the prior $$p(w)$$ to the posterior after seeing the data D. Since $$p(D)$$ is often intractable, Bayesian inference has some handy techniques such as Monte Carlo sampling techniques and variational inference. A recent development in approximation techniques is when [Gal et al.](http://proceedings.mlr.press/v48/gal16.pdf) demonstrated that dropout in neural networks can be used for an approximation of the posterior. But these are topics for another day. The posterior distribution can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution is denoted as:
 
 \begin{equation}
-p(y^*, x^* | X,Y) = \int p(Y | X,w) p(w | X, Y) dw
+p(y*, x* | X,Y) = \int{p(Y | X,w) p(w | X, Y) dw}
 \end{equation}
 
-To infer the prediction for the new data point $$x^*$$, we consider all the possible values of the parameters which maximize the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
+To infer the prediction for the new data point $$x*$$, we consider all the possible values of the parameters which maximize the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
 
 To continue on our journey of uncertainty in recommender systems,we can use this predictive posterior distribution for the marvelous task of inferring uncertainty. It is as simple as the variance of the predictive posterior distribution.
 
@@ -92,7 +92,7 @@ The dropout as an approximate Bayesian inference for example yields a Gaussian d
 <center>
 <figure>
   <img style="width: 35%; height: 40%" src="/images/2019_10_01/normal_distribution.png">
-  <figcaption><b>Predictive probability for two data points</b> </figcaption>
+  <figcaption><b>Predictive probability density for two data points</b> </figcaption>
 </figure>
 </center>
 
