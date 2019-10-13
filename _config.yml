@@ -9,6 +9,8 @@ locale: en
 url: https://tech.comtravo.com
 feed:
   path: atom.xml
+future: false
+timezone: Europe/Berlin
 
 # Jekyll configuration
 
@@ -24,7 +26,14 @@ plugins:
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
 
+jekyll-archives:
+  enabled:
+    - categories
+  layouts:
+    category: category-archive
 
 # Site owner
 owner:

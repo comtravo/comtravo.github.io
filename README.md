@@ -16,7 +16,6 @@
 * Any file changes will be watched and the tech blog re-rendered automagically!
 * To bring down the local setup. Run `make stop`
 
-
 # Creating a New Post
 
 The posts are located in the `_posts` directory and use `markdown`. To create a new one, just create a new markdown file called `YYYY-MM-DD_Post_Title.md`, where `YYYY-MM-DD` can be the current date. Each post has a _front matter_ and some content. The _front matter_ contains meta data about the post, most of which should be pretty self explanatory.
@@ -123,5 +122,4 @@ Remember to use sections (see above)
 Conclusion:
 Sum up your post/findings
 You can also give an outlook or use call to actions
-
 
