@@ -7,12 +7,14 @@ comments: true
 share: true
 published: true
 image:
-  teaser: 2018_10_01/teaser.png
-  feature: 2018_10_01/feature.png
+  teaser: 2019_10_01/teaser.png
+  feature: 2019_10_01/feature.png
 description: Bayesian neural networks to estimate uncertainty in recommendation
 usemathjax: true  # if you need math symbols turn this one
 author: bharathi_srini
 ---
+
+Bayesian neural networks are gaining popularity in the industry and in this post, we break it down and talk about how it can be useful as a recommender system.
 
 ## A Recommendation for Recommender Systems
 
@@ -22,12 +24,12 @@ To establish the need for a recommender system, consider a typical travel reques
 
 I need a flight tomorrow from Berlin to Munich and a return trip on the following day.
 
-Kind regards,
+Kind regards,\\
 A very busy business traveler"
 
-When we search for flights from BER - MUC as a round trip, we get numerous different options. As we aim to simplify travel bookings, it is now important to filter an optimal number of options. These should be options which our customer would actually prefer, with one of them being an option she would like to book. Since we partner with corporate travellers, we could hypothesise that a two day trip could mean a short business visit. To maximise the time spent in Munich, we would suggest onward flights to Munich in the morning and return flights to Berlin in the evening. If we knew this customer also frequently travelled with Lufthansa, this would further help us in narrowing the travel options. The historic data of the traveler's past bookings, in this way, can be extremely useful in finding the best possile travel options for the customer. 
+When we search for flights from BER - MUC as a round trip, we get numerous different options. As we aim to simplify travel bookings, it is now important to filter an optimal number of options. These should be options which our customer would actually prefer, with one of them being an option she would like to book. Since we partner with corporate travelers, we could hypothesize that a two day trip could mean a short business visit. To maximize the time spent in Munich, we would suggest onward flights to Munich in the morning and return flights to Berlin in the evening. If we knew this customer also frequently traveled with Lufthansa, this would further help us in narrowing the travel options. The historic data of the traveler's past bookings, in this way, can be extremely useful in finding the best possible travel options for the customer. 
 
-A recommender system is a machine learning algorithm(s) that would learn the preferences of the customers from historic data and help in suggesting the best possible travel options. A typical user makes a choice based on various factors. To name a few, price of the travel option, convenience of departure and arrival times, preference for airline, etc play a role in how a customer chooses an option. To learn the interplay between these attributes but also to personalise the results to the users, we consider a Deep Neural Network as our recommendation algorithm. The recommender system will likely find many options that it believes is good, so what selection criteria can we use to to choose from among the options predicted by the model? From a Bayesian point of view, it is important to consider the model uncertainty. In other words, we have to take into account how certain the model is about the prediction itself before we can be sure that it is a good prediction.
+A recommender system is a machine learning algorithm(s) that would learn the preferences of the customers from historic data and help in suggesting the best possible travel options. A typical user makes a choice based on various factors. To name a few, price of the travel option, convenience of departure and arrival times, preference for airline, etc play a role in how a customer chooses an option. To learn the interplay between these attributes but also to personalize the results to the users, we consider a Deep Neural Network as our recommendation algorithm. The recommender system will likely find many options that it believes is good, so what selection criteria can we use to to choose from among the options predicted by the model? From a Bayesian point of view, it is important to consider the model uncertainty. In other words, we have to take into account how certain the model is about the prediction itself before we can be sure that it is a good prediction.
 
 
 ## Where does this uncertainty come from?
@@ -48,9 +50,18 @@ While Bayesian methods is a vast topic by itself, it will not be covered in deta
 
 The Bayesian Neural Network is different from the 'frequentist' counterpart because it has probability distributions over the  weights and biases of the network. 
 
-Each neuron of the neural network multiplies the data point with a weight matrix and some bias is added to it. To add non-linearity, we apply an activation function to this algebraic resultant. Typically, these weights and biases are determined using back propagation which results in point estimates as the solution.
+Each neuron of the neural network multiplies the data $$X$$ with a weight matrix $$W$$ and some bias $$b$$ is added to it. To add non-linearity, we apply an activation function to this algebraic resultant. Typically, these weights and biases are determined using back propagation which results in point estimates as the solution.
 
-Bayesian methods allow these weights and biases to be computed as distributions. We start with some initial distributions over the weights and biases. Let's call this distribution $$p(w)$$. This is useful for encoding our prior 'beliefs' about the underlying model which generated our data (either from historic data or subjective sources). The ambiguity of calling this initial distribution $$p(w)$$ as 'beliefs' is also why some Bayesians like to refer to this as prior information, but this is simply a quarrel over the semantics. Moreover, it is difficult to interpret the meaning of the parameters of the neural network and very often in practice, the prior is determined based on ease on computation (such as choosing a Gaussian, or any distribution belonging to the exponential family since they have a beautiful property of having a conjugate pair). 
+<center>
+<figure>
+  <img style="width: 45%; height: 40%" src="/images/2019_10_01/bnn.png">
+  <figcaption><b>Inner working of a Bayesian neural network
+  (https://github.com/ericmjl/bayesian-deep-learning-demystified)</b> </figcaption>
+</figure>
+</center>
+
+
+Bayesian methods replace these weights and biases with distributions as seen in figure above. We start with some initial distributions over the weights and biases. Let's call this distribution $$p(w)$$. This is useful for encoding our prior 'beliefs' about the underlying model which generated our data (either from historic data or subjective sources). The ambiguity of calling this initial distribution $$p(w)$$ as 'beliefs' is also why some Bayesians like to refer to this as prior information, but this is simply a quarrel over the semantics. Moreover, it is difficult to interpret the meaning of the parameters of the neural network and very often in practice, the prior is determined based on ease on computation (such as choosing a Gaussian, or any distribution belonging to the exponential family since they have a beautiful property of having a conjugate pair). 
 
 The next step is determining the likelihood function which is the probabilistic model by which the inputs $$X$$  map to the outputs $$Y$$, given some parameters $$w$$. In the case of a classification task in a neural network, the likelihood function would be softmax (and sigmoid in a binary classification) while it could be Euclidean loss in a regression setting.
 
@@ -63,10 +74,10 @@ p(w | D) = \frac{p(D | w)p(w)} {p(D)}
 The distribution above is the result of changing our initial beliefs about the weights from the prior $$p(w)$$ to the posterior after seeing the data D. Since $$p(D)$$ is often intractable, Bayesian inference has some handy techniques such as Monte Carlo sampling techniques and variational inference. A recent development in approximation techniques is when [Gal et al.](http://proceedings.mlr.press/v48/gal16.pdf) demonstrated that dropout in neural networks can be used for an approximation of the posterior. But these are topics for another day. The posterior distribution can now be applied to predict for new samples. The resulting distribution called the predictive posterior distribution is denoted as:
 
 \begin{equation}
-p(y*, x* | X,Y) = \int{p(Y | X,w) p(w | X, Y) dw}
+p(y^{new}, x^{new}| X,Y) = \int {p(Y | X,w) p(w | X, Y) dw}
 \end{equation}
 
-To infer the prediction for the new data point $$x*$$, we consider all the possible values of the parameters which maximize the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
+To infer the prediction for the new data point $$x^{new}$$, we consider all the possible values of the parameters which maximize the posterior distribution, weighted by their probability. This provides a distribution as the prediction for each new data point.
 
 To continue on our journey of uncertainty in recommender systems, we can use this predictive posterior distribution for the marvelous task of inferring uncertainty. It is as simple as the variance of the predictive posterior distribution.
 
@@ -98,7 +109,7 @@ The prediction for data point $$x_1$$ denoted by the blue Gaussian has a higher 
 
 ## How can we use this uncertainty while recommending?
 
-In this recommendation problem, we want to rank the predictions which are attractive to the customer, in other words, rank the search results based on which the model classifies as '1' most confidently. The softmax probability from the neural network denotes the strength of belonging to a class. Apart from this, we want another measure by which we can quantify how good the prediction is, or determine how confident the model is about the prediction. The uncertainty (variance of the posterior) is useful in such a ranking setting as well. One thing to keep in mind, is that this variance is underestimated when variational inference is employed as opposed to sampling based techniques. Hence this variance is more of a guideline rather than a hard reliable estimate of the actual uncertainty. We could however, use the uncertainty including ranking measure by choosing the 20th percentile (or the lower quartile). The best percentile which can be used as a ranking measure can be determined by plotting it in a calibration plot. The measure which is closest to the diagonal is as close as we get to the "ground truth" probability. The idea behind choosing a lower percentile probability for ranking is that, the 20% percentile for example indicates that the predictions made by the model will be lower than this chosen value only 20% of the time. In other words, 80% of the time, we can be sure that the option is attractive to the user. This is noticeable from the two predictive posterior ditributions in the figure above. When comparing the predictive mean, the $$x_1$$ is chosen as a better option but the 20th percentile values would choose $$x_2$$ over $$x_1$$.
+In this recommendation problem, we want to rank the predictions which are attractive to the customer, in other words, rank the search results based on which the model classifies as '1' most confidently. The softmax probability from the neural network denotes the strength of belonging to a class. Apart from this, we want another measure by which we can quantify how good the prediction is, or determine how confident the model is about the prediction. The uncertainty (variance of the posterior) is useful in such a ranking setting as well. One thing to keep in mind, is that this variance is underestimated when variational inference is employed as opposed to sampling based techniques. Hence this variance is more of a guideline rather than a hard reliable estimate of the actual uncertainty. We could however, use the uncertainty including ranking measure by choosing the 20th percentile (or the lower quartile). The best percentile which can be used as a ranking measure can be determined by plotting it in a calibration plot. The measure which is closest to the diagonal is as close as we get to the "ground truth" probability. The idea behind choosing a lower percentile probability for ranking is that, the 20% percentile for example indicates that the predictions made by the model will be lower than this chosen value only 20% of the time. In other words, 80% of the time, we can be sure that the option is attractive to the user. This is noticeable from the two predictive posterior distributions in the figure above. When comparing the predictive mean, the $$x_1$$ is chosen as a better option but the 20th percentile values would choose $$x_2$$ over $$x_1$$.
 
 Another typical use of uncertainty in recommender systems is to tackle the exploration versus exploitation problem. There is a constant challenge in presenting a user with something they have shown preference towards while finding new options that are equally attractive. For example, maybe you always stay in the same 4-star hotel in Berlin Mitte when you visit the city and you rate it 8/10. But let's say there's a new hotel with similar characteristics  but the recommender system is not sure what your preference towards this hotel can be - it ranges between 1 and 10. Using this confidence interval, if you wish to explore, you would choose to stay in the new hotel since it could 'the' one and you give it a 10. One advanced method from the family of algorithms dealing with such a multi armed bandit problem is Upper Confidence Bound (UCB). The confidence bound indicates our uncertainty of the user's preference towards the new option and this technique uses the variance of the posterior for estimation.
 
