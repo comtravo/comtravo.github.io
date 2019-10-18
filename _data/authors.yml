@@ -33,3 +33,17 @@ bharathi_srini:
     role: Machine Learning Engineer
     avatar: authors/bharathisrinivasan.jpg
     bio: Bharathi is a Masters graduate in Economics and Management Science from Humboldt University of Berlin. The focus of her master thesis was on applying Bayesian Neural Networks as a recommender system. Her interests in machine learning include Bayesian methods, deep learning, probabilistic graphical models and causal inference.
+puneeth_n:
+    name: Puneeth Nanjundaswamy
+    email: tech@comtravo.com
+    web: https://www.github.com/puneeth-n
+    role: Senior Cloud Infrastructure Engineer
+    avatar: authors/puneeth_n.jpg
+    bio: Puneeth is passionate about cloud infrastructure and likes to work on the cloud infrastructure side of things. He is a GitOps and Infrastructure-as-Code evangelist. In his free time he likes to contribute to open source projects.
+marko_schilde:
+    name: Marko Schilde
+    email: tech@comtravo.com
+    web: https://www.github.com/mschilde
+    role: Chief Technology Officer
+    avatar: authors/markoschilde.jpg
+    bio: 
