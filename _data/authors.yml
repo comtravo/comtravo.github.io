@@ -40,3 +40,10 @@ marko_schilde:
     role: Chief Technology Officer
     avatar: authors/markoschilde.jpg
     bio: 
+davit_ohanyan:
+    name: Davit Ohanyan
+    email: tech@comtravo.com
+    web: https://www.github.com/OhDavit
+    role: Principal Engineer
+    avatar: authors/davitohanyan.jpg
+    bio: 
