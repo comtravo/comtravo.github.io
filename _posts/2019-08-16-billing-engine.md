@@ -25,13 +25,13 @@ The solution which organizes these workflows we call `Billing Engine`. I want to
 
 # Solution
 
- The `Billing Engine` itself runs purely on `Serverless` by utilizing AWS infrustructure and consuming our internal APIs. It get's triggered by AWS cloudwatch, which provides for each business case specific input.  
- 
+ The `Billing Engine` itself runs purely on `Serverless` by utilizing AWS infrustructure and consuming our internal APIs. It get's triggered by AWS cloudwatch, which provides for each business case specific input.
+
  ![Cloudwatch triggers Lambda function](/images/2019_08_16/cloudwatch_triggers_lambda.png)
 
  You can easily configure clowdwatch event with `Terraform` as following:
 
- ``` 
+ ```
  resource "aws_cloudwatch_event_target" "ci_monthly" {
   rule = "${aws_cloudwatch_event_rule.ci_monthly.name}"
   arn  = "${module.lambda-finance-report-preprocessor.lambda_arn}"
@@ -45,17 +45,17 @@ INPUT
 }
  ```
 
-The first Lambda function which get's triggered we call pre-processor. Based on input from cloudwatch event the pre-processor(feeder) Lambda function loads the bookings happened during specified period of time from our (micro)service and figures out for which companies reports must be generated. Each event is processed by `Step function` which consists of multiple lambda functions. It is responsible for generating invoices and reports, and sending those reports to our customers via `SES`. 
+The first Lambda function which get's triggered we call Pre-rocessor. Based on input from cloudwatch event the Pre-processor Lambda function loads the bookings happened during specified period of time from our (micro)service and figures out for which companies reports must be generated. Number of events are at variable rate and in practice there can be more than 10K events. Each of these events is processed by `Step function` which consists of multiple `Lambda functions`. It is responsible for generating invoices and reports, and sending those reports to our customers via `SES`.
 
-In order to meet `SLA` and allow the system to function in case of extreme load on resources cloud providers are adopting `Throttling pattern` to control the consumption of resources used by an instance of an application, an individual tenant, or an entire service. 
-So in our case if we start processing events for all companies at once, i.e. stating as many step functions as we have events, we would get rate limit exception: ThrottlingException. There are several approaches for coping with this issue, one of them for example is [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm which uses progressively longer waits between retries for consecutive error responses.
-Unfortunatelly it can perform quite poorly when a lot of clients trigger requests at the same time and processing requests is not matter of couple of milliseconds. 
+In order to meet `SLA` and allow the system to function in case of extreme load on resources cloud providers are adopting `Throttling pattern` to control the consumption of resources used by an instance of an application, an individual tenant, or an entire service.
+So in our case if we start processing events for all companies at once, i.e. start as many `Step functions` as we have events, we would get rate limit exception: ThrottlingException. There are several approaches for coping with this issue, one of them for example is [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm which uses progressively longer waits between retries for consecutive error responses.
+Unfortunatelly it can perform quite poorly when a lot of clients trigger requests at the same time and processing requests is not a matter of couple of milliseconds. Google [recommends](https://landing.google.com/sre/sre-book/chapters/handling-overload/) for example to implement client-side throttling to prevent overloading backend  with just rejecting requests.
+
 In order to solve this issue we implemented pattern called `Queue-Based Load Leveling`.
- 
 ![Queue and Lambda function control the rate](/images/2019_08_16/queue-based-load-leveling-pattern.png)
 
 
-So instead of directly triggering AWS Step function, Pre-processor Lambda feeds `SQS`. On the other side of the queue is Gatekeeper Lambda function is responsible for triggering `Step Function` by controling it's number of parallel executions. It checks whether there is a capacity for new `Step functions` to run, and if so fetchs events with pre-defined limits from the queue and triggers `Step functions`. Here is some code snippet on how to create check number of running `Step functions` in TypeScript.
+So instead of directly triggering AWS Step function, Pre-processor Lambda feeds `SQS`. `SQS` provides great API BLABLA and can handle unlimited number of events in case BLABLA, so as a temporary storage is perfect. On the other side of the queue is `Gatekeeper Lambda` function is responsible for triggering `Step Function` by controling it's number of parallel executions. Here is some code snippet on how to create check number of running `Step functions` in TypeScript.
 
 ```
 
@@ -82,5 +82,7 @@ for (let i = 0; i < numberOfStepFunctions; ++i) {
 await Promise.all(tasksToBeExecuted);
 
 ```
+
+At first it fetches running `Step functions` and checks whether there is a capacity to trigger new `Step functions`, and if so fetchs events with pre-defined limits from the queue and runs new `Step functions`.
 
 This approach doesn't solve all kind of problems, as still you have to think about individual `Lambda function's` behaviour in case of it's failure, but it's makes engine scalable and allows us to decouple events from `Step Functions`.
