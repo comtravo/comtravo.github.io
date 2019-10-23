@@ -20,7 +20,7 @@ One vivid example is our Billing Engine.
 
 # What is `Billing Engine`?
 
-At Comtravo for each booking we charge our customers and for those charges we need to provide invoices and financial reports. Clients can choose their payment method and billing aggregation option. For example, `Collective Invoice` payment method indicates that customer wants to collect multiple charges into one invoice. And billing aggregation indicates intervals(TODO) of charges to collect. For example, `monthly` and `semi-monthly` indicate that customer wants to collect all charges with us and issue invoice once per month or twice per month correspondingly.
+At Comtravo for each booking we charge our customers and for those charges we need to provide invoices and financial reports. Clients can choose their payment method and billing aggregation option. For example, `Collective Invoice` payment method indicates that customer wants to collect multiple charges into one invoice. And billing aggregation indicates intervals of charges to collect. For example, `monthly` and `semi-monthly` indicate that customer wants to collect all charges with us and issue invoice once per month or twice per month correspondingly.
 The solution which organizes these workflows we call `Billing Engine`. I want to hightlight that `Billing Engine` is much more than invoice issuer, it also generates report and sends to customer.
 
 # Solution
@@ -45,17 +45,18 @@ INPUT
 }
  ```
 
-The first Lambda function which get's triggered we call Pre-rocessor. Based on input from cloudwatch event the Pre-processor Lambda function loads the bookings happened during specified period of time from our (micro)service and figures out for which companies reports must be generated. Number of events are at variable rate and in practice there can be more than 10K events. Each of these events is processed by `Step function` which consists of multiple `Lambda functions`. It is responsible for generating invoices and reports, and sending those reports to our customers via `SES`.
+The first Lambda function which get's triggered we call Pre-rocessor. Based on input from cloudwatch event the Pre-processor Lambda function loads the bookings happened during specified period of time from our (micro)service and figures out for which companies reports must be generated. Number of events are at variable rate and in practice there can be more than 10K events. Each of these events is processed by `Step function` which consists of multiple `Lambda functions`. It generats invoices and reports, and sends them to our customers via `Simple Email Service`.
 
-In order to meet `SLA` and allow the system to function in case of extreme load on resources cloud providers are adopting `Throttling pattern` to control the consumption of resources used by an instance of an application, an individual tenant, or an entire service.
+In order to meet `service-level agreement` and allow the system to function in case of extreme load on resources cloud providers are adopting `Throttling pattern` to control the consumption of resources used by an instance of an application, an individual tenant, or an entire service.
 So in our case if we start processing events for all companies at once, i.e. start as many `Step functions` as we have events, we would get rate limit exception: ThrottlingException. There are several approaches for coping with this issue, one of them for example is [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm which uses progressively longer waits between retries for consecutive error responses.
-Unfortunatelly it can perform quite poorly when a lot of clients trigger requests at the same time and processing requests is not a matter of couple of milliseconds. Google [recommends](https://landing.google.com/sre/sre-book/chapters/handling-overload/) for example to implement client-side throttling to prevent overloading backend  with just rejecting requests.
+Unfortunatelly it can perform quite poorly when a lot of clients trigger requests at the same time and processing requests is not a matter of couple of milliseconds. Google [recommends](https://landing.google.com/sre/sre-book/chapters/handling-overload/) for example to implement client-side throttling to prevent overloading backend with just rejecting requests.
 
 In order to solve this issue we implemented pattern called `Queue-Based Load Leveling`.
 ![Queue and Lambda function control the rate](/images/2019_08_16/queue-based-load-leveling-pattern.png)
 
 
-So instead of directly triggering AWS Step function, Pre-processor Lambda feeds `SQS`. `SQS` provides great API BLABLA and can handle unlimited number of events in case BLABLA, so as a temporary storage is perfect. On the other side of the queue is `Gatekeeper Lambda` function is responsible for triggering `Step Function` by controling it's number of parallel executions. Here is some code snippet on how to create check number of running `Step functions` in TypeScript.
+So instead of directly triggering AWS Step function, Pre-processor Lambda feeds `SQS`. `SQS` provides nearly unlimited throughput in case of standard queues enabling and scales dynamically based on demand of the application.
+On the other side of the queue is Gatekeeper `Lambda function` is responsible for triggering `Step Function` by controling it's number of parallel executions. Here is some code snippet on how to check number of running `Step functions` in TypeScript.
 
 ```
 
@@ -85,4 +86,6 @@ await Promise.all(tasksToBeExecuted);
 
 At first it fetches running `Step functions` and checks whether there is a capacity to trigger new `Step functions`, and if so fetchs events with pre-defined limits from the queue and runs new `Step functions`.
 
-This approach doesn't solve all kind of problems, as still you have to think about individual `Lambda function's` behaviour in case of it's failure, but it's makes engine scalable and allows us to decouple events from `Step Functions`.
+
+# Summary
+Decouplling events from `Step function` makes this approach extensible: in case of new type of payment method or billing aggregation we have to just add new `Cloudwatch trigger` by slightly adjusting Pre-processor `Lambda function`. It's also quite scalable as in case of new customers, i.e. more events, we don't have to deal with infrustructure limitations.
