@@ -1,7 +1,7 @@
 # Site wide configuration
 
 title: Comtravo Tech
-title_img: <img src=/images/comtravo-logo.png />
+title_img: <img src="https://s3-eu-west-1.amazonaws.com/ct-backend-images/logo/logo-email.png" />
 description: ""
 logo: ct-logo-120x120.png # 120x120 px default image used for Twitter summary card
 teaser: ct_teaser.jpg # 400x250 px default teaser image used in image archive grid
