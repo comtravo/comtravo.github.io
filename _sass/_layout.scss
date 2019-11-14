@@ -6,8 +6,8 @@
    Masthead
    ========================================================================== */
 
-#masthead {
-	padding: $gutter;
+   #masthead {
+	padding: $gutter / 3 $gutter ;
 	z-index: 5;
 	@include transform(translate(0,0));
 	@include transition(500ms cubic-bezier(.645,.045,.355,1.000));
@@ -17,6 +17,11 @@
 	.inner-wrap {
 		@include outer-container;
 	}
+
+	@include media($medium) {
+		padding: $gutter; 
+	}
+
 }
 .site-title {
 	@include row;
@@ -32,6 +37,12 @@
 	@include font-size(20,no);
 	line-height: .5 * $masthead-height; // half the height to center vertically
 	text-transform: uppercase;
+	img {
+		width:11rem;
+		@include media($medium) {
+			width:15rem;
+		}
+	}
 }
 
 
