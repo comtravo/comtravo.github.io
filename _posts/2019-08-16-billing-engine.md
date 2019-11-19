@@ -7,7 +7,7 @@ categories: [aws,serverless]
 comments: false
 share: true
 description: Billing Engine on AWS Serverless
-usemathjax: true
+usemathjax: false
 author: davit_ohanyan
 image:
   teaser: 2019_08_16/teaser.jpg
@@ -15,21 +15,19 @@ image:
 
 ---
 
-At Comtravo we utilize AWS serverless infrustructure for many our business cases. Particularly Lambda functions and Step functions enable us to design and implement solutions for various complex business workflows in the same time allow us to extend those solutions in the future.
-One vivid example is our Billing Engine.
+At Comtravo, we utilize AWS serverless infrastructure for many of our business cases. Lambda functions and Step functions, in particular, enable us to design and implement solutions for various complex business workflows. They also allow us to flexibly extend those solutions in the future. One example is our Billing Engine. In this post, I'll discuss how we built a scalable and extensible billing engine that avoids service level throttling even at times of high load.
 
-# What is `Billing Engine`?
+# What is a `Billing Engine`?
 
-At Comtravo for each booking we charge our customers and for those charges we need to provide invoices and financial reports. Clients can choose their payment method and billing aggregation option. For example, `Collective Invoice` payment method indicates that customer wants to collect multiple charges into one invoice. And billing aggregation indicates intervals of charges to collect. For example, `monthly` and `semi-monthly` indicate that customer wants to collect all charges with us and issue invoice once per month or twice per month correspondingly.
-The solution which organizes these workflows we call `Billing Engine`. I want to hightlight that `Billing Engine` is much more than invoice issuer, it also generates report and sends to customer.
+At Comtravo, we charge our customers per booking. For those charges, we need to provide invoices and financial reports. Our customers can choose their payment method and billing aggregation option. For example, the `Collective Invoice` payment method indicates that a customer wants to collect multiple charges into one invoice. Billing aggregations indicate intervals of charges to collect. For example, `monthly` and `semi-monthly` indicate that a customer wants to collect charges into a monthly invoice or bi-weekly invoice respectively. We call the solution that organizes these workflows the `Billing Engine`. I want to highlight that the `Billing Engine` is much more than an invoice issuer, it also generates reports and handles sending those reports to our customers.
 
 # Solution
 
- The `Billing Engine` itself runs purely on `Serverless` by utilizing AWS infrustructure and consuming our internal APIs. It get's triggered by AWS cloudwatch, which provides for each business case specific input.
+The `Billing Engine` itself runs purely on [`Serverless` infrastucture on AWS](https://tech.comtravo.com/aws/cloud/serverless/project_a_marko/) and consumes our internal APIs. It is triggered by AWS cloudwatch, which provides specific input for each business case.
 
  ![Cloudwatch triggers Lambda function](/images/2019_08_16/cloudwatch_triggers_lambda.png)
 
- You can easily configure clowdwatch event with `Terraform` as following:
+We've configured cloudwatch events with `Terraform`. It's rather simple to do, for instance like the following:
 
  ```
  resource "aws_cloudwatch_event_target" "ci_monthly" {
@@ -45,20 +43,23 @@ INPUT
 }
  ```
 
-The first Lambda function which get's triggered we call Pre-rocessor. Based on input from cloudwatch event the Pre-processor Lambda function loads the bookings happened during specified period of time from our (micro)service and figures out for which companies reports must be generated. Number of events are at variable rate and in practice there can be more than 10K events. Each of these events is processed by `Step function` which consists of multiple `Lambda functions`. It generats invoices and reports, and sends them to our customers via `Simple Email Service`.
+The first Lambda function that is triggered is the pre-processor. Based on the cloudwatch input, the pre-processor loads bookings that happened during a specified period of time. The pre-processor then figures out which companies have reports due. The number of booking events varies; in practice, there are often more than 20K events for each run of the lambda function. Each of these events is processed by a `Step function` that itself consists of multiple `Lambda functions`. Together, they generate invoices and reports and handle sending those to our customers via the `Simple Email Service`.
 
-In order to meet `service-level agreement` and allow the system to function in case of extreme load on resources cloud providers are adopting `Throttling pattern` to control the consumption of resources used by an instance of an application, an individual tenant, or an entire service.
-So in our case if we start processing events for all companies at once, i.e. start as many `Step functions` as we have events, we would get rate limit exception: ThrottlingException. There are several approaches for coping with this issue, one of them for example is [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm which uses progressively longer waits between retries for consecutive error responses.
-Unfortunatelly it can perform quite poorly when a lot of clients trigger requests at the same time and processing requests is not a matter of couple of milliseconds. Google [recommends](https://landing.google.com/sre/sre-book/chapters/handling-overload/) for example to implement client-side throttling to prevent overloading backend with just rejecting requests.
+# The Challenge of Throttling
 
-In order to solve this issue we implemented pattern called `Queue-Based Load Leveling`.
+In order to maintain a high level of quality of service, cloud providers can throttle services during peak times. This allows the cloud provider to ensure their overall system is stable. The resource throttling can be limited to individual instances of an application or be more general and throttle entire services. The potential throttling has a major impact on how application developers need to design services. 
+
+In our use case, if we started processing events for all companies at once, for instance, by starting as many `Step functions` as we have events, the lambda and step functions would get rate limited. There are several approaches to resolve this issue. For example, the [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm uses progressively longer waits between retries for consecutive rate limit responses. Exponential backoff, however, can perform quite poorly in practice when a lot of clients issue long-running requests at the same time. The cloud provider can become overloaded simply from having to _reject_ a large number of requests. A better approach would be to implement client-side throttling, which allows the application developer to account for application-specific behaviors. Google [recommends](https://landing.google.com/sre/sre-book/chapters/handling-overload/) client-side throttling to prevent overloading server backends with just rejecting requests.
+
+In order to solve the throttling issue, we implemented `Queue-Based Load Leveling`.
 ![Queue and Lambda function control the rate](/images/2019_08_16/queue-based-load-leveling-pattern.png)
 
 
-So instead of directly triggering AWS Step function, Pre-processor Lambda feeds `SQS`. `SQS` provides nearly unlimited throughput in case of standard queues enabling and scales dynamically based on demand of the application.
-On the other side of the queue is Gatekeeper `Lambda function` is responsible for triggering `Step Function` by controling it's number of parallel executions. Here is some code snippet on how to check number of running `Step functions` in TypeScript.
+Instead of directly triggering an AWS Step function, the pre-processor Lambda feeds a work queue based on [`SQS`](https://aws.amazon.com/sqs/). `SQS` provides nearly unlimited throughput and scales dynamically based on the demand of the application. On the other side of the queue, a Gatekeeper `Lambda function` actively controls the number of parallel `Step Function`s. Below is a code snippet of how to check the number of running `Step functions` in TypeScript.
 
-```
+First, we fetch the currently running `Step function`s and check whether there is enough capacity to trigger a new `Step function`. If there is available capacity, we fetch events with pre-defined limits from the work queue and run new `Step function`s. Below is a rough implementation in TypeScript.
+
+```TypeScript
 
 const stepFunctions = new AWS.StepFunctions();
 
@@ -84,8 +85,8 @@ await Promise.all(tasksToBeExecuted);
 
 ```
 
-At first it fetches running `Step functions` and checks whether there is a capacity to trigger new `Step functions`, and if so fetchs events with pre-defined limits from the queue and runs new `Step functions`.
 
 
 # Summary
-Decouplling events from `Step function` makes this approach extensible: in case of new type of payment method or billing aggregation we have to just add new `Cloudwatch trigger` by slightly adjusting Pre-processor `Lambda function`. It's also quite scalable as in case of new customers, i.e. more events, we don't have to deal with infrustructure limitations.
+
+Decoupling event triggers from the `Step function` that handles the event makes our approach both scalable and extensible. If there is a new type of payment method or billing aggregation, all we need to do is add a new `Cloudwatch trigger` and slightly adjust the pre-processor `Lambda function`. The approach is also scalable and allows us to handle peak times easily. A sudden increase in the number of billing events does not cause a service disruption due to infrastructure limitations.
