@@ -26,6 +26,13 @@ matti_lyra:
     role: Research Engineer in NLP
     avatar: authors/mattilyra.jpg
     bio: Matti has been an active member of the data science community in Berlin, he has led the PyData Berlin committee since 2016. Matti holds a PhD in Natural Language Processing from the University of Sussex. His thesis explored using topical bias in large text corpora to build better ensemble models for text classification. Beyond his work at Comtravo he's interested in language and linguistics, the philosophy of AI, cycling, photography and coffee.
+bharathi_srini:
+    name: Bharathi Srinivasan
+    email: tech@comtravo.com
+    web: https://www.github.com/bharathi-srini
+    role: Machine Learning Engineer
+    avatar: authors/bharathisrinivasan.jpg
+    bio: Bharathi is an engineer by background and a Master's graduate in Economics and Management Science from Humboldt University of Berlin. The focus of her master thesis was on applying Bayesian Neural Networks as a recommender system. Her interests in machine learning include Bayesian methods, deep learning, probabilistic graphical models and causal inference.
 puneeth_n:
     name: Puneeth Nanjundaswamy
     email: tech@comtravo.com
