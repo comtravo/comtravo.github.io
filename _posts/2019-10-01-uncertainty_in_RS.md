@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Uncertainty in Recommender Systems
-date: 2019-10-01 11:25:00  # if the publication date is in the future the article will be published on that future date
+date: 2019-11-25 11:25:00  # if the publication date is in the future the article will be published on that future date
 categories: [Uncertainty, Bayesian statistics, Neural networks]
 comments: true
 share: true
