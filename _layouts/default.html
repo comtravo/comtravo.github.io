@@ -27,7 +27,7 @@
       <script src="{{ site.url }}/js/vendor/respond.min.js"></script>
     <![endif]-->
 
-    {% include analytics.html %}
+    {% include gtm-head.html %}
 
   {% if page.usemathjax %}
   <script type="text/javascript" async
@@ -40,6 +40,7 @@
   </head>
 
   <body id="js-body">
+    {% include gtm-body.html %}
     {% include browser-upgrade.html %}
     {% include header.html %}
     {% include navigation-sliding.html %}
