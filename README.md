@@ -123,3 +123,14 @@ Conclusion:
 Sum up your post/findings
 You can also give an outlook or use call to actions
 
+
+Update the setup
+=================
+
+cf, https://github.com/envygeeks/jekyll-docker; basically adjust the jekyll version in the `Gemfile` and run the following command with the same verison
+
+```sh
+docker run --rm --volume="$PWD:/srv/jekyll" -it jekyll/jekyll:4.2.0 bundle update
+```
+
+and commit

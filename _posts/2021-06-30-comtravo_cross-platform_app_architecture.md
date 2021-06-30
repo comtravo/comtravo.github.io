@@ -1,21 +1,19 @@
 ---
 layout: article
 title: Building a real cross-platform app including continuous delivery
-description: "This article describes how a single page (web)application can be distributed through the iOS AppStore and Google Play Store.".
 date: 2021-06-30 12:00:00
 published: true
-categories: []
-comments: true
+categories: [iOS,android,app]
+comments: false
 share: true
+description: Cross platform app
 usemathjax: false
 author: oleg_hein
 image:
-  teaser: teasers/teaser_comtravo_cross-platform_app_architecture.png
+  teaser: 2021_06_30/teaser.png
   feature: 2021_06_30/comtravo_cross-platform_app_architecture.png
+
 ---
-
-
-# Building a real cross-platform app including continuous delivery
 
 ### tl;dr
 
