@@ -54,3 +54,10 @@ davit_ohanyan:
     role: Engineering Manager
     avatar: authors/davitohanyan.jpg
     bio: 
+oleg_hein:
+    name: Oleg Hein
+    email: tech@comtravo.com
+    web: https://www.github.com/oleg-comtravo
+    role: Senior Frontend Engineer
+    avatar: authors/oleg-hein.jpg
+    bio: 
