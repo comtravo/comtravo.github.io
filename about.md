@@ -25,7 +25,7 @@ published: true
 		<div class="inner-wrap">
 			<div id="content" class="page-content" itemprop="articleBody">
                 <footer class="page-footer">
-                <h2>The Comtravo tech blog is written by</h2>
+                <h4>The Comtravo tech blog is written by many great minds. Not surprinsgly many of them are current or former Comtravo employees.</h4>
                 {% for author in site.data.authors %}
                     <div class="author-image">
                         <img src="{{ site.url }}/images/{{ author[1].avatar }}" alt="{{ author[1].name }}">
