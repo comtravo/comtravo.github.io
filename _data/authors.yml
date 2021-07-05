@@ -9,9 +9,9 @@ ruwan_geeganage:
     name: Ruwan Geeganage
     email: tech@comtravo.com
     web: https://rpgeeganage.github.io/
-    role: Software Architect
+    role: JS Enthusiast | Fan of Super Heros
     avatar: authors/ruwangeeganage.jpg
-    bio: Ruwan is an experienced Software Engineer with 10+ years of working experience. He is an enthusiastic team player dedicated to streamlining processes and efficiently resolving project issues. He excels at NodeJs, JavaScript, MongoDB, including coordinating ground-up planning, programming, and implementation of core modules.
+    bio: Ruwan is an experienced software engineer with 10+ years of working experience. He is an enthusiastic team player dedicated to streamlining processes and efficiently resolving project issues. He excels at NodeJs, JavaScript, and MongoDB, including coordinating ground-up planning, programming, and implementation of core modules.
 sebastian_mika:
     name: Sebastian Mika
     email: tech@comtravo.com
@@ -44,7 +44,7 @@ marko_schilde:
     name: Marko Schilde
     email: tech@comtravo.com
     web: https://www.github.com/mschilde
-    role: Seasons CTO | Tech Aficionado
+    role: Seasoned CTO | Tech Aficionado
     avatar: authors/markoschilde.jpg
     bio: Marko is a seasoned CTO who loves building teams, software and companies
 davit_ohanyan:
