@@ -61,3 +61,10 @@ oleg_hein:
     role: Senior Frontend Engineer
     avatar: authors/oleg-hein.jpg
     bio: Oleg loves building frontends that shine - visually and technically.
+sandip_mukherjee:
+    name: Sandip Mukherjee
+    email: tech@comtravo.com
+    web: https://www.github.com/sandipmukherjee
+    role: Machine Learning Engineer
+    avatar: authors/sandipmukherjee.jpeg
+    bio: Sandip works in NLP pipeline and automation system in comtrao to automate email requests.
