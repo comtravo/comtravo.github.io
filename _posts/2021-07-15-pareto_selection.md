@@ -25,22 +25,21 @@ Please book me a single room in Berlin at the Marriot Hotel from June 8th to Jun
 
 ```json
 {
-    "item_type":"hotelRequest",
-    "check_in":"2021-06-08",
-    "check_out":"2021-06-10",
-    "number_of_rooms":1,
-    "location":{
-    "city":"Berlin",
-    "country":"DE",
-    "street_1":" ",
-    "label":"Marriot Hotel",
-    "longitude":10.0379881,
-    "latitude":48.4061125
+    "item_type": "hotelRequest",
+    "check_in": "2021-06-08",
+    "check_out": "2021-06-10",
+    "number_of_rooms": 1,
+    "location": {
+        "city": "Berlin",
+        "country": "DE",
+        "street_1": " ",
+        "label": "Marriot Hotel",
+        "longitude": 10.0379881,
+        "latitude": 48.4061125
     },
-    "room_type":"single",
-    "poi":true
+    "room_type": "single",
+    "poi": true
 }
-
 ```
 
 Based on such structured representation of a customer request, the automation module searches for supply, e.g. flights, trains, or hotels, in accordance with the request using third party APIs. Depending on the vertical and the request, anything between zero and a few thousands of search results can be returned from the supply side(s).
@@ -50,7 +49,7 @@ To generate an offer, the automation must now rank those search results and find
 <center>
 <figure>
   <img style="width: 70%; height: 70%" src="/images/2021_07_15/automation_flow.png">
-  <figcaption><b>Automation flow</b> </figcaption>
+  <figcaption><b>Automation Flow</b> </figcaption>
 </figure>
 </center>
 
@@ -86,7 +85,7 @@ Putting the options on a graph with axis *price* and *duration* we get:
 <center>
 <figure>
   <img style="width: 50%; height: 50%" src="/images/2021_07_15/graph_pareto_multiple_optimal.png">
-  <figcaption><b>Multiple pareto optimal in criterion space</b> </figcaption>
+  <figcaption><b>Multiple Pareto optimal solutions in criterion space</b> </figcaption>
 </figure>
 </center>
 
@@ -95,13 +94,12 @@ We see that `Train 1` in this criterion space has the lowest value of travel dur
 * Any point in the Pareto front is considered *Pareto Optimal*. By moving along the edge we can minimize price at expense of duration, or minimize duration at expense of price, but we cannot minimize both.
 * In this case, both `Train 1` and `Train 2` will be Pareto optimal points. Hence they will rank higher than `Train 3`. Ranking between `Train 1` and `Train 2` - without any further conditions like in this example - is arbitrary.
 * `Train 3` is called *Pareto Inefficient* as there exists at least one more point which is better than `Train 3` in all objectives.
-* In our algorithm, we put Pareto optimal points first and then append Pareto inefficient points to the ranking. We do not exclude Pareto inefficient points at this stage, since might offer more options to users in case there are very few Pareto optimal points available.
+* In our algorithm, we put Pareto optimal points first and then append Pareto inefficient points to the ranking. We do not exclude Pareto inefficient points - if there are very few (or no) Pareto optimal points we might still offer them.
 
 ### Example 2 - One Pareto Optimal Result
 
-In this example we will minimize one objective **Price** satisfying 1 constraint **FlexibleTicketConstraint**.
-Constraints are binary criteria which is either met or not met. Constraints and objectives together 
-create pareto frontier and pareto optimal points.
+In this example we will minimize one objective **Price** and try to satisfy one constraint **FlexibleTicketConstraint**.
+Constraints are binary criteria which are either met or not met. Constraints and objectives together create Pareto frontiers and Pareto optimal points.
 
 |Name | Price | Flexible Ticket|
 |--------|-------|---------|
@@ -114,7 +112,7 @@ Again, as a graph this looks like:
 <center>
 <figure>
   <img style="width: 50%; height: 50%" src="/images/2021_07_15/graph_pareto_one_optimal.png">
-  <figcaption><b>One Pareto optimal in criterion space</b> </figcaption>
+  <figcaption><b>One Pareto optimal solution in criterion space</b> </figcaption>
 </figure>
 </center>
 
@@ -139,27 +137,28 @@ But now we will have three constraints:
 | Direct connection | `NoStopOverCostraint`|
 
 One train connection is better than another when it beats the other in, both objectives and constraints.
-In the below table, `Train 1` is better than `Train 2` as it beats `Train 2` in two constraints while not loosing in objectives and other constraints:
+In the below table, `Train 1` is better than `Train 2` as it beats `Train 2` in two constraints while not stying below in the objectives (and the other constraint):
 
 |Name | Price | Duration|Flexible|Time|Stops
 |--------|-------|---------|---------|---------|---------|
 | `Train 1`| 20 euros  | 1 hour|yes|08:00| 0
 | `Train 2`| 20 euros | 1 hour|No|09:00| 1
 
-In practice, for more search results, constraints and objective, the algorithm will iterate over all the train connections returned by the search. 
+In practice, for more search results, constraints and objective, the algorithm will iterate over all the results returned by the search.
 
 For every search result:
 
-* It compares the item with every other items in the list
+* It compares the item with every other items in the result list
 * If there is at least one other item which is better than the current item, it is marked as Pareto inefficient
 * Otherwise the current item is marked as Pareto optimal
 
 In the end each item will either be marked Pareto optimal or Pareto inefficient. The algorithm will rank the Pareto optimal points higher than others.
 
-
 ## Conclusion
 
 Pareto selection works very well for this use case, especially when the request has many constraints since the algorithm is designed to handle multi-objective and multi constraints optimization problem.
 
-It practice, it can be further improved by specifying which objective has higher precedence to sort among the pareto optimal points especially when there are multiple optimal points. How we do this in detail is, however, material for another article.
-Our special thanks to Gabriele Lanaro for contribution in ideation and implementation of the pareto selection for ranking.
+Of course in practice we still need a way to rank amongst the Pareto optimal and Pareto inefficent points.
+This we achieve by specifying a precedence between objectives and sorting among the Pareto optimal points accordingly. How we do this in detail is, however, material for another article.
+
+Our special thanks to Gabriele Lanaro for contribution in ideation and implementation of the Pareto selection for ranking.
