@@ -20,19 +20,28 @@ At Comtravo, amongst others, we process incoming requests with travel itinerarie
 This is an example of such a request and its structured representation
 
 ```text
-Please book me a room in Berlin at the Marriot Hotel from June 8th to June 10th 2021.
+Please book me a single room in Berlin at the Marriot Hotel from June 8th to June 10th 2021.
 ```
 
 ```json
-Please put request here as json
-```
+{
+    "item_type":"hotelRequest",
+    "check_in":"2021-06-08",
+    "check_out":"2021-06-10",
+    "number_of_rooms":1,
+    "location":{
+    "city":"Berlin",
+    "country":"DE",
+    "street_1":" ",
+    "label":"Marriot Hotel",
+    "longitude":10.0379881,
+    "latitude":48.4061125
+    },
+    "room_type":"single",
+    "poi":true
+}
 
-<center>
-<figure>
-  <img style="width: 30%; height: 30%" src="/images/2021_07_15/structured_request.png">
-  <figcaption><b>Structured request</b> </figcaption>
-</figure>
-</center>
+```
 
 Based on such structured representation of a customer request, the automation module searches for supply, e.g. flights, trains, or hotels, in accordance with the request using third party APIs. Depending on the vertical and the request, anything between zero and a few thousands of search results can be returned from the supply side(s).
 
@@ -41,7 +50,7 @@ To generate an offer, the automation must now rank those search results and find
 <center>
 <figure>
   <img style="width: 70%; height: 70%" src="/images/2021_07_15/automation_flow.png">
-  <figcaption><b>Automation flow REDUCE DETAILS/FIX CAPITALIZATION/MATCH WITH FACTS IN TEXT</b> </figcaption>
+  <figcaption><b>Automation flow</b> </figcaption>
 </figure>
 </center>
 
@@ -50,11 +59,11 @@ To generate an offer, the automation must now rank those search results and find
 The reminder of this article is about how we rank these search results. Ranking in this situation is a multi objective problem along with some constraints.
 
 * *Objectives & Preferences*: We have multiple objectives. For example, we need to provide flight options which are cheap and fast at the same time. In this article we are optimising the price and duration of a flight. We call these **objectives** or - because that is what it usually looks like from a human perspective - **preferences**.
-* *Constraints*: On the other hand, there are constraints. Contraints are hard, non-negotiable limits on the resource. In our context, constraints can be e.g. that a flight must be cancelable, or that a specific hotel is being requested. These constraints are mostly coming from the user request.
+* *Constraints*: On the other hand, there are constraints. **Constraints** are hard, non-negotiable limits on the resource. In our context, constraints can be e.g. that a flight must be cancelable, or that a specific hotel is being requested. These constraints are mostly coming from the user request.
 
-Without going into detail, lets assume that all objectives are something that we want to minimize (in practive there are clearly objectives we want to maximise - e.g. convenience - but they can all be reformulated to a minimization problem - e.g. inconvenience). Then what we need to achieve is to find options from the search results, that minimize our various objectives as well as possible, whilst fulfilling the constraints. It is important to notice that all objectives are independant, or at least that there is no easy way to combine them into a single objective. This is mainly because there is just no obvious way how to weight e.g. price vs. duration for a flight.
+Without going into detail, lets assume that all objectives are something that we want to minimize (in practice there are clearly objectives we want to maximise - e.g. convenience - but they can all be reformulated to a minimization problem - e.g. inconvenience). Then what we need to achieve is to find options from the search results, that minimize our various objectives as well as possible, whilst fulfilling the constraints. It is important to notice that all objectives are independent, or at least that there is no easy way to combine them into a single objective. This is mainly because there is just no obvious way how to weight e.g. price vs. duration for a flight.
 
-So we need a method to find good solutions to this kind of multiobjective problems. And one of them is **Pareto Optimality**, named after the economist [Vilfredo Pareto](https://en.wikipedia.org/wiki/Vilfredo_Pareto).
+So we need a method to find good solutions to this kind of multi objective problems. And one of them is **Pareto Optimality**, named after the economist [Vilfredo Pareto](https://en.wikipedia.org/wiki/Vilfredo_Pareto).
 
 ## Pareto Optimization
 
@@ -90,14 +99,15 @@ We see that `Train 1` in this criterion space has the lowest value of travel dur
 
 ### Example 2 - One Pareto Optimal Result
 
-In this example we found 4 connections for this trip:
+In this example we will minimize one objective **Price** satisfying 1 constraint **FlexibleTicketConstraint**.
+Constraints are binary criteria which is either met or not met. Constraints and objectives together 
+create pareto frontier and pareto optimal points.
 
-|Name | Price | Duration|
+|Name | Price | Flexible Ticket|
 |--------|-------|---------|
-| `Train 1`| 80 euros  | 1 hour|
-| `Train 2`| 20 euros | 4 hours|
-|`Train 3`| 100 euros | 10 hours|
-|`Train 4`| 10 euros | 0.5 hours|
+| `Train 1`| 80 euros  | No|
+| `Train 2`| 20 euros | Yes|
+|`Train 3`| 100 euros | No|
 
 Again, as a graph this looks like:
 
@@ -108,11 +118,11 @@ Again, as a graph this looks like:
 </figure>
 </center>
 
-In this case, there is one Pareto optimal point which is `Train 4` and all others are Pareto ineffienct. Hence `Train 4` will be ranked highest.
+In this case, there is one Pareto optimal point which is `Train 2` and all others are Pareto ineffienct. Hence `Train 2` will be ranked highest.
 
 ## Our Algorithm
 
-The above two examples are simple examples where we are trying to minimize two objectives without any constraints. In reality, we have more objectives and many constraints depending on the request. Let’s take the below train request as an example.
+The above two examples are simple examples where we have either two objectives or one objective with one constraint. In reality, we have more objectives and many constraints depending on the request. Let’s take the below train request as an example.
 
 |Origin | Destination | Ticket type | Departure time | Stop overs |
 |--------|-------|---------|--------|-------|
@@ -136,7 +146,9 @@ In the below table, `Train 1` is better than `Train 2` as it beats `Train 2` in 
 | `Train 1`| 20 euros  | 1 hour|yes|08:00| 0
 | `Train 2`| 20 euros | 1 hour|No|09:00| 1
 
-In practice, for more search results, constraints and objective, the algorithm will iterate over all the train connections returned by the search. For every search result:
+In practice, for more search results, constraints and objective, the algorithm will iterate over all the train connections returned by the search. 
+
+For every search result:
 
 * It compares the item with every other items in the list
 * If there is at least one other item which is better than the current item, it is marked as Pareto inefficient
@@ -144,10 +156,10 @@ In practice, for more search results, constraints and objective, the algorithm w
 
 In the end each item will either be marked Pareto optimal or Pareto inefficient. The algorithm will rank the Pareto optimal points higher than others.
 
-I DO NOT QUITE UNDERSTAND HOW THE CONTSRAINTS ARE REALLY HANDLED? ARE THEY HARD - THEN NOTHING THAT VIOLATES A CONTRAINT MAKES IT INTO THE RESULTS. OR ARE THEY JUST BINARY OPTIMIZATION CRITERIA? IN THE LATTER CASE WE SHOULD MAKE THAT CLEARER AND MAYBE ALSO GIVE AN EXMAPLE (ONE OBJECTIVE + ONE CONTRAINT)
 
 ## Conclusion
 
 Pareto selection works very well for this use case, especially when the request has many constraints since the algorithm is designed to handle multi-objective and multi constraints optimization problem.
 
-It practive, it can be further improved by specifying which objective has higher precedence to sort among the pareto optimal points especially when there are multiple optimal points. How we do this in detail is, however, material for another article.
+It practice, it can be further improved by specifying which objective has higher precedence to sort among the pareto optimal points especially when there are multiple optimal points. How we do this in detail is, however, material for another article.
+Our special thanks to Gabriele Lanaro for contribution in ideation and implementation of the pareto selection for ranking.
