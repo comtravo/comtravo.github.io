@@ -1,9 +1,9 @@
 ---
 layout: article
-title: Pareto Selection for search ranking
-date: 2021-07-15 12:00:00
+title: Pareto Selection for Search Ranking
+date: 2021-07-14 12:00:00
 published: true
-categories: [search-ranking, ranking-algorithm, pareto-selection]
+categories: [search, ranking, algorithm, pareto, selection]
 comments: false
 share: true
 description: Pareto optimization for ranking of search results
@@ -15,9 +15,18 @@ image:
 
 ---
 
-In comtravo, We have email requests coming from the user for a travel itinerary. The NLP engine converts that email to a structured request and our automation module receives the request for further offer generation. An example of a structured hotel request is below.
+At Comtravo, amongst others, we process incoming requests with travel itineraries. One way or the another, such requests are converted to a structured format and an automation module receives that request to spark automatic generation of offers. Such automatic offers are later reviewed by agents or - if they pass our QA scoring - directly send to customers.
 
-**Please book me a room in Berlin Marriot hotel from 8 June to 10 June 2021**
+This is an example of such a request and its structured representation
+
+```text
+Please book me a room in Berlin at the Marriot Hotel from June 8th to June 10th 2021.
+```
+
+```json
+Please put request here as json
+```
+
 <center>
 <figure>
   <img style="width: 30%; height: 30%" src="/images/2021_07_15/structured_request.png">
@@ -25,44 +34,45 @@ In comtravo, We have email requests coming from the user for a travel itinerary.
 </figure>
 </center>
 
-Our automation module then searches for flight/train/hotel in accordance with the request using third party apis and gathers search results. It can be 50-1000 search results based on how many searches the system did.
-Then it ranks those search results to find the best possible results so that it can send top n results to the customer.
+Based on such structured representation of a customer request, the automation module searches for supply, e.g. flights, trains, or hotels, in accordance with the request using third party APIs. Depending on the vertical and the request, anything between zero and a few thousands of search results can be returned from the supply side(s).
+
+To generate an offer, the automation must now rank those search results and find the best possible options. The best matching options are then send to the customer:
 
 <center>
 <figure>
   <img style="width: 70%; height: 70%" src="/images/2021_07_15/automation_flow.png">
-  <figcaption><b>Automation flow</b> </figcaption>
+  <figcaption><b>Automation flow REDUCE DETAILS/FIX CAPITALIZATION/MATCH WITH FACTS IN TEXT</b> </figcaption>
 </figure>
 </center>
 
-## Ranking of search Results
+## Ranking of Search Results
 
-This ranking is a multi objective problem along with some constraints.
+The reminder of this article is about how we rank these search results. Ranking in this situation is a multi objective problem along with some constraints.
 
-### Objectives/preferences
-We have multiple objectives here. For example, we want to provide flight options which are cheap and fast at the same time. Here we are optimising the price and duration of flight. We call these objectives/preferences.
-### Constraints
-The constraints are hard, non-negotiable limits on the resource. In our context, constraints can be a cancelable flight, a flexible train ticket, a specific hotel (not just a city) or a specific room type in a hotel (e.g twin bed). These constraints are coming from user requests.
+* *Objectives & Preferences*: We have multiple objectives. For example, we need to provide flight options which are cheap and fast at the same time. In this article we are optimising the price and duration of a flight. We call these **objectives** or - because that is what it usually looks like from a human perspective - **preferences**.
+* *Constraints*: On the other hand, there are constraints. Contraints are hard, non-negotiable limits on the resource. In our context, constraints can be e.g. that a flight must be cancelable, or that a specific hotel is being requested. These constraints are mostly coming from the user request.
 
-We want to minimize our objectives/preferences fulfilling the constraints.
+Without going into detail, lets assume that all objectives are something that we want to minimize (in practive there are clearly objectives we want to maximise - e.g. convenience - but they can all be reformulated to a minimization problem - e.g. inconvenience). Then what we need to achieve is to find options from the search results, that minimize our various objectives as well as possible, whilst fulfilling the constraints. It is important to notice that all objectives are independant, or at least that there is no easy way to combine them into a single objective. This is mainly because there is just no obvious way how to weight e.g. price vs. duration for a flight.
 
-One way to find good solutions to this kind of multiobjective problems is with **Pareto optimality**, named after economist Vilfredo Pareto.
+So we need a method to find good solutions to this kind of multiobjective problems. And one of them is **Pareto Optimality**, named after the economist [Vilfredo Pareto](https://en.wikipedia.org/wiki/Vilfredo_Pareto).
 
-## Pareto optimization
-The idea is to find solutions that help some objectives without hurting others.
-Let’s look at two examples to understand how it works.
- 
-### Example 1 - Multiple pareto optimal points
+## Pareto Optimization
 
-Let’s say a user requested a train from Berlin to Munich. We want to minimize time and duration here. For simplicity we are not considering any constraints here.
+The idea of Pareto optimization is to find solutions that help some objectives without hurting others. Let’s look at two examples to understand how it works.
+
+### Example 1 - Multiple Pareto Optimal Points
+
+Assuming a user requested a train from Berlin to Munich. We want to minimize time and duration here. For simplicity we are not considering any constraints.
 
 We found 3 connections for this trip.
 
 |Name | Price | Duration|
 |--------|-------|---------|
-| Train_1| 80 euros  | 1 hour|
-| Train_2| 20 euros | 4 hours|
-|Train_3| 100 euros | 10 hours|
+| `Train 1` | 80 euros  | 1 hour|
+| `Train 2`| 20 euros | 4 hours|
+| `Train 3`| 100 euros | 10 hours|
+
+Putting the options on a graph with axis *price* and *duration* we get:
 
 <center>
 <figure>
@@ -71,73 +81,73 @@ We found 3 connections for this trip.
 </figure>
 </center>
 
-Note that Train_1 in this criterion space has the lowest value of Travel Duration and Train_2 has the lowest price. The edge between them is the pareto front.
+We see that `Train 1` in this criterion space has the lowest value of travel duration and `Train 2` has the lowest price. The edge between them is called Pareto front. This Pareto front has some interesting properties:
 
--   Any point in the pareto front is considered “Pareto Optimal”. By moving along the curve you could minimize price at expense of Duration, or minimize Duration at expense of price, but you cannot minimize both.
-    
--   In this case, both Train_1 and Train_2 will be pareto optimal points hence they will be ranked higher than Train_3. Ranking between Train_1 and Train_2 is arbitrary.
-    
--   Train_3 is called pareto_inefficient as there exists at least one more point which is better than Train_3 in all objectives.
-    
--   In our algorithm, we put pareto optimal points first and then pareto inefficient points. We put pareto inefficient points in the bottom to provide more options to users in case there are very few pareto optimal points available.
+* Any point in the Pareto front is considered *Pareto Optimal*. By moving along the edge we can minimize price at expense of duration, or minimize duration at expense of price, but we cannot minimize both.
+* In this case, both `Train 1` and `Train 2` will be Pareto optimal points. Hence they will rank higher than `Train 3`. Ranking between `Train 1` and `Train 2` - without any further conditions like in this example - is arbitrary.
+* `Train 3` is called *Pareto Inefficient* as there exists at least one more point which is better than `Train 3` in all objectives.
+* In our algorithm, we put Pareto optimal points first and then append Pareto inefficient points to the ranking. We do not exclude Pareto inefficient points at this stage, since might offer more options to users in case there are very few Pareto optimal points available.
 
-### Example 2 - One Pareto optimal
-This time we found 4 connections for this trip.
+### Example 2 - One Pareto Optimal Result
+
+In this example we found 4 connections for this trip:
 
 |Name | Price | Duration|
 |--------|-------|---------|
-| Train_1| 80 euros  | 1 hour|
-| Train_2| 20 euros | 4 hours|
-|Train_3| 100 euros | 10 hours|
-|Train_4| 10 euros | 0.5 hours|
+| `Train 1`| 80 euros  | 1 hour|
+| `Train 2`| 20 euros | 4 hours|
+|`Train 3`| 100 euros | 10 hours|
+|`Train 4`| 10 euros | 0.5 hours|
+
+Again, as a graph this looks like:
 
 <center>
 <figure>
   <img style="width: 50%; height: 50%" src="/images/2021_07_15/graph_pareto_one_optimal.png">
-  <figcaption><b>One pareto optimal in criterion space</b> </figcaption>
+  <figcaption><b>One Pareto optimal in criterion space</b> </figcaption>
 </figure>
 </center>
 
-In this case, there is one pareto optimal point which is Train_4 and all others are pareto_ineffienct hence Train_4 will be ranked highest. Clearly, there are no other points which can beat Train_4 in Price or Duration.
+In this case, there is one Pareto optimal point which is `Train 4` and all others are Pareto ineffienct. Hence `Train 4` will be ranked highest.
 
-## Our algorithm
-The above two examples are simple examples where we are trying to minimize two objectives without any constraints.
+## Our Algorithm
 
-In reality, we have more objectives and many constraints depending on the request.
+The above two examples are simple examples where we are trying to minimize two objectives without any constraints. In reality, we have more objectives and many constraints depending on the request. Let’s take the below train request as an example.
 
-Let’s take the below train equest for example.
-
-
-|Origin | Destination | Ticket type | Departure time |Stop overs 
---------|-------|---------|--------|-------|
+|Origin | Destination | Ticket type | Departure time | Stop overs |
+|--------|-------|---------|--------|-------|
 |Berlin| Munich  | Flexible| 07:00-09:00 | No
 
-For above request we would minimise two objectives
-**Price and Duration**
+For above request we would minimise two objectives: **price and duration**
 
-And We will have three constraints
-**FlexibleCostraint, DepartureTimeConstraint, NoStopOverCostraint**
+But now we will have three constraints:
 
-One train connection is better than another when it beats the other in objectives and constraints both.
-In the below table, Train_1 is better than Train_2 as it beats Train_2 in two constraints while not loosing in objectives and other constraints.
+| Constraint | Name |
+|--------|-------|
+| Ticket should be flexible | `FlexibleCostraint` |
+| Departure between 7am and 9am | `DepartureTimeConstraint`|
+| Direct connection | `NoStopOverCostraint`|
+
+One train connection is better than another when it beats the other in, both objectives and constraints.
+In the below table, `Train 1` is better than `Train 2` as it beats `Train 2` in two constraints while not loosing in objectives and other constraints:
 
 |Name | Price | Duration|Flexible|Time|Stops
 |--------|-------|---------|---------|---------|---------|
-| Train_1| 20 euros  | 1 hour|yes|08:00|0
-| Train_2| 20 euros | 1 hour|No|09:00|1
+| `Train 1`| 20 euros  | 1 hour|yes|08:00| 0
+| `Train 2`| 20 euros | 1 hour|No|09:00| 1
 
-The algorithm will iterate over all the train connections returned by the search.
+In practice, for more search results, constraints and objective, the algorithm will iterate over all the train connections returned by the search. For every search result:
 
-For every item in the search responses list
- - It will compare the item with every other items in the list.
- - If there is at least one other item which is better than the current item, remove the current item from the list and move it to the pareto_inefficient points.
- - Otherwise copy it to pareto_optimal points.
+* It compares the item with every other items in the list
+* If there is at least one other item which is better than the current item, it is marked as Pareto inefficient
+* Otherwise the current item is marked as Pareto optimal
 
-Continue above steps these until the list is empty.
+In the end each item will either be marked Pareto optimal or Pareto inefficient. The algorithm will rank the Pareto optimal points higher than others.
 
-In the end there will be a list of pareto_optimal points and a list of pareto_inefficients points. The algorithm will rank the pareto_optimal points higher than others.
+I DO NOT QUITE UNDERSTAND HOW THE CONTSRAINTS ARE REALLY HANDLED? ARE THEY HARD - THEN NOTHING THAT VIOLATES A CONTRAINT MAKES IT INTO THE RESULTS. OR ARE THEY JUST BINARY OPTIMIZATION CRITERIA? IN THE LATTER CASE WE SHOULD MAKE THAT CLEARER AND MAYBE ALSO GIVE AN EXMAPLE (ONE OBJECTIVE + ONE CONTRAINT)
 
-##  Conclusion ##
+## Conclusion
 
-Pareto selection works well for us especially when the request has many constraints since the algorithm is designed to handle multi-objective and multi constraints optimization problem.
-It can even be further improved by specifying which objective has higher precedence to sort among the pareto optimal points especially when there are multiple optimal points. That's work for the future.
+Pareto selection works very well for this use case, especially when the request has many constraints since the algorithm is designed to handle multi-objective and multi constraints optimization problem.
+
+It practive, it can be further improved by specifying which objective has higher precedence to sort among the pareto optimal points especially when there are multiple optimal points. How we do this in detail is, however, material for another article.
